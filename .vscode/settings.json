@@ -1,0 +1,22 @@
+{
+  "css.validate": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "stylelint.snippet": [
+    "css",
+    "less",
+    "postcss",
+    "scss",
+    "stylus"
+  ],
+  "stylelint.customSyntax": "stylelint-plugin-stylus/custom-syntax",
+  "stylelint.validate": [
+    "stylus"
+  ],
+  "stylelint.packageManager": "pnpm",
+  "[stylus]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  }
+}
