@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "start:dev",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: build",
+			"detail": "start:dev"
+		},
+		{
+			"type": "npm",
+			"script": "gulp watch",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: build",
+			"detail": "gulp watch"
+		}
+	]
+}
