@@ -3,4 +3,4 @@ dist
 pnpm-lock.yaml
 LICENSE.md
 node_modules
-public/*
+public

@@ -1,0 +1,4 @@
+{
+  "presets": ["@babel/preset-typescript", ["@babel/preset-env", { "modules": "umd" }]],
+  "moduleRoot": "/js"
+}

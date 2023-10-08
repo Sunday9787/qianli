@@ -1,0 +1,46 @@
+extends layouts/index.pug
+
+block style
+  link(rel="stylesheet", href="/css/swiper.css")
+  link(rel="stylesheet", href="/css/index.css")
+
+block script
+  script(src="/lib/swiper.min.js" charset="utf-8")
+
+block content
+  header.header
+    .header-inner
+      a.header-logo(:href="/")
+        img(src="/image/logo_light.png")
+
+      .flex1
+
+      nav.header-nav
+        each item in menus
+          a.header-nav-item(href="javascript:;") #{item.title}
+
+  section#solve-container
+    .swiper-container(style="height: 100%")
+      .swiper-wrapper
+        each item in solveBanner
+          .swiper-slide
+            img(src=`${item.url}` style="height: 100%; width: 100%")
+
+    #solve-item
+      .swiper-container
+        .swiper-wrapper
+          each item in solveItem
+            .swiper-slide
+              a.solve-item-card(href="javascript:;")
+                div
+                  h4.solve-item-card__title #{item.title}
+                  i.solve-item-card__desc #{item.translate}
+                img.solve-item-card__icon(src=`${item.icon}`)
+
+      a.solve-button.prev(href="javascript:;")
+        img(src="/image/case_l.png")
+      a.solve-button.next(href="javascript:;")
+        img(src="/image/case_r.png")
+
+block footer
+  script(src="/js/index.js" charset="utf-8")
