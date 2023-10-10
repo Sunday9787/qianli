@@ -8,23 +8,63 @@ block script
   script(src="/lib/swiper.min.js" charset="utf-8")
 
 block content
-  header.header
-    .header-inner
-      a.header-logo(:href="/")
-        img(src="/image/logo_light.png")
+  section#product-container
+    #product-swiper.swiper-container(style="height: 100%")
+      .swiper-wrapper
+        each item in productBanner
+          .swiper-slide
+            .product-card
+              if item.media === 'picture'
+                img.product-card__media(src=`${item.url}`)
+                .product-card-inner
+                  p.product-card__model #{item.model}
+                  h2.product-card__title #{item.title}
+                  p.product-card__desc #{item.desc}
+              else
+                video.product-card__media(
+                  loop
+                  autoplay
+                  muted
+                  playsinline
+                  type="video/mp4"
+                  draggable="false"
+                  src=`${item.url}`) 当前浏览器不支持 video直接播放
 
-      .flex1
+      .product-swiper-pagination
+        .swiper-pagination
+        .product-pagination-group
+          a.product-pagination__button.prev(href="javascript:;")
+            img(src="/image/arrow_left.png")
+            | PREV
+          a.product-pagination__button.next(href="javascript:;")
+            | NEXT
+            img(src="/image/arrow_right.png")
 
-      nav.header-nav
-        each item in menus
-          a.header-nav-item(href="javascript:;") #{item.title}
+      .product-pagination-step
+        div.product-pagination-step-fraction
+          span.product-pagination-step-current 01
+          span.product-pagination-step-total 0#{productBanner.length}
+        i.product-pagination-step-line scroll
+        img(src="/image/mouse.png")
 
   section#solve-container
+    h3.solve-title
+      p SOLVE PROGRAM
+      p 解决方案
+
     .swiper-container(style="height: 100%")
       .swiper-wrapper
-        each item in solveBanner
+        each item, index in solveBanner
           .swiper-slide
             img(src=`${item.url}` style="height: 100%; width: 100%")
+
+            .solve-desc
+              h4.solve-desc-title #{item.title}
+                i 0#{index + 1}
+
+              a.solve-desc-more(href="javascript:;") #{item.more}
+                span.solve-desc-more__icon
+                  img(src="/image/more.png")
 
     #solve-item
       .swiper-container

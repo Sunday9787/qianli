@@ -14,6 +14,9 @@ dependencies:
   '@nestjs/platform-express':
     specifier: ^9.0.0
     version: 9.4.3(@nestjs/common@9.4.3)(@nestjs/core@9.4.3)
+  '@sunday9787/log':
+    specifier: ^1.0.2
+    version: 1.0.2
   gulp:
     specifier: ^4.0.2
     version: 4.0.2
@@ -2086,6 +2089,11 @@ packages:
     dependencies:
       '@sinonjs/commons': 3.0.0
     dev: true
+
+  /@sunday9787/log@1.0.2:
+    resolution: {integrity: sha512-59W0e+1SNML11cG7c/BpHfaM+yM1vFZYT3GQLiUuoiMSI9YCx2C/5nLc+/RD4T704/0dGwq68R6cZD+4OJ+Szg==}
+    engines: {node: '> 8'}
+    dev: false
 
   /@trysound/sax@0.2.0:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}

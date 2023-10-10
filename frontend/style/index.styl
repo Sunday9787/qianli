@@ -1,50 +1,244 @@
-.header
+@keyframes swiper-pagination-bullet
+  from
+    width 0
+  to
+    width 100%
+
+// 产品介绍
+#product-container
   position fixed
   top 0
-  left 0
-  z-index 999
   width 100%
-  transition all 480ms
+  height 100vh
 
-  &:hover
-    background-color #fff
+#product-swiper
+  .swiper-pagination
+    position static
+    height 2px
+    margin-bottom 90px
+    text-align left
 
-    .header-nav-item
-      @apply text-gray-700
+  .swiper-pagination-bullet
+    position relative
+    width 140px
+    height 2px
+    margin 0 8px
+    background-color rgba(247 248 249 50%)
+    border-radius 0
 
-  &.pin
-    background #fff
-    border-bottom none
-    box-shadow 0 0px 2px 0 rgba(0, 0, 0, 18%)
-    .header-nav-item
-      padding 24px 38px
+    &.swiper-pagination-bullet-active
+      &:after
+        position absolute
+        top 0
+        left 0
+        width 0
+        height 100%
+        content ''
+        background rgba(247 248 249 90%)
+        animation swiper-pagination-bullet 6s linear forwards
 
-.header-inner
+  .swiper-slide.swiper-slide-active
+    .product-card__media
+      transform scale3d(1, 1, 1)
+
+.product-swiper-pagination
+  position absolute
+  bottom 15%
+  left 5%
+  z-index 2
+  width 40%
+
+.product-pagination-group
   position relative
   display flex
-  align-items center
-  width 90%
-  margin: 0 auto
-  border-bottom 1px solid rgba(255, 255, 255, 20%)
+  justify-content space-between
+  width 292px
+  transition all .48s
 
-.header-logo
-  width 210px
-  cursor pointer
+  &:after
+    position absolute
+    top 20%
+    left 50%
+    width 1px
+    height 60%
+    content ''
+    border-left 1px solid rgba(255 255 255 30%)
 
-.header-nav
+.product-pagination__button
   display flex
+  column-gap 15px
+  align-items center
+  font-size 18px
+  line-height 1.4
+  color rgba(255 255 255 80%)
 
-  &-item
-    display inline-block
-    padding 30px 28px
-    font-size 16px
-    transition all .48s
-    @apply text-white
+  > img
+    width 20px
 
+.product-pagination-step
+  position absolute
+  top 36%
+  right 5%
+  z-index 2
+  text-align center
+
+  &-fraction
+    position relative
+    display flex
+    flex-direction column
+    row-gap 18px
+    width 100%
+
+    &:after
+      position absolute
+      top 50%
+      left 50%
+      display block
+      width 40px
+      height 1px
+      content ''
+      background rgba(251, 251, 251, 0.3)
+      transform translate(-50%, -50%)
+
+  &-current
+  &-total
+    display block
+    font-size 21px
+    line-height 1
+    color #fff
+  &-line
+    position relative
+    padding-bottom 170px
+    margin 0 auto
+    margin-top 50px
+    font-size 18px
+    font-style normal
+    line-height 1
+    color rgba(255 255 255 60%)
+    writing-mode tb-rl
+
+    &:after
+      position absolute
+      bottom 0
+      left 50%
+      width 1px
+      height 160px
+      content ''
+      background rgba(251, 251, 251, 0.3)
+      transform translateX(-50%)
+
+  > img
+    width 30px
+    margin-top 50px
+
+.product-card
+  position relative
+  height 100%
+
+  &__media
+    width 100%
+    height 100%
+    transition-duration 6s
+    transition-property all
+    transform scale3d(1.1, 1.1, 1)
+    object-fit cover
+
+  &-inner
+    position absolute
+    bottom 33%
+    left 5%
+    width 42%
+
+  &__model
+    display block
+    font-size 36px
+    line-height 1.4
+    color rgba(255 255 255 90%)
+    text-transform uppercase
+
+  &__title
+    display block
+    margin-bottom 18px
+    font-size 56px
+    font-weight 600
+    line-height 1.4
+    color rgba(255 255 255 90%)
+
+  &__desc
+    font-size: 28px;
+    color: rgba(255 255 255 60%)
+
+// 解决方案
 #solve-container
   position relative
   height 100vh
   margin-top 100vh
+
+.solve-title
+  position absolute
+  top 190px
+  left 7%
+  z-index 2
+
+  @screen sm
+    &
+      margin-bottom 10px
+      font-size 32px
+      color #333
+  @screen md
+    &
+      margin-bottom 10px
+      font-size 34px
+      color #fff
+  @screen xl
+    &
+      margin-bottom 10px
+      font-size 38px
+  @screen xxl
+    &
+      margin-bottom 14px
+      font-size 55px
+
+.solve-desc
+  position absolute
+  top 46%
+  left 7%
+
+  &-title
+    position relative
+    display inline-block
+    margin-bottom 20px
+    font-size 30px
+    font-weight bold
+    color #fff
+
+    > i
+      position absolute
+      bottom 0
+      left 50%
+      font-size 110px
+      font-style normal
+      font-weight bold
+      line-height 0.8
+      color rgba(255, 255, 255, .18)
+      transform translateX(-50%)
+
+  &-more
+    display flex
+    justify-content space-between;
+    width 148px
+    padding 8px 20px
+    font-size 14px
+    color #fff
+    border 1px solid #fff
+
+    &__icon
+      position relative
+      width 18px
+      height 18px
+      padding 2px
+      background #fff
+      border-radius 50%
 
 #solve-item
   position absolute

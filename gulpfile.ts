@@ -27,17 +27,19 @@ export function image() {
   return gulp.src('./frontend/image/**/*').pipe(gulp.dest('./public/image'))
 }
 
+const prod = false
+
 export function js() {
   return gulp
     .src('./frontend/js/**')
     .pipe(sourcemap.init())
     .pipe(babel())
-    .pipe(sourcemap.write())
     .pipe(
       gulpIf(function (file) {
-        return !/\.min\.js$/.test(file.basename)
+        return prod && !/\.min\.js$/.test(file.basename)
       }, uglify())
     )
+    .pipe(sourcemap.write())
     .pipe(gulp.dest('./public/js'))
 }
 

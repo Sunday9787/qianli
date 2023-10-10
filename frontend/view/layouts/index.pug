@@ -3,20 +3,36 @@ html(lang="zh-CN")
   head
     meta(charset='utf-8')
     meta(content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0', name='viewport')
-    meta(name='title', content='千立生物_打造洁净无菌空间')
-    meta(name='keywords', content='千立生物，过氧化氢空间灭菌，过氧化氢消毒灭菌，消毒机器人，制药车间灭菌，安瓿瓶开启器')
-    meta(name='description', content='千立生物技术(杭州)有限公司是一家致力于提升医药生产和检测环境洁净水平、医疗感控领域智能除染装备公司。公司集技术研发生产、销售与服务于一体的高新技术企业服务于医药生产净化环境微生物控制、公共卫生消毒等行业。')
-    meta(name='renderer', content='webkit')
-    meta(http-equiv='X-UA-Compatible', content='IE=Edge,chrome=1')
-    meta(content='yes', name='apple-mobile-web-app-capable')
-    meta(content='black', name='apple-mobil　e-web-app-status-bar-style')
-    link(rel="stylesheet", href="/css/base.css")
-    link(rel="stylesheet", href="/css/common.css")
+    meta(name='title' content='千立生物_打造洁净无菌空间')
+    meta(name='keywords' content='千立生物，过氧化氢空间灭菌，过氧化氢消毒灭菌，消毒机器人，制药车间灭菌，安瓿瓶开启器')
+    meta(name='description' content='千立生物技术(杭州)有限公司是一家致力于提升医药生产和检测环境洁净水平、医疗感控领域智能除染装备公司。公司集技术研发生产、销售与服务于一体的高新技术企业服务于医药生产净化环境微生物控制、公共卫生消毒等行业。')
+    meta(name='renderer' content='webkit')
+    meta(http-equiv='X-UA-Compatible' content='IE=Edge,chrome=1')
+    meta(content='yes' name='apple-mobile-web-app-capable')
+    meta(content='black' name='apple-mobil　e-web-app-status-bar-style')
+    link(rel="stylesheet" href="/css/base.css")
+    link(rel="stylesheet" href="/css/common.css")
+    link(rel="stylesheet" href="/css/layout.css")
     block style
     script(src="/lib/jquery.min.js" charset="utf-8")
-    script(src="/js/common.js")
+    script(src="/lib/log.min.js" charset="utf-8")
     block script
     title 千立生物_打造洁净无菌空间 - #{ title }
   body
+    header.header
+      .header-inner
+        a.header-logo(:href="/")
+          img(src="/image/logo_light.png")
+
+        .flex1
+
+        nav.header-nav
+          each item in layout.menus
+            a.header-nav-item(href=`${item.url}`) #{item.title}
+
     block content
+
+    script(src="/js/layout.js" charset="utf-8")
+    script(src="/js/common.js" charset="utf-8")
+
     block footer

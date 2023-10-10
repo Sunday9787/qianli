@@ -9,6 +9,9 @@
       "DOM",
       "DOM.Iterable"
     ],
+    "paths": {
+      "$/*": ["node_modules/*"]
+    },
     "target": "ESNext",
     "baseUrl": "./",
     "moduleResolution": "Node",

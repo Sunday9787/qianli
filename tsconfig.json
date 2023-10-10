@@ -10,7 +10,7 @@
       "ESNext"
     ],
     "paths": {
-      "$/*": ["node_modules/*"]
+      "@/*": ["./src/*"]
     },
     "target": "es2017",
     "sourceMap": true,

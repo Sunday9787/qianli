@@ -5,37 +5,56 @@ import $ from 'jQuery'
 
   //给页面绑定滑轮滚动事件
   $(document).on('mousewheel', function (event) {
-    if (isMove) return false
+    if (isMove) return
+
     const e = event.originalEvent as WheelEvent
-    const h = $(window).scrollTop(),
-      aboutTop = $(window).height(),
+    const top = $(window).scrollTop(),
+      height = $(window).height(),
       isScroll = -e.deltaY
 
-    if (isScroll < 0 && h < aboutTop) {
+    if (isScroll < 0 && top < height) {
       isMove = true
-      $('body,html').animate(
-        {
-          scrollTop: aboutTop
-        },
-        800,
-        function () {
-          isMove = false
-        }
-      )
-    } else if (isScroll > 0 && h <= aboutTop) {
+      $('body,html').animate({ scrollTop: height }, 800, function () {
+        isMove = false
+      })
+
+      return
+    }
+
+    if (isScroll > 0 && top <= height) {
       isMove = true
-      $('body,html').animate(
-        {
-          scrollTop: 0
-        },
-        800,
-        function () {
-          isMove = false
-        }
-      )
+      $('body,html').animate({ scrollTop: 0 }, 800, function () {
+        isMove = false
+      })
     }
   })
 })()
+
+new Swiper('#product-container > .swiper-container', {
+  slidesPerView: 1,
+  spaceBetween: 0,
+  effect: 'fade',
+  speed: 600,
+  autoplay: {
+    delay: 10000,
+    disableOnInteraction: false
+  },
+  loop: true,
+  navigation: {
+    nextEl: '.product-pagination-group .next',
+    prevEl: '.product-pagination-group .prev'
+  },
+  pagination: {
+    el: '#product-container .swiper-pagination',
+    type: 'bullets'
+    // type: 'progressbar',
+  },
+  on: {
+    slideChange() {
+      $('#product-container .product-pagination-step-current').text('0' + String(this.realIndex + 1))
+    }
+  }
+})
 
 const solveItemSwiper = new Swiper('#solve-item > .swiper-container', {
   slidesPerView: 5,

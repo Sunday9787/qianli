@@ -3,11 +3,12 @@ module.exports = {
   content: ['./frontend/views/**/*.pug'],
   theme: {
     screens: {
-      sm: '480px',
+      sx: '480px',
+      sm: '680px',
       md: '768px',
-      lg: '976px',
-      xl: '1440px',
-      xxl: '1920px'
+      lg: '1170px',
+      xl: '1368px',
+      xxl: '1480px'
     },
     extend: {}
   },
