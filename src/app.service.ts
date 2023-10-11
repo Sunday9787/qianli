@@ -41,7 +41,51 @@ export class AppService {
         { title: '实验室', icon: '/upload/20220614162610114322.png', translate: 'Biopharmaceutical' },
         { title: '急救中心', icon: '/upload/20220614162610114322.png', translate: 'Emergency center' },
         { title: '公共场所', icon: '/upload/20220614162610551710.png', translate: 'Public places' }
-      ]
+      ],
+      productCenter: {
+        series: [
+          { label: '智能机器人系列', link: '/product/1' },
+          { label: '灭菌系列产品', link: '/product/2' },
+          { label: '耗材系列', link: '/product/3' }
+        ],
+        mainBanner: [
+          {
+            title: '便携式过氧化氢消毒机 ',
+            sub: '灭菌系列产品',
+            desc: '',
+            link: '/product/7',
+            image: '/upload/20220626161856158843.png'
+          },
+          {
+            title: '车载式过氧化氢消毒机',
+            sub: '灭菌系列产品',
+            desc: '',
+            link: '/product/7',
+            image: '/upload/20220626162355757476.png'
+          },
+          {
+            title: '过氧化氢灭菌机器人',
+            sub: '智能机器人系列',
+            desc: 'Cubic 1000灭菌机器人采用最新的压缩喷雾技术，实现过氧化氢粒子小于2μm，对空气和物体表面进行灭菌，做到更强的扩散效力。机器人部分采用工业级AGV机器人底盘，利用激光雷达导航系统，精确定位，利用深度摄像头、超声波传感器等做到精确避障，到达指定位置。',
+            link: '/product/7',
+            image: '/upload/20220714104839370819.png'
+          },
+          {
+            title: '浮游菌采样机器人',
+            sub: '智能机器人系列',
+            desc: '',
+            link: '/product/7',
+            image: '/upload/20220819160532423622.png'
+          },
+          {
+            title: '固定式过氧化氢灭菌器',
+            sub: '灭菌系列产品',
+            desc: '',
+            link: '/product/7',
+            image: '/upload/20220626161550774566.png'
+          }
+        ]
+      }
     }
   }
 }

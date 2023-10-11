@@ -88,3 +88,33 @@ new Swiper('#solve-container > .swiper-container', {
     swiper: solveItemSwiper
   }
 })
+
+const productCenterSub = new Swiper('.product-center-sub > .swiper-container', {
+  slidesPerView: 1,
+  spaceBetween: 0,
+  speed: 1000,
+  autoplay: {
+    delay: 8000,
+    disableOnInteraction: false
+  },
+  loop: true,
+  watchSlidesVisibility: true //防止不可点击
+})
+
+new Swiper('.product-center-main > .swiper-container', {
+  slidesPerView: 1,
+  spaceBetween: 0,
+  speed: 800,
+  autoplay: {
+    delay: 8000,
+    disableOnInteraction: false
+  },
+  navigation: {
+    nextEl: '.product-center-main .product-center-navigation__button.next',
+    prevEl: '.product-center-main .product-center-navigation__button.prev'
+  },
+  loop: true,
+  thumbs: {
+    swiper: productCenterSub
+  }
+})

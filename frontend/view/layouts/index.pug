@@ -18,10 +18,11 @@ html(lang="zh-CN")
     script(src="/lib/log.min.js" charset="utf-8")
     block script
     title 千立生物_打造洁净无菌空间 - #{ title }
+    include ../components/index.pug
   body
     header.header
       .header-inner
-        a.header-logo(:href="/")
+        a.header-logo(href="/")
           img(src="/image/logo_light.png")
 
         .flex1

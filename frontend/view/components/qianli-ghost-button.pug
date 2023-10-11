@@ -1,0 +1,4 @@
+mixin qianli-ghost-button(href, text)
+  a.qianli-ghost-button(href=`${href||'javascript:;'}`)&attributes(attributes) #{text || 'More'}
+    span.qianli-ghost-button__icon
+      img(src="/image/more.png")

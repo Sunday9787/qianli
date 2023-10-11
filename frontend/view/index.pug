@@ -13,15 +13,15 @@ block content
       .swiper-wrapper
         each item in productBanner
           .swiper-slide
-            .product-card
+            .product-slide
               if item.media === 'picture'
-                img.product-card__media(src=`${item.url}`)
-                .product-card-inner
-                  p.product-card__model #{item.model}
-                  h2.product-card__title #{item.title}
-                  p.product-card__desc #{item.desc}
+                img.product-slide__media(src=`${item.url}`)
+                .product-slide-inner
+                  p.product-slide__model #{item.model}
+                  h2.product-slide__title #{item.title}
+                  p.product-slide__desc #{item.desc}
               else
-                video.product-card__media(
+                video.product-slide__media(
                   loop
                   autoplay
                   muted
@@ -71,16 +71,64 @@ block content
         .swiper-wrapper
           each item in solveItem
             .swiper-slide
-              a.solve-item-card(href="javascript:;")
+              a.solve-item-slide(href="javascript:;")
                 div
-                  h4.solve-item-card__title #{item.title}
-                  i.solve-item-card__desc #{item.translate}
-                img.solve-item-card__icon(src=`${item.icon}`)
+                  h4.solve-item-slide__title #{item.title}
+                  i.solve-item-slide__desc #{item.translate}
+                img.solve-item-slide__icon(src=`${item.icon}`)
 
-      a.solve-button.prev(href="javascript:;")
+      a.solve-item-button.prev(href="javascript:;")
         img(src="/image/case_l.png")
-      a.solve-button.next(href="javascript:;")
+      a.solve-item-button.next(href="javascript:;")
         img(src="/image/case_r.png")
+
+  section#product-center
+    h5.product-center-bg qianli
+    .product-center-inner
+      .product-center__header
+        h3.product-center__title
+          p.en Product Center
+          p.cn 产品中心
+
+        nav.product-center-series
+          each item in productCenter.series
+            a.product-center-nav(href=`${item.link}`) #{item.label}
+
+      .product-center-content
+        .product-center-main
+          .swiper-container
+            .swiper-wrapper
+              each item in productCenter.mainBanner
+                .swiper-slide
+                  .product-center-side.main
+                    .product-center-side__content
+                      h2.product-center-side__title
+                        .bg
+                        | #{item.title}
+                      p.product-center-side__sub #{item.sub}
+
+                      p.product-center-side__desc
+                      +qianli-ghost-button(item.link, 'VIEW MORE')(mode="dark")
+                    .product-center-side__legend
+                      img(src=`${item.image}`)
+            .product-center-navigation
+              a.product-center-navigation__button.prev(href="javascript:;")
+                img(src="/image/pro_l.png")
+              a.product-center-navigation__button.next(href="javascript:;")
+                img(src="/image/pro_r.png")
+
+        .product-center-sub
+          .swiper-container
+            .swiper-wrapper
+              each item in productCenter.mainBanner
+                .swiper-slide
+                  .product-center-side.sub
+                    .product-center-side__legend
+                      img(src=`${item.image}`)
+                    .product-center-side__content
+                      h2.product-center-side__title #{item.title}
+                        .bg
+                      p.product-center-side__sub #{item.sub}
 
 block footer
   script(src="/js/index.js" charset="utf-8")

@@ -12,7 +12,7 @@ export function css() {
   return gulp
     .src('./frontend/style/**/*.styl')
     .pipe(sourcemap.init())
-    .pipe(replace('$/', path.join(__dirname, './node_modules/')))
+    .pipe(replace('$/', path.posix.join(__dirname, './node_modules/')))
     .pipe(stylus({ 'include css': true }))
     .pipe(postcss())
     .pipe(sourcemap.write())

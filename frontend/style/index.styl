@@ -4,6 +4,12 @@
   to
     width 100%
 
+@keyframes product-center-side-legend
+  from
+    transform: scale3d(1, 1, 1)
+  to
+    transform: scale3d(1.3, 1.3, 1)
+
 // 产品介绍
 #product-container
   position fixed
@@ -38,7 +44,7 @@
         animation swiper-pagination-bullet 6s linear forwards
 
   .swiper-slide.swiper-slide-active
-    .product-card__media
+    .product-slide__media
       transform scale3d(1, 1, 1)
 
 .product-swiper-pagination
@@ -131,7 +137,7 @@
     width 30px
     margin-top 50px
 
-.product-card
+.product-slide
   position relative
   height 100%
 
@@ -250,7 +256,7 @@
     .solve-item-card
       background #453780
 
-.solve-item-card
+.solve-item-slide
   display flex
   align-items center
   justify-content space-between
@@ -285,7 +291,7 @@
     height 38px
     object-fit contain
 
-.solve-button
+.solve-item-button
   position absolute
   top 50%
   z-index 2
@@ -297,3 +303,210 @@
 
   &.prev
     left -100px
+
+#product-center
+  position relative
+  width 100%
+  padding 98px 0
+  overflow hidden
+  background-color #fff
+
+.product-center-bg
+  position absolute
+  top -5%
+  right 0
+  font-size 358px
+  font-weight 600
+  line-height 0.8
+  color rgba(233, 235, 237, 0.36)
+  text-transform uppercase
+  user-select none
+  writing-mode tb-rl
+
+.product-center-inner
+  position relative
+  width 90%
+  margin 0 auto
+
+.product-center__header
+  display flex
+  justify-content space-between
+
+.product-center__title
+  position relative
+
+  > p.en
+    margin-bottom 20px
+    font-size 55px
+    font-weight 600
+    line-height 1
+    color #010510
+    text-transform uppercase
+
+  > p.cn
+    font-size 38px
+    font-style normal
+    font-weight 600
+    line-height 1
+    color #010510
+
+.product-center-series
+  padding-top 16px
+
+.product-center-nav
+  font-size 24px
+  font-weight bold
+  color #010510
+  vertical-align middle
+
+  &:not(:last-of-type):after
+    display inline-block
+    margin 0 10px
+    font-size 24px
+    color #010510
+    content '/'
+
+
+.product-center-navigation
+  position absolute
+  top 50%
+  right 0
+  left 0
+  z-index 1
+  display flex
+  justify-content space-between
+  transform translateY(-50%)
+
+  &__button
+    display block
+    width 26px
+    opacity .68
+
+.product-center-content
+  display flex
+  justify-content space-between
+  margin-top 48px
+
+.product-center-main
+  width 74%
+  padding 0 40px
+  border-radius 8px
+  box-shadow 0 0 8px rgba(68, 54, 128, 0.18)
+
+.product-center-sub
+  width 25%
+  padding 10px
+  border-radius 8px
+  box-shadow 0 0 8px rgba(68, 54, 128, 0.18)
+
+.product-center-side
+  &__content
+    position relative
+
+  &.main
+    display flex
+    align-items center
+    justify-content space-between
+    width 100%
+    height auto
+    padding 88px 8%
+    overflow hidden
+    background-image url("/image/product_center_side.png")
+    background-repeat no-repeat
+    background-size cover
+
+  &.sub
+    position relative
+    display flex
+    flex-direction column
+    align-items center
+    justify-content center
+    width 100%
+    height 100%
+
+    .product-center-side__content
+      text-align: center
+
+    .product-center-side__legend
+      position: relative;
+      width: 80%;
+      padding-top: 80%;
+      background-image url(/image/product_center_side_legend.png)
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-radius: 50%;
+
+  &__title
+    position relative
+    z-index 2
+    margin-bottom 32px
+    font-size 26px
+    line-height 1
+    color #01050F
+    text-transform uppercase
+
+    > .bg
+      position: absolute
+      top 50%
+      left 0
+      z-index -1
+      width 140px
+      height 140px
+      opacity .48
+      transform translate(-40%, -50%)
+
+      &:before
+        position absolute
+        inset 0
+        display block
+        content ''
+        background-image linear-gradient(120deg, #40327d, lightness(#40327d, 60), lightness(#40327d, 100))
+        border-radius 50%
+
+      &:after
+        position absolute
+        inset 30px
+        display block
+        content ''
+        background-color #fff;
+        border-radius 50%
+
+  &__sub
+    position relative
+    z-index 2
+    display block
+    margin-bottom 64px
+    font-size 24px
+    font-weight bold
+    line-height 1
+    color rgba(1, 5, 15, 0.8)
+
+  &__legend
+    position relative
+    z-index 2
+    width 36%
+    padding-top 36%
+    background-image linear-gradient(120deg, #40327d, lightness(#40327d, 50), lightness(#40327d, 90))
+    border-radius 50%
+
+    &:after
+      position absolute
+      top -5%
+      left -5%
+      z-index 1
+      width 110%
+      height 110%
+      content ''
+      background-image url(/image/product_center_side_legend.png)
+      background-repeat no-repeat
+      background-size cover
+      animation product-center-side-legend 4s infinite linear forwards
+
+    > img
+      position absolute
+      bottom 2%
+      left 0
+      z-index 2
+      width 100%
+      height 96%
+      object-fit contain
