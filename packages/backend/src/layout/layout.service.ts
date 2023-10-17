@@ -1,9 +1,14 @@
 import { Injectable } from '@nestjs/common'
+import cssManifest from 'backend/rev-css-manifest.json'
+import jsManifest from 'backend/js-manifest.json'
+
+const manifest = Object.assign({}, cssManifest, jsManifest)
 
 @Injectable()
 export class LayoutService {
   layout() {
     return {
+      manifest,
       menus: [
         { title: '首页', url: '/' },
         { title: '关于千立', url: '/' },

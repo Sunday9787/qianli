@@ -1,5 +1,5 @@
-import Swiper from 'Swiper'
-import $ from 'jQuery'
+import Swiper from 'swiper'
+import $ from 'jquery'
 ;(function () {
   let isMove = false
 

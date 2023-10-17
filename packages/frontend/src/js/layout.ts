@@ -1,6 +1,7 @@
-import $ from 'jQuery'
+import $ from 'jquery'
 import log from '@sunday9787/log'
 
+const fn = (message: string) => console.warn(message)
 log(
   {
     label: 'jQuery',
@@ -16,3 +17,8 @@ log(
   },
   ['#585858', '#1475b2']
 )
+
+{
+  const text = 'Webpack 牛逼'
+  fn(text)
+}

@@ -1,20 +1,19 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
+    "module": "ESNext",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "lib": [
-      "ESNext"
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "frontend/*": ["./src/*"],
+      "$/*": ["node_modules/*"]
     },
-    "target": "es2017",
-    "sourceMap": true,
-    "outDir": "./dist",
+    "target": "ESNext",
     "baseUrl": "./",
     "moduleResolution": "Node",
     "incremental": true,
@@ -24,6 +23,7 @@
     "strictBindCallApply": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "noFallthroughCasesInSwitch": false,
+  },
+  "include": ["./**/*.ts", "./**/*.d.ts"]
 }

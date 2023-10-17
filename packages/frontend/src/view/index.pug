@@ -1,11 +1,7 @@
 extends layouts/index.pug
 
 block style
-  link(rel="stylesheet", href="/css/swiper.css")
-  link(rel="stylesheet", href="/css/index.css")
-
-block script
-  script(src="/lib/swiper.min.js" charset="utf-8")
+  link(rel="stylesheet" href=`${layout.manifest['index.css']}`)
 
 block content
   section#product-container
@@ -131,4 +127,5 @@ block content
                       p.product-center-side__sub #{item.sub}
 
 block footer
-  script(src="/js/index.js" charset="utf-8")
+  script.
+    require(['#{layout.manifest["index.js"]}'])

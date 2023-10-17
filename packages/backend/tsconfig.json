@@ -1,20 +1,24 @@
 {
   "compilerOptions": {
-    "module": "ES6",
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "lib": [
-      "ESNext",
-      "DOM",
-      "DOM.Iterable"
+      "ESNext"
     ],
     "paths": {
-      "$/*": ["node_modules/*"]
+      "@/*": ["./src/*"],
+      "backend/*": ["./*"]
     },
-    "target": "ESNext",
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "../../dist",
     "baseUrl": "./",
     "moduleResolution": "Node",
+    "resolveJsonModule": true,
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,

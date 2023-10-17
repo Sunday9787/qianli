@@ -1,0 +1,18 @@
+{
+  "presets": [
+    "@babel/preset-typescript",
+    [
+      "@babel/preset-env",
+      {
+        "modules": "cjs",
+        "useBuiltIns": "usage",
+        "targets": {
+          "browsers": "ie >= 9"
+        },
+        "browserslistEnv": "ie >= 9",
+        "corejs": 3
+      }
+    ]
+  ],
+  "plugins": [["@babel/plugin-transform-runtime", { "helpers": true, "corejs": 3  }]]
+}

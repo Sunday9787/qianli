@@ -1,4 +1,5 @@
-import $ from 'jQuery'
+import $ from 'jquery'
+import 'swiper/dist/css/swiper.css'
 
 $(window).on('scroll', function () {
   /**
