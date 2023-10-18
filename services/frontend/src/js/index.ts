@@ -4,7 +4,7 @@ import $ from 'jquery'
   let isMove = false
 
   //给页面绑定滑轮滚动事件
-  $(document).on('mousewheel', function (event) {
+  $(document).on('wheel', function (event) {
     if (isMove) return
 
     const e = event.originalEvent as WheelEvent

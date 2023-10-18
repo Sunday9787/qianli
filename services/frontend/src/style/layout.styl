@@ -1,0 +1,141 @@
+.qianli-header
+  position fixed
+  top 0
+  left 0
+  z-index 999
+  width 100%
+  transition all 480ms
+
+  &:hover
+    background-color #fff
+
+    .qianli-header-nav-item
+      @apply text-gray-700
+
+  &.pin
+    background-color #fff
+    border-bottom none
+    box-shadow 0 0px 2px 0 rgba(0, 0, 0, 18%)
+
+    .qianli-header-nav-item
+      padding 24px 38px
+      @apply text-gray-700
+
+.qianli-header-inner
+  position relative
+  display flex
+  align-items center
+  width 90%
+  margin: 0 auto
+  border-bottom 1px solid rgba(255, 255, 255, 20%)
+
+.qianli-header-logo
+  width 210px
+  cursor pointer
+
+.qianli-header-nav
+  display flex
+
+  &-item
+    display inline-block
+    padding 30px 28px
+    font-size 16px
+    transition all .48s
+    @apply text-white
+
+.qianli-footer
+  position relative
+  background-color #40327d
+
+.qianli-footer-top
+  display flex
+  align-items center
+  justify-content space-between
+  padding 56px 5%
+  color #fff
+  border-bottom 1px solid rgba(247, 248, 249, 0.18)
+
+.qianli-footer-logo
+  width 320px
+
+.qianli-footer-backtop
+  width 36px
+  margin-left 14px
+
+.qianli-footer-inner
+  width: 90%;
+  margin: 0 auto;
+
+.qianli-footer-content
+  display flex
+  column-gap 180px;
+  justify-content space-between
+  padding 70px 0
+
+.qianli-footer-copyright
+  display flex
+  padding 48px 0
+  border-top 1px solid rgba(247, 248, 249, 0.18)
+
+.qianli-footer-concat
+  position relative
+
+.qianli-footer-concat-title
+  margin-bottom 40px
+  font-size 28px
+  line-height 1
+  color #fff
+
+.qianli-footer-concat-item
+  display flex
+  font-size 16px
+  color rgba(255, 255, 255, 0.6)
+
+  > i
+    font-style normal
+    &:after
+      content '：'
+
+  &:not(:last-of-type)
+    margin-bottom 20px
+
+  &:first-of-type
+    flex-direction column
+
+    > span
+      font-size 28px
+
+.qianli-footer-concat-media
+  display flex
+  column-gap 20px
+  margin-top 90px
+
+  > a
+    width 36px
+
+.qianli-footer-nav
+  display flex
+  justify-content space-between
+
+.qianli-footer-nav-group
+  display flex
+  flex-direction: column
+  row-gap: 20px
+
+.qianli-footer-nav__item
+  display block
+  font-size 16px
+  color rgba(185, 185, 185, 0.6)
+
+  &:first-of-type
+    margin-bottom 30px
+    font-size 18px
+    color #fff
+
+.qianli-footer-copyright
+  display flex
+  flex-wrap wrap
+  justify-content space-between
+  padding 48px 0
+  color rgba(255, 255, 255, 0.3)
+  border-top 1px solid rgba(247, 248, 249, 0.18)

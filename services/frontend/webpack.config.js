@@ -14,6 +14,7 @@ const projectRoot = path.resolve(process.cwd(), '..', '..')
 module.exports = {
   mode: 'production',
   devtool: 'source-map',
+  watch: true,
   resolve: {
     alias: {
       frontend: path.resolve('./src')
@@ -41,6 +42,7 @@ module.exports = {
     rules: [
       { test: /\.[tj]s$/i, use: ['babel-loader'], exclude: '/node_modules/' },
       { test: /\.css$/i, use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'] },
+      { test: /\.(js|png|mp4|css|map)$/i, use: ['cache-loader'] },
       {
         test: /\.styl$/i,
         use: [
@@ -94,7 +96,7 @@ module.exports = {
           chunks: 'all',
           name: 'log',
           minSize: 0,
-          test: /@sunday9787\/log/
+          test: /@sunday9787[\\/]log/
         },
         helper: {
           priority: 0,

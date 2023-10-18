@@ -22,3 +22,7 @@ log(
   const text = 'Webpack 牛逼'
   fn(text)
 }
+
+$('.qianli-footer-backtop').on('click', function () {
+  $('body,html').animate({ scrollTop: 0 }, 800)
+})

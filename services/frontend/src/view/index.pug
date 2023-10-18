@@ -126,6 +126,35 @@ block content
                         .bg
                       p.product-center-side__sub #{item.sub}
 
+  section#navigation-container
+    .navigation-side.left.flex1
+      img(src="/upload/20220614174030551151.png")
+    .navigation-side.right.flex1
+      .navigation-inner-top.flex1
+        .navigation-about
+          span.navigation-about-title.en QIANLIBIO
+          h5.navigation-about-title.cn 千立生物
+
+          p.navigation-about-slog 为健康添驱动，让灭菌更安全。
+          p.navigation-about-desc 千立生物技术(杭州)有限公司是一家致力于 提升医药生产和检测环境洁净水平、医疗感控领域智能除染装备公司。公司集技术研发生产、销售与服务于一体的高新技术企业服务于医药生产净化环境微生物控制、公共卫生消毒等行业。
+
+      .navigation-inner-bottom.flex1
+        a.navigation-inner-job.flex1(href="/contact")
+          .navigation-item
+            img.navigation-item-icon(src="/upload/20220614174131112183.png")
+            .flex1
+            h3.navigation-item-title 社会招聘
+
+            p.navigation-item-desc 加入我们和优秀的人一起做有挑战的事。
+
+        a.navigation-inner-news.flex1(href="/news")
+          .navigation-item
+            img.navigation-item-icon(src="/upload/20220614174131131961.png")
+            .flex1
+            h3.navigation-item-title 新闻中心
+
+            p.navigation-item-desc 了解千立生物正在发生的事情。
+
 block footer
-  script.
+  script(type="text/javascript" charset="utf-8").
     require(['#{layout.manifest["index.js"]}'])

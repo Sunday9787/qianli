@@ -510,3 +510,97 @@
       width 100%
       height 96%
       object-fit contain
+
+#navigation-container
+  position relative
+  display flex
+
+.navigation-side.right
+  display flex
+  flex-direction column
+
+.navigation-inner
+  &-top
+    position relative
+    padding 76px
+    overflow hidden
+    background-image url(/upload/20220614174050176946.png)
+    background-repeat no-repeat
+    background-size cover
+  &-bottom
+    display flex
+
+.navigation-about-title
+  &.en
+    display block
+    margin-bottom 20px
+    font-size 55px
+    line-height 1
+    color #fff
+    text-transform uppercase
+
+  &.cn
+    margin-bottom 60px
+    font-size 38px
+    font-weight 600
+    line-height 1
+    color #fff
+
+.navigation-about-slog
+  display block
+  margin-bottom 25px
+  font-size 24px
+  line-height 1
+  color #fff
+
+.navigation-about-desc
+  font-size: 16px;
+  color: rgba(255,255,255,60%);
+
+.navigation-inner-job
+.navigation-inner-news
+  position relative
+  display block
+  height 100%
+  padding 78px
+  background-repeat no-repeat
+  background-size cover
+
+.navigation-inner-job
+  background-image url(/upload/20220614174146439827.png)
+
+.navigation-inner-news
+  background-image url(/upload/20220614174146295499.png)
+
+.navigation-item
+  position relative
+  display flex
+  flex-direction column
+  height 100%
+
+.navigation-item-icon
+  width 40px
+
+.navigation-item-title
+  position relative
+  display block
+  padding-top 40px
+  margin-bottom 40px
+  font-size 38px
+  font-weight 600
+  line-height 1
+  color #fff
+
+  &:before
+    position absolute
+    top 0
+    left 0
+    width 28px
+    height 2px
+    content ''
+    background #fff
+    opacity .68
+
+.navigation-item-desc
+  font-size 16px
+  color rgba(255,255,255,60%)

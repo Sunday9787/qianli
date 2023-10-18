@@ -15,10 +15,10 @@ html(lang="zh-CN")
     link(rel="stylesheet" href=`${layout.manifest['layout.css']}`)
     link(rel="stylesheet" href=`${layout.manifest['swiper.css']}`)
     block style
-    script(src="/lib/require.min.js" charset="uft-8")
-    script(src=`${layout.manifest['log.js']}` charset="uft-8")
-    script(src=`${layout.manifest['swiper.js']}` charset="uft-8")
-    script(src=`${layout.manifest['helper.js']}` charset="uft-8")
+    script(type="text/javascript" src="/lib/require.min.js" charset="uft-8")
+    script(type="text/javascript" src=`${layout.manifest['log.js']}` charset="uft-8")
+    script(type="text/javascript" src=`${layout.manifest['swiper.js']}` charset="uft-8")
+    script(type="text/javascript" src=`${layout.manifest['helper.js']}` charset="uft-8")
     //
                              _oo8oo_
                                 o8888888o
@@ -38,7 +38,7 @@ html(lang="zh-CN")
                    \  \` | | :| | :| | :| | :| | :| | :| .
                          佛祖开光           永无bug
 
-    script.
+    script(type="text/javascript" charset="utf-8").
       require.config({
         shim: {
           jQuery: {
@@ -55,23 +55,67 @@ html(lang="zh-CN")
     title 千立生物_打造洁净无菌空间 - #{ title }
     include ../components/index.pug
   body
-    header.header
-      .header-inner
-        a.header-logo(href="/")
+    header.qianli-header
+      .qianli-header-inner
+        a.qianli-header-logo(href="/")
           img(src="/image/logo_light.png")
 
         .flex1
 
-        nav.header-nav
+        nav.qianli-header-nav
           each item in layout.menus
-            a.header-nav-item(href=`${item.url}`) #{item.title}
+            a.qianli-header-nav-item(href=`${item.url}`) #{item.title}
 
     block content
 
-    script.
+    footer.qianli-footer
+      .qianli-footer-top
+        img.qianli-footer-logo(src="/image/logo_dark.png")
+        .flex1
+        span CLICK TO TOP
+        a(href="javascript:;")
+          img.qianli-footer-backtop(src="/image/back_top.png")
+
+      section.qianli-footer-inner
+        .qianli-footer-content
+          .qianli-footer-concat
+            h5.qianli-footer-concat-title 联系我们
+
+            .qianli-footer-concat-item
+              i 服务热线
+              span 0571-87705098
+            .qianli-footer-concat-item
+              i 邮箱
+              a(href="mailto:sales@qianlibio.com") sales@qianlibio.com
+            .qianli-footer-concat-item
+              i 地址
+              span 浙江省杭州市西湖区转塘街道浮山街德力西园区
+
+            .qianli-footer-concat-media
+              a(href="javascript:;")
+                img(src="/image/icon_sina.png")
+              a(href="javascript:;")
+                img(src="/image/icon_wechat.png")
+              a(href="javascript:;")
+                img(src="/image/icon_qr.png")
+
+          .flex1
+            ol.qianli-footer-nav
+              for item of layout.menus
+                li.qianli-footer-nav-group
+                  a(href=`${item.url}`).qianli-footer-nav__item #{item.title}
+                  for children of item.children
+                    a(href=`${children.url}`).qianli-footer-nav__item #{children.title}
+
+        .qianli-footer-copyright
+          p
+            | Copyright &copy; 2022 千立生物技术（杭州）有限公司 版权所有 备案序号：
+            a(href="javascript:;") 浙ICP备2021021294号-1
+
+    block footer
+
+    script(type="text/javascript" charset="utf-8").
       require([
         '#{layout.manifest["layout.js"]}',
         '#{layout.manifest["common.js"]}'
       ])
-
-    block footer
