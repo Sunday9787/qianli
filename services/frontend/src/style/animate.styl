@@ -1,0 +1,15 @@
+@keyframes fade-in
+  0%
+    opacity .1
+    transform translateY(150px)
+  100%
+    opacity 1
+    transform translateY(0)
+
+[qianli-animate='animate-fade-in']
+  opacity 0
+  transform translateY(150px)
+
+.qianli-animate-appear
+  &[qianli-animate='animate-fade-in']
+    animation fade-in 1s 1 cubic-bezier(0.445, 0.05, 0.55, 0.95) forwards

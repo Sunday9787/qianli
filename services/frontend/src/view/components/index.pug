@@ -1,1 +1,11 @@
 include ./qianli-ghost-button.pug
+
+mixin swiper(pagination = true)
+  .swiper-container&attributes(attributes)
+    .swiper-wrapper
+      block wrapper
+
+    if pagination
+      .swiper-pagination
+    else
+      block pagination

@@ -114,6 +114,9 @@ importers:
       jquery:
         specifier: 1.11.0
         version: 1.11.0
+      lax.js:
+        specifier: ^2.0.3
+        version: 2.0.3
       requirejs:
         specifier: ^2.3.6
         version: 2.3.6
@@ -7146,6 +7149,10 @@ packages:
     dependencies:
       default-resolution: 2.0.0
       es6-weak-map: 2.0.3
+    dev: false
+
+  /lax.js@2.0.3:
+    resolution: {integrity: sha512-q2q0jVRwruvFdQZeeE3OwIszRIkey6CItPmB+BcTUFPgHd2R8LI+bntAI7d2GJEjheu79mzQ++MROkODuZoXlA==}
     dev: false
 
   /lazystream@1.0.1:

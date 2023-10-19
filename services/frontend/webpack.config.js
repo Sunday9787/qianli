@@ -70,9 +70,9 @@ module.exports = {
     }),
     new WebpackManifestPlugin({
       filter(file) {
-        return !/\.(map|png|mp4)$/.test(file.path)
+        return !/\.(map|png|jpeg|jpg|mp4)$/.test(file.path)
       },
-      fileName: path.join(projectRoot, 'packages/backend/js-manifest.json')
+      fileName: path.join(projectRoot, 'services/backend/manifest.json')
     }),
     new CleanWebpackPlugin(),
     new CopyPlugin({

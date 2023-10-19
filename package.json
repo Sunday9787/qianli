@@ -28,7 +28,7 @@
     "typescript": "^5.0.0"
   },
   "workspaces": {
-    "packages": ["packages/*"]
+    "packages": ["services/*"]
   },
   "packageManager": "pnpm@8.0.0"
 }

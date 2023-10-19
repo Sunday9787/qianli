@@ -118,3 +118,20 @@ new Swiper('.product-center-main > .swiper-container', {
     swiper: productCenterSub
   }
 })
+
+const newsThumbSwiper = new Swiper('.news-thumb .swiper-container', {
+  slidesPerView: 1,
+  spaceBetween: 0,
+  effect: 'fade',
+  speed: 1000,
+  pagination: {
+    el: '.news-thumb .swiper-pagination',
+    type: 'bullets'
+  }
+})
+
+$('.news-list').on('mouseover', '.news-item', function (e) {
+  const index = $(e.currentTarget).index()
+  $(e.currentTarget).addClass('active').siblings().removeClass('active')
+  newsThumbSwiper.slideTo(index)
+})

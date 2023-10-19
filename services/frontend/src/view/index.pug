@@ -4,6 +4,7 @@ block style
   link(rel="stylesheet" href=`${layout.manifest['index.css']}`)
 
 block content
+  //- 产品介绍
   section#product-container
     #product-swiper.swiper-container(style="height: 100%")
       .swiper-wrapper
@@ -43,8 +44,9 @@ block content
         i.product-pagination-step-line scroll
         img(src="/image/mouse.png")
 
+  //- 解决方案
   section#solve-container
-    h3.solve-title
+    h3.solve-title(qianli-animate='animate-fade-in')
       p SOLVE PROGRAM
       p 解决方案
 
@@ -55,10 +57,10 @@ block content
             img(src=`${item.url}` style="height: 100%; width: 100%")
 
             .solve-desc
-              h4.solve-desc-title #{item.title}
+              h4.solve-desc-title(qianli-animate='animate-fade-in') #{item.title}
                 i 0#{index + 1}
 
-              a.solve-desc-more(href="javascript:;") #{item.more}
+              a.solve-desc-more(href="javascript:;" qianli-animate='animate-fade-in') #{item.more}
                 span.solve-desc-more__icon
                   img(src="/image/more.png")
 
@@ -67,7 +69,7 @@ block content
         .swiper-wrapper
           each item in solveItem
             .swiper-slide
-              a.solve-item-slide(href="javascript:;")
+              a.solve-item-slide(href="javascript:;" qianli-animate='animate-fade-in')
                 div
                   h4.solve-item-slide__title #{item.title}
                   i.solve-item-slide__desc #{item.translate}
@@ -78,15 +80,16 @@ block content
       a.solve-item-button.next(href="javascript:;")
         img(src="/image/case_r.png")
 
+  //- 产品中心
   section#product-center
     h5.product-center-bg qianli
     .product-center-inner
       .product-center__header
-        h3.product-center__title
+        h3.product-center__title(qianli-animate='animate-fade-in')
           p.en Product Center
           p.cn 产品中心
 
-        nav.product-center-series
+        nav.product-center-series(qianli-animate='animate-fade-in')
           each item in productCenter.series
             a.product-center-nav(href=`${item.link}`) #{item.label}
 
@@ -104,9 +107,11 @@ block content
                       p.product-center-side__sub #{item.sub}
 
                       p.product-center-side__desc
-                      +qianli-ghost-button(item.link, 'VIEW MORE')(mode="dark")
+                      +qianli-ghost-button(item.link, 'VIEW MORE')(mode="dark" qianli-animate='animate-fade-in')
+
                     .product-center-side__legend
                       img(src=`${item.image}`)
+
             .product-center-navigation
               a.product-center-navigation__button.prev(href="javascript:;")
                 img(src="/image/pro_l.png")
@@ -121,26 +126,28 @@ block content
                   .product-center-side.sub
                     .product-center-side__legend
                       img(src=`${item.image}`)
-                    .product-center-side__content
+                    .product-center-side__content(qianli-animate='animate-fade-in')
                       h2.product-center-side__title #{item.title}
                         .bg
                       p.product-center-side__sub #{item.sub}
 
+  //- 导航
   section#navigation-container
     .navigation-side.left.flex1
       img(src="/upload/20220614174030551151.png")
     .navigation-side.right.flex1
       .navigation-inner-top.flex1
+        .navigation-inner-top__bg
         .navigation-about
-          span.navigation-about-title.en QIANLIBIO
-          h5.navigation-about-title.cn 千立生物
+          span.navigation-about-title.en(qianli-animate='animate-fade-in') QIANLIBIO
+          h5.navigation-about-title.cn(qianli-animate='animate-fade-in') 千立生物
 
-          p.navigation-about-slog 为健康添驱动，让灭菌更安全。
-          p.navigation-about-desc 千立生物技术(杭州)有限公司是一家致力于 提升医药生产和检测环境洁净水平、医疗感控领域智能除染装备公司。公司集技术研发生产、销售与服务于一体的高新技术企业服务于医药生产净化环境微生物控制、公共卫生消毒等行业。
+          p.navigation-about-slog(qianli-animate='animate-fade-in') 为健康添驱动，让灭菌更安全。
+          p.navigation-about-desc(qianli-animate='animate-fade-in') 千立生物技术(杭州)有限公司是一家致力于 提升医药生产和检测环境洁净水平、医疗感控领域智能除染装备公司。公司集技术研发生产、销售与服务于一体的高新技术企业服务于医药生产净化环境微生物控制、公共卫生消毒等行业。
 
       .navigation-inner-bottom.flex1
         a.navigation-inner-job.flex1(href="/contact")
-          .navigation-item
+          .navigation-item(qianli-animate='animate-fade-in')
             img.navigation-item-icon(src="/upload/20220614174131112183.png")
             .flex1
             h3.navigation-item-title 社会招聘
@@ -148,12 +155,42 @@ block content
             p.navigation-item-desc 加入我们和优秀的人一起做有挑战的事。
 
         a.navigation-inner-news.flex1(href="/news")
-          .navigation-item
+          .navigation-item(qianli-animate='animate-fade-in')
             img.navigation-item-icon(src="/upload/20220614174131131961.png")
             .flex1
             h3.navigation-item-title 新闻中心
 
             p.navigation-item-desc 了解千立生物正在发生的事情。
+
+  //- 新闻中心
+  section#news-container
+    i.news-bg NEWS
+
+    .news-head
+      h3.news-head__title(qianli-animate='animate-fade-in')
+        p.en NEWS CENTER
+        p.cn 新闻中心
+      .flex1
+      +qianli-ghost-button('/product', 'VIEW MORE')(mode="dark" qianli-animate='animate-fade-in')
+
+    .news-inner
+      .news-thumb
+        +swiper
+          block wrapper
+            for item of news
+              .swiper-slide
+                .news-thumb-slide
+                  img(src=`${item.img}`)
+
+      .news-list.flex1
+        each item,index in news
+          a.news-item(href='javascript:;' class=`${(index === 0 && 'active') || ''}`)
+            .news-item-content
+              time.news-item-time #{item.date}
+              p.news-item-text #{item.title}
+            .news-item-icon
+              img.news-item-icon__dark(src="/image/new_r.png")
+              img.news-item-icon__light(src="/image/new_rw.png")
 
 block footer
   script(type="text/javascript" charset="utf-8").

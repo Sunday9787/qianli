@@ -8,13 +8,31 @@ $(window).on('scroll', function () {
   const top = $(window).scrollTop()
 
   if (top >= 10) {
-    if (!$('.header').hasClass('pin')) {
-      $('.header').addClass('pin')
+    if (!$('.qianli-header').hasClass('pin')) {
+      $('.qianli-header').addClass('pin')
     }
     return
   }
 
-  if ($('.header').hasClass('pin')) {
-    $('.header').removeClass('pin')
+  if ($('.qianli-header').hasClass('pin')) {
+    $('.qianli-header').removeClass('pin')
   }
 })
+
+// 显示动画
+const offset = 60
+
+$(window).on('scroll', function () {
+  $('[qianli-animate*="animate"]')
+    .filter(function (index, item) {
+      return !$(item).hasClass('qianli-animate-appear')
+    })
+    .each(function (index, element) {
+      const rect = element.getBoundingClientRect()
+      if (window.innerHeight - rect.top >= offset) {
+        $(element).addClass('qianli-animate-appear')
+      }
+    })
+})
+
+window.dispatchEvent(new Event('scroll'))

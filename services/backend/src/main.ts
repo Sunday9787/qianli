@@ -8,7 +8,7 @@ const projectRoot = path.join(process.cwd(), '..', '..')
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
   app.useStaticAssets(path.join(projectRoot, 'public'))
-  app.setBaseViewsDir(path.join(projectRoot, 'packages/frontend/src/view'))
+  app.setBaseViewsDir(path.join(projectRoot, 'services/frontend/src/view'))
   app.setViewEngine('pug')
 
   await app.listen(3000)

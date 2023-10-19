@@ -1,8 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import cssManifest from 'backend/rev-css-manifest.json'
-import jsManifest from 'backend/js-manifest.json'
-
-const manifest = Object.assign({}, cssManifest, jsManifest)
+import manifest from 'backend/manifest.json'
 
 @Injectable()
 export class LayoutService {
