@@ -44,7 +44,7 @@ export class LayoutService {
           ]
         },
         { title: '新闻动态', url: '/', children: [] },
-        { title: '联系我们', url: '/', children: [{ title: '人才招聘', url: '/' }] }
+        { title: '联系我们', url: '/contact', children: [{ title: '人才招聘', url: '/' }] }
       ]
     }
   }

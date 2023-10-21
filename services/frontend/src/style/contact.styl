@@ -1,0 +1,135 @@
+#contact-center
+  position relative
+  min-height 100vh
+  padding 140px 0 80px
+  background-image url(/upload/20220614170308256340.png)
+  background-repeat no-repeat
+  background-size cover
+
+.contact-center-inner
+  width 84%
+  margin 0 auto
+
+.contact-center-content
+  width 75%
+
+.contact-cell-container
+  margin-top 40px
+
+.contact-cell-item
+  display grid
+  grid-template-rows max-content
+  grid-template-columns repeat(3, 1fr)
+  gap 40px 100px
+
+.contact-cell
+  display grid
+  flex-direction column
+
+  &__label
+    margin-bottom 15px
+    font-size 20px
+    font-weight bold
+    &:after
+      content '：'
+
+  &__value
+    margin-bottom 5px
+    font-size 18px
+    font-weight bold
+    color #40327d
+
+  &__desc
+    color #999
+
+.contact-form-container
+  margin-top 100px
+
+.contact-form-title
+  display block
+  margin-bottom 40px
+  font-size 36px
+  font-weight bold
+
+.contact-form
+  position relative
+  display flex
+  flex-wrap wrap
+  row-gap 15px
+  column-gap 20px
+  width 58%
+
+.contact-form-item
+  position relative
+
+.contact-form-input
+  width 100%
+  padding 10px 0
+  background none
+  border-bottom 1px solid #dfdfdf;
+  outline none
+
+#contact-job
+  padding 98px 0
+
+.contact-job-inner
+  width 84%
+  margin 0 auto
+
+.contact-job-table
+  width 100%
+  table-layout auto
+  border-collapse collapse
+  border none
+
+.contact-job-table-row
+  color #fff
+
+  &.job
+    height 80px
+    text-align center
+    cursor pointer
+    border-bottom 1px solid #f0f0f0
+
+    > td
+      padding 0 60px
+
+  &.thead
+    height 80px
+    text-align center
+
+  &.detail
+    position relative
+
+  > th
+    padding 0 60px
+
+  > th
+    background-color #40327d
+  > td
+    color #666
+
+.contact-job-item-inner
+  display none
+  padding 0 60px
+
+.contact-job-item
+  position relative
+
+  &__title
+    font-size 18px
+
+  &__detail
+    display flex
+    column-gap 3%
+    width 100%
+    padding 60px 0
+    font-size 16px
+    line-height 2.2
+    color #666666
+
+.contact-job-badge
+  position relative
+  margin-bottom 30px
+  font-size 18px
+  color #766cab

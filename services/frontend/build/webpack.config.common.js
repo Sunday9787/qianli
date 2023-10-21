@@ -21,6 +21,7 @@ module.exports = {
     common: ['./src/js/common.ts', './src/style/common.styl'],
     product: ['./src/js/product.ts', './src/style/product.styl'],
     about: ['./src/js/about.ts', './src/style/about.styl'],
+    contact: ['./src/js/contact.ts', './src/style/contact.styl'],
     base: './src/style/base.css'
   },
   output: {

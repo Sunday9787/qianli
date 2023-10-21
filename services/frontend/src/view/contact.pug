@@ -1,0 +1,85 @@
+extends layouts/index.pug
+
+block style
+  link(rel="stylesheet" href=`${layout.manifest['contact.css']}`)
+
+block content
+  section#contact-center
+    .contact-center-inner
+      +qianli-badge-title(['CONTACT', 'US'], '联系我们')(large qianli-animate='animate-fade-in')
+
+      .contact-center-content
+        .contact-cell-container
+          ol.contact-cell-item
+            for item of contact
+              li.contact-cell
+                label.contact-cell__label(qianli-animate='animate-fade-in') #{item.label}
+                span.contact-cell__value(qianli-animate='animate-fade-in') #{item.value}
+                p.contact-cell__desc(qianli-animate='animate-fade-in') #{item.desc}
+
+      .contact-form-container
+        h2.contact-form-title(qianli-animate='animate-fade-in') 在线留言
+        form.contact-form(method="post" action="/api/feedback")
+          .contact-form-item(qianli-animate='animate-fade-in')
+            input.contact-form-input(type="text" name="title" placeholder="姓名" required)
+          .contact-form-item(qianli-animate='animate-fade-in')
+            input.contact-form-input(type="text" name="tel" placeholder="联系方式" required)
+          .contact-form-item(qianli-animate='animate-fade-in')
+            input.contact-form-input(type="text" name="area" placeholder="地区" required)
+          .contact-form-item(qianli-animate='animate-fade-in' style='flex-basis: 100%')
+            textarea.contact-form-input(name="con" required cols="30" rows="5" placeholder="您的留言")
+          .contact-form-item(qianli-animate='animate-fade-in')
+            button.qianli-button(type="submit") 提交
+
+  section#contact-job
+    .contact-job-inner
+      +qianli-badge-title(['TALENT', 'RECRUITMENT'], '人才招聘')(large center qianli-animate='animate-fade-in')
+
+      table.contact-job-table
+        <colgroup>
+          <col width="20%">
+          <col width="20%">
+          <col width="20%">
+          <col width="20%">
+          <col width="20%">
+        </colgroup>
+
+        thead
+          tr.contact-job-table-row.thead(qianli-animate='animate-fade-in')
+            th 岗位
+            th 招聘人数
+            th 招聘部门
+            th 招聘城市
+            th 岗位要求
+        tbody
+          for item of jobs
+            tr.contact-job-table-row.job(qianli-animate='animate-fade-in')
+              td
+                .contact-job-item
+                  p.contact-job-item__title
+                    b #{item.title}
+              td
+                b #{item.num}
+              td
+                b #{item.department}
+              td
+                b #{item.city}
+              td
+                +qianli-button('查看详情')(small round)
+
+            tr.contact-job-table-row.detail
+              td(colspan="5")
+                .contact-job-item-inner
+                  ol.contact-job-item__detail
+                    li.flex1
+                      p.contact-job-badge
+                        b 【任职要求】
+                      p!= item.requirement.replace(/\r\n/g, '<br />')
+                    li.flex1
+                      p.contact-job-badge
+                        b 【岗位职责】
+                      p!= item.responsibility.replace(/\r\n/g, '<br />')
+
+block footer
+  script(type="text/javascript" charset="utf-8").
+    require(['#{layout.manifest["contact.js"]}'])
