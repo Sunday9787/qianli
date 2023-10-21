@@ -2,7 +2,6 @@ const path = require('path')
 const webpack = require('webpack')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
 const projectRoot = path.resolve(process.cwd(), '..', '..')
@@ -20,6 +19,7 @@ module.exports = {
     index: ['./src/js/index.ts', './src/style/index.styl'],
     layout: ['./src/js/layout.ts', './src/style/layout.styl'],
     common: ['./src/js/common.ts', './src/style/common.styl'],
+    product: ['./src/js/product.ts', './src/style/product.styl'],
     about: ['./src/js/about.ts', './src/style/about.styl'],
     base: './src/style/base.css'
   },
@@ -62,7 +62,6 @@ module.exports = {
       },
       fileName: path.join(projectRoot, 'services/backend/manifest.json')
     }),
-    new CleanWebpackPlugin(),
     new CopyPlugin({
       patterns: [
         { from: './src/upload', to: 'upload' },

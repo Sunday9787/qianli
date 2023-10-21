@@ -1,0 +1,36 @@
+.qianli-ghost-button
+  display inline-flex
+  column-gap 28px
+  justify-content space-between
+  // width 148px
+  padding 8px 20px
+  font-size 14px
+  border-style solid
+  border-width 1px
+  transition all .48s
+
+  &__icon
+    position relative
+    width 18px
+    height 18px
+    padding 2px
+    border-radius 50%
+
+  &[mode="light"]
+    color #fff
+    border-color #fff
+
+    .qianli-ghost-button__icon
+      background #01040A
+
+  &[mode="dark"]
+    color #01040A
+    border-color #01040A
+
+    .qianli-ghost-button__icon
+      background #fff
+
+  &:hover
+    color #fff
+    background-color #40327d
+    border-color #40327d

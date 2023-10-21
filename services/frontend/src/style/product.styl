@@ -1,0 +1,50 @@
+#product-center
+  position relative
+  padding 140px 0 80px
+
+.product-center-inner
+  width 84%
+  margin 0 auto
+
+.product-center-title
+  position relative
+  display flex
+
+.product-center-slide
+  display grid
+  grid-template-rows max-content
+  grid-template-columns repeat(3, 1fr)
+  gap 20px
+
+.product-center-swiper
+  margin-top 20px
+
+.product-card
+  background-color #f5f5f5
+
+  &__title
+    font-size 20px
+    color #333
+
+  &__desc
+    font-size 16px
+    color rgba(0, 0, 0, .68)
+
+.product-card-wallpaper
+  position relative
+  padding-top 75%
+
+  > img
+    position absolute
+    top 0
+    left 0
+    z-index 2
+    width 100%
+    height 100%
+    transition all .48s
+    object-fit cover
+
+.product-card-inner
+  padding 20px 40px
+  text-align center
+  border-top 1px solid #e4e4e4

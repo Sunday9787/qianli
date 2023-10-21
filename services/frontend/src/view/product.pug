@@ -1,5 +1,35 @@
 extends layouts/index.pug
 
-block content
+block style
+  link(rel="stylesheet" href=`${layout.manifest['product.css']}`)
 
-  h1 product
+block content
+  section#product-center
+    .product-center-inner
+      .product-center-title
+        +qianli-badge-title(['PRODUCT', 'CENTER'], '产品中心')(qianli-animate='animate-fade-in')
+        .flex1
+        +qianli-button-group()(qianli-animate='animate-fade-in')
+          each item,index in product
+            if (index === 0)
+              +qianli-button(item.category)(data-id=`${item.id}`).active
+            else
+              +qianli-button(item.category)(data-id=`${item.id}`)
+
+      .product-center-swiper
+        +swiper(false)
+          block wrapper
+            for category of product
+              .swiper-slide
+                .product-center-slide
+                  for item of category.data
+                    a.product-card(href="javascript:;")
+                      .product-card-wallpaper(qianli-animate='animate-fade-in')
+                        img(src=`${item.img}`)
+                      .product-card-inner
+                        p.product-card__title(qianli-animate='animate-fade-in') #{item.title}
+                        p.product-card__desc(qianli-animate='animate-fade-in') #{item.desc}
+
+block footer
+  script(type="text/javascript" charset="utf-8").
+    require(['#{layout.manifest["product.js"]}'])

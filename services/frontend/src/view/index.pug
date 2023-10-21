@@ -14,9 +14,9 @@ block content
               if item.media === 'picture'
                 img.product-slide__media(src=`${item.url}`)
                 .product-slide-inner
-                  p.product-slide__model #{item.model}
-                  h2.product-slide__title #{item.title}
-                  p.product-slide__desc #{item.desc}
+                  p.product-slide__model(qianli-animate='animate-fade-in') #{item.model}
+                  h2.product-slide__title(qianli-animate='animate-fade-in') #{item.title}
+                  p.product-slide__desc(qianli-animate='animate-fade-in') #{item.desc}
               else
                 video.product-slide__media(
                   loop
@@ -101,12 +101,12 @@ block content
                 .swiper-slide
                   .product-center-side.main
                     .product-center-side__content
-                      h2.product-center-side__title
+                      h2.product-center-side__title(qianli-animate='animate-fade-in')
                         .bg
                         | #{item.title}
-                      p.product-center-side__sub #{item.sub}
+                      p.product-center-side__sub(qianli-animate='animate-fade-in') #{item.sub}
 
-                      p.product-center-side__desc
+                      p.product-center-side__desc(qianli-animate='animate-fade-in')
                       +qianli-ghost-button(item.link, 'VIEW MORE')(mode="dark" qianli-animate='animate-fade-in')
 
                     .product-center-side__legend

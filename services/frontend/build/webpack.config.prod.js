@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 /** @type {import('webpack-cli').WebpackConfiguration} */
 module.exports = {
@@ -18,6 +19,7 @@ module.exports = {
     new TerserPlugin({
       parallel: true,
       extractComments: false
-    })
+    }),
+    new CleanWebpackPlugin()
   ]
 }
