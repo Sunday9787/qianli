@@ -20,6 +20,7 @@ module.exports = {
     index: ['./src/js/index.ts', './src/style/index.styl'],
     layout: ['./src/js/layout.ts', './src/style/layout.styl'],
     common: ['./src/js/common.ts', './src/style/common.styl'],
+    about: ['./src/js/about.ts', './src/style/about.styl'],
     base: './src/style/base.css'
   },
   output: {

@@ -8,14 +8,14 @@ $(window).on('scroll', function () {
   const top = $(window).scrollTop()
 
   if (top >= 10) {
-    if (!$('.qianli-header').hasClass('pin')) {
-      $('.qianli-header').addClass('pin')
+    if (!$('.qianli-header-ghost').hasClass('pin')) {
+      $('.qianli-header-ghost').addClass('pin')
     }
     return
   }
 
-  if ($('.qianli-header').hasClass('pin')) {
-    $('.qianli-header').removeClass('pin')
+  if ($('.qianli-header-ghost').hasClass('pin')) {
+    $('.qianli-header-ghost').removeClass('pin')
   }
 })
 

@@ -1,16 +1,21 @@
 import { Injectable } from '@nestjs/common'
 import manifest from 'backend/manifest.json'
 
+interface LayoutServiceOption {
+  isIndex: boolean
+}
+
 @Injectable()
 export class LayoutService {
-  layout() {
+  layout(option?: LayoutServiceOption) {
     return {
       manifest,
+      isIndex: option?.isIndex,
       menus: [
         { title: '首页', url: '/', children: [] },
         {
           title: '关于千立',
-          url: '/',
+          url: '/about',
           children: [
             { title: '公司介绍 ', url: '/' },
             { title: '公司环境 ', url: '/' },

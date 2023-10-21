@@ -4,4 +4,10 @@
 
 body {
   letter-spacing: 0.6px;
+  color: #333;
+}
+
+::selection {
+  background-color: #40327d;
+  color: #fff;
 }

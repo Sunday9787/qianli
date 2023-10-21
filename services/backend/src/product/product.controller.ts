@@ -7,7 +7,7 @@ export class ProductController {
 
   @Get()
   @Render('product')
-  product() {
+  render() {
     return this.productService.data()
   }
 }

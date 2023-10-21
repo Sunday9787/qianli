@@ -6,7 +6,7 @@ export class AppService {
   constructor(private layoutService: LayoutService) {}
   data() {
     return {
-      layout: this.layoutService.layout(),
+      layout: this.layoutService.layout({ isIndex: true }),
       message: 'hello word',
       productBanner: [
         {
