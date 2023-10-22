@@ -1,28 +1,56 @@
+import { Repository } from 'typeorm'
+import { Inject, Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
 import { LayoutService } from '@/layout/layout.service'
-import { Injectable } from '@nestjs/common'
-import { loadYaml } from 'backend/tools'
+import { CategoryEntity } from '@/category/category.entity'
 import { PostEntity } from './post.entity'
+import { PostAddDTO } from './post.dto'
 
-const { posts } = loadYaml<{ posts: PostEntity[] }>('/services/backend/data/post.yaml')
-const postMap: Map<number, PostEntity> = new Map(
-  posts.map(function (item, index) {
-    return [index, item]
-  })
-)
+const sql = `
+  post.id,
+  post.category_id,
+  post.date,
+  post.pv,
+  post.title,
+  post.desc,
+  post.content,
+  post.img,
+  category.category_name
+`
 
 @Injectable()
 export class PostService {
-  constructor(private layoutService: LayoutService) {}
+  constructor(
+    @InjectRepository(PostEntity) private readonly postRepository: Repository<PostEntity>,
+    @Inject(LayoutService) private readonly layoutService: LayoutService
+  ) {}
 
-  data(id: number) {
+  add(body: PostAddDTO) {
+    return this.postRepository.save(body)
+  }
+
+  async data(id: number) {
+    const post = await this.postRepository
+      .createQueryBuilder('post')
+      .leftJoinAndSelect(CategoryEntity, 'category', 'post.category_id = category.id')
+      .where('post.id = :id', { id })
+      .select(sql)
+      .getRawOne<PostEntity>()
+
+    const recommends = await this.postRepository.createQueryBuilder().where('id != :id', { id }).getMany()
+
     return {
       layout: this.layoutService.layout(),
-      post: postMap.get(id),
-      recommends: this.all().filter(item => item.id !== id)
+      post,
+      recommends
     }
   }
 
   all() {
-    return Array.from(postMap.values())
+    return this.postRepository
+      .createQueryBuilder('post')
+      .leftJoinAndSelect(CategoryEntity, 'category', 'post.category_id = category.id')
+      .select(sql)
+      .getRawMany<PostEntity>()
   }
 }

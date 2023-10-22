@@ -1,0 +1,17 @@
+version: '20.0'
+
+services:
+  db:
+    container_name: database
+    image: mysql:latest
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: qianli
+      MYSQL_USER: qianli
+      MYSQL_PASSWORD: 123123
+      MYSQL_ROOT_PASSWORD: 123123
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306

@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { LayoutService } from '@/layout/layout.service'
 
 @Injectable()
 export class AppService {
-  constructor(private layoutService: LayoutService) {}
+  constructor(@Inject(LayoutService) private layoutService: LayoutService) {}
+
   data() {
     return {
       layout: this.layoutService.layout({ ghost: ['index'] }),
