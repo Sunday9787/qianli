@@ -1,0 +1,40 @@
+extends layouts/index.pug
+
+block style
+  link(rel="stylesheet" href=`${layout.manifest['news.css']}`)
+
+block content
+  section#news-center
+    .news-center-inner
+      .news-center-content
+        +qianli-badge-title(['NEWS', 'INFORMATION'], '新闻动态')(large light vertical qianli-animate='animate-fade-in')
+
+        .news-post
+          p.news-post-title #{post.title}
+          p.news-post-desc #{post.desc}
+
+        +qianli-ghost-button('VIEW MORE')(href=`${post.link}` mode="dark" style="column-gap: 60px")
+
+      .news-center-cover
+        .news-center-cover__inner
+          img(src=`${post.img}`)
+
+  section#news-container
+    .news-inner
+      ol.news-list
+        for item of news
+          li.news-item
+            .news-item-cover
+              img(src=`${item.img}`)
+            a.news-item-content(href=`${item.link}`)
+              p.news-item-category
+                b #{item.category}
+              p.news-item-title
+                b #{item.title}
+              p.news-item-date
+                b #{item.date}
+              img.news-item-icon(src="/image/case_r.png")
+
+block footer
+  script(type="text/javascript" charset="utf-8").
+    require(['#{layout.manifest["news.js"]}'])

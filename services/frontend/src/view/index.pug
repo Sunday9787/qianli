@@ -107,7 +107,7 @@ block content
                       p.product-center-side__sub(qianli-animate='animate-fade-in') #{item.sub}
 
                       p.product-center-side__desc(qianli-animate='animate-fade-in')
-                      +qianli-ghost-button(item.link, 'VIEW MORE')(mode="dark" qianli-animate='animate-fade-in')
+                      +qianli-ghost-button('VIEW MORE')(href=`${item.link}` mode="dark" qianli-animate='animate-fade-in')
 
                     .product-center-side__legend
                       img(src=`${item.image}`)
@@ -171,7 +171,7 @@ block content
         p.en NEWS CENTER
         p.cn 新闻中心
       .flex1
-      +qianli-ghost-button('/product', 'VIEW MORE')(mode="dark" qianli-animate='animate-fade-in')
+      +qianli-ghost-button('VIEW MORE')(href="/product" mode="dark" qianli-animate='animate-fade-in')
 
     .news-inner
       .news-thumb

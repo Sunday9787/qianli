@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import manifest from 'backend/manifest.json'
 
 interface LayoutServiceOption {
-  isIndex: boolean
+  ghost: string[]
 }
 
 @Injectable()
@@ -10,7 +10,8 @@ export class LayoutService {
   layout(option?: LayoutServiceOption) {
     return {
       manifest,
-      isIndex: option?.isIndex,
+      isIndex: option?.ghost.includes('index'),
+      isNews: option?.ghost.includes('news'),
       menus: [
         { title: '首页', url: '/', children: [] },
         {
@@ -43,7 +44,7 @@ export class LayoutService {
             { title: '公共场所', url: '/' }
           ]
         },
-        { title: '新闻动态', url: '/', children: [] },
+        { title: '新闻动态', url: '/news', children: [] },
         { title: '联系我们', url: '/contact', children: [{ title: '人才招聘', url: '/' }] }
       ]
     }

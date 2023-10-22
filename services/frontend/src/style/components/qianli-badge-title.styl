@@ -5,6 +5,8 @@
   line-height 1.2
   color #010510
 
+  &[light]
+    color #fff
   &[center]
     text-align center
   &[right]
@@ -13,6 +15,13 @@
     .qianli-badge-title__en
       margin-bottom 20px
       font-size 55px
+  &[vertical]
+    .qianli-badge-title__en
+      b
+        display block
+
+      b:last-of-type
+        margin-left 0
 
   &__en
     position relative

@@ -55,7 +55,7 @@ html(lang="zh-CN")
     title 千立生物_打造洁净无菌空间 - #{ title }
     include ../components/index.pug
   body
-    header(class=`${layout.isIndex ? 'qianli-header-ghost' : 'qianli-header'}`)
+    header(class=`${(layout.isIndex || layout.isNews) ? 'qianli-header-ghost' : 'qianli-header'}`)
       .qianli-header-inner
         a.qianli-header-logo(href="/")
           img(src="/image/logo_light.png")
