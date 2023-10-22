@@ -1,0 +1,28 @@
+extends layouts/index.pug
+
+block style
+  link(rel="stylesheet" href=`${layout.manifest['post.css']}`)
+
+block content
+  section#post-center
+    .post-inner
+      .post-content.flex1
+        .post-content-head
+          h1.post-title(qianli-animate='animate-fade-in') #{post.title}
+          p.post-meta(qianli-animate='animate-fade-in')
+            time.post-meta-date(datetime=`${post.date}`) 发布时间：#{layout.helper.dayjs(post.date).format('YYYY-MM-DD')}
+            span.post-meta-pv 浏览次数：#{post.pv}
+        article.post-article(qianli-animate='animate-fade-in')!= post.content
+
+      .post-recommend
+        h2.post-recommend-title(qianli-animate='animate-fade-in') 热门新闻
+        ol
+          for item of recommends
+            li.post-recommend-inner(qianli-animate='animate-fade-in')
+              a.post-recommend-item(href=`/post/${item.id}`)
+                img.post-recommend-cover(src=`${item.img}`)
+                p.flex1 #{item.title}
+
+block footer
+  script(type="text/javascript" charset="utf-8").
+    require(['#{layout.manifest["post.js"]}'])

@@ -23,6 +23,7 @@ module.exports = {
     about: ['./src/js/about.ts', './src/style/about.styl'],
     contact: ['./src/js/contact.ts', './src/style/contact.styl'],
     news: ['./src/js/news.ts', './src/style/news.styl'],
+    post: ['./src/js/post.ts', './src/style/post.styl'],
     base: './src/style/base.css'
   },
   output: {

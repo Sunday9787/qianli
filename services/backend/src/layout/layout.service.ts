@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import manifest from 'backend/manifest.json'
+import dayjs from 'dayjs'
 
 interface LayoutServiceOption {
   ghost: string[]
@@ -10,6 +11,9 @@ export class LayoutService {
   layout(option?: LayoutServiceOption) {
     return {
       manifest,
+      helper: {
+        dayjs
+      },
       isIndex: option?.ghost.includes('index'),
       isNews: option?.ghost.includes('news'),
       menus: [

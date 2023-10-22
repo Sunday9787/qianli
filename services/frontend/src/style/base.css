@@ -5,6 +5,7 @@
 body {
   letter-spacing: 0.6px;
   color: #333;
+  line-height: 1.6;
 }
 
 ::selection {
