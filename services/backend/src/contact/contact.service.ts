@@ -1,11 +1,17 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { LayoutService } from '@/layout/layout.service'
+import { JobService } from '@/job/job.service'
 
 @Injectable()
 export class ContactService {
-  constructor(private readonly layoutService: LayoutService) {}
+  constructor(
+    @Inject(LayoutService) private readonly layoutService: LayoutService,
+    @Inject(JobService) private readonly jobService: JobService
+  ) {}
 
-  data() {
+  async data() {
+    const jobs = await this.jobService.all()
+
     return {
       layout: this.layoutService.layout(),
       contact: [
@@ -30,70 +36,7 @@ export class ContactService {
           desc: ''
         }
       ],
-      jobs: [
-        {
-          title: '内勤文员',
-          num: 1,
-          department: '行政部',
-          city: '杭州市',
-          requirement: `
-            1.大专（含）以上学历，市场营销、医药、生物或相关专业优先；\r\n
-            2.能熟练运用电脑进行文件、数据处理；\r\n
-            3.具有良好的语言表达沟通能力；\r\n
-            4.具备接受新事物、新知识的能力，以及较强的突发事件处理能力；具有较强的逻辑性、条理性和数据分析能力，能适应临时性短期出差。
-          `,
-          responsibility: `
-            1、熟练掌握本公司产品及其所涉及的专业知识。\r\n
-            2、与顾客和同事能有效沟通。\r\n
-            3、熟知所有与销售相关的制度与规定。\r\n
-            4、能熟练撰写商务应用所需的各类应用文件。\r\n
-            5、能学习掌握标书的撰写；\r\n
-            6、详细记录每次会议、培训纪要及总结。\r\n
-            7、听从领导行程安排，与销售业务对接，适时出差。
-          `
-        },
-        {
-          title: '商务专员',
-          num: 1,
-          department: '销售部',
-          city: '杭州市',
-          requirement: `
-            1.大专（含）以上学历，市场营销、医药、生物或相关专业优先；\r\n
-            2.能熟练运用电脑进行文件、数据处理；\r\n
-            3.具有良好的语言表达沟通能力；\r\n
-            4.具备接受新事物、新知识的能力，以及较强的突发事件处理能力；具有较强的逻辑性、条理性和数据分析能力，能适应临时性短期出差。
-          `,
-          responsibility: `
-            1、熟练掌握本公司产品及其所涉及的专业知识。\r\n
-            2、与顾客和同事能有效沟通。\r\n
-            3、熟知所有与销售相关的制度与规定。\r\n
-            4、能熟练撰写商务应用所需的各类应用文件。\r\n
-            5、能学习掌握标书的撰写；\r\n
-            6、详细记录每次会议、培训纪要及总结。\r\n
-            7、听从领导行程安排，与销售业务对接，适时出差。
-          `
-        },
-        {
-          title: '微生物检测员',
-          num: 1,
-          department: '研发部',
-          city: '杭州市',
-          requirement: `
-            1、大专及以上学历，生物工程、生物技术、生物制药、等相关专业，有药厂QA、药品无菌检查、微生物限度检查、消毒认证经验者优先；\r\n
-            2、熟悉药典、GMP法规指南、计算机验证、微生物检测等知识；\r\n
-            3、具有独立撰写实验方案及实验报告的能力；\r\n
-            4、具有一定的实验数据整理分析能力，能熟练运用电脑进行文件处理；\r\n
-            5、具备接受新事物、新知识的能力及较强的现场沟通应变能力；\r\n
-            6、具有较强的自主学习能力及动手能力；
-            7、适应短期出差。
-          `,
-          responsibility: `
-            1、负责公司经营范围内的产品，如过氧化氢灭菌机器人、脉冲强光灭菌器等技术方案、DQ、IQ、OQ、PQ方案和报告、风险评估及其他相关文件的编写;\r\n
-            2、负责过氧化氢灭菌机器人、脉冲强光灭菌器产品的开发测试；\r\n
-            3、负责产品的外出验证（该岗位有额外的外出验证项目奖励，单次200-1000不等，与当月薪资一同发放）
-          `
-        }
-      ]
+      jobs
     }
   }
 }

@@ -13,6 +13,10 @@ import { PostModule } from './post/post.module'
 import { PostEntity } from './post/post.entity'
 import { CategoryEntity } from './category/category.entity'
 import { CategoryModule } from './category/category.module'
+import { JobModule } from './job/job.module'
+import { DepartmentModule } from './department/department.module'
+import { JobEntity } from './job/job.entity'
+import { DepartmentEntity } from './department/department.entity'
 
 @Module({
   imports: [
@@ -23,8 +27,8 @@ import { CategoryModule } from './category/category.module'
       username: 'qianli',
       password: '123123',
       database: 'qianli',
-      synchronize: false,
-      entities: [PostEntity, CategoryEntity]
+      synchronize: true,
+      entities: [PostEntity, CategoryEntity, JobEntity, DepartmentEntity]
     }),
     LayoutModule,
     ProductModule,
@@ -32,7 +36,9 @@ import { CategoryModule } from './category/category.module'
     ContactModule,
     NewsModule,
     PostModule,
-    CategoryModule
+    CategoryModule,
+    JobModule,
+    DepartmentModule
   ],
   controllers: [AppController],
   providers: [AppService]
