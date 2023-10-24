@@ -23,16 +23,12 @@ $(window).on('scroll', function () {
 const offset = 60
 
 $(window).on('scroll', function () {
-  $('[qianli-animate*="animate"]')
-    .filter(function (index, item) {
-      return !$(item).hasClass('qianli-animate-appear')
-    })
-    .each(function (index, element) {
-      const rect = element.getBoundingClientRect()
-      if (window.innerHeight - rect.top >= offset) {
-        $(element).addClass('qianli-animate-appear')
-      }
-    })
+  $('[qianli-animate*="animate"]:not(.qianli-animate-appear)').each(function (index, element) {
+    const rect = element.getBoundingClientRect()
+    if (window.innerHeight - rect.top >= offset) {
+      $(element).addClass('qianli-animate-appear')
+    }
+  })
 })
 
 window.dispatchEvent(new Event('scroll'))

@@ -122,6 +122,7 @@ new Swiper('.product-center-main > .swiper-container', {
 const newsThumbSwiper = new Swiper('.news-thumb .swiper-container', {
   slidesPerView: 1,
   spaceBetween: 0,
+  allowTouchMove: false,
   effect: 'fade',
   speed: 1000,
   pagination: {
