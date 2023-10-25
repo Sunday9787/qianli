@@ -2,7 +2,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Injectable } from '@nestjs/common'
 import { Repository } from 'typeorm'
 import { JobEntity } from './job.entity'
-import { JobDTO, JobUpdateDTO } from './job.dto'
+import { JobDTO, JobEditDTO } from './job.dto'
 import { DepartmentEntity } from '@/department/department.entity'
 
 const sql = `
@@ -24,7 +24,7 @@ export class JobService {
     return this.jobRepository.save(body)
   }
 
-  update(body: JobUpdateDTO) {
+  edit(body: JobEditDTO) {
     return this.jobRepository.update({ id: body.id }, body)
   }
 

@@ -17,18 +17,19 @@ import { JobModule } from './job/job.module'
 import { DepartmentModule } from './department/department.module'
 import { JobEntity } from './job/job.entity'
 import { DepartmentEntity } from './department/department.entity'
+import { AboutEntity } from './about/about.entity'
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: '192.168.0.102',
       port: 3306,
       username: 'qianli',
       password: '123123',
       database: 'qianli',
-      synchronize: true,
-      entities: [PostEntity, CategoryEntity, JobEntity, DepartmentEntity]
+      // synchronize: true,
+      entities: [PostEntity, CategoryEntity, JobEntity, DepartmentEntity, AboutEntity]
     }),
     LayoutModule,
     ProductModule,

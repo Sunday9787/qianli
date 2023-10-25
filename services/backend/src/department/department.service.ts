@@ -16,7 +16,7 @@ export class DepartmentService {
     return this.departmentRepository.delete({ id })
   }
 
-  update(body: DepartmentUpdateDTO) {
+  edit(body: DepartmentUpdateDTO) {
     return this.departmentRepository.update({ id: body.id }, body)
   }
 }

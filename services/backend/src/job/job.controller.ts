@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put } from '@nestjs/common'
 import { JobService } from './job.service'
-import { JobDTO, JobUpdateDTO } from './job.dto'
+import { JobDTO, JobEditDTO } from './job.dto'
 
 @Controller('job')
 export class JobController {
@@ -13,9 +13,9 @@ export class JobController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('update/:id')
-  update(@Body() body: JobUpdateDTO) {
-    return this.jobService.update(body)
+  @Post('edit/:id')
+  edit(@Body() body: JobEditDTO) {
+    return this.jobService.edit(body)
   }
 
   @HttpCode(HttpStatus.OK)

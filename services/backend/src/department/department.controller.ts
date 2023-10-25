@@ -13,9 +13,9 @@ export class DepartmentController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('update/:id')
-  update(@Body() body: DepartmentUpdateDTO) {
-    return this.departmentService.update(body)
+  @Post('edit/:id')
+  edit(@Body() body: DepartmentUpdateDTO) {
+    return this.departmentService.edit(body)
   }
 
   @HttpCode(HttpStatus.OK)

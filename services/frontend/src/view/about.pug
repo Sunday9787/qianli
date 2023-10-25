@@ -10,15 +10,14 @@ block content
       .about-banner-inner
         .about-banner-content.flex1
           +qianli-badge-title(['QI', 'ANLIBIO'], '千立生物')(qianli-animate='animate-fade-in')
-          h3.about-banner-subtitle(qianli-animate='animate-fade-in') 为健康添驱动，让灭菌更安全。
+          h3.about-banner-subtitle(qianli-animate='animate-fade-in') #{about.title}
 
-          p.about-banner-desc(qianli-animate='animate-fade-in').
-            千立生物是一家科技型药物生产环境微生物控制解决方案提供商，对制药行业法规、工艺有深刻理解。同时也是一家医疗感控领域智能除染解决方案提供商，对医院、急救、疾控、冷链灭菌有着较久的应用经验。
-          p.about-banner-desc(qianli-animate='animate-fade-in').
-            千立生物主要从事研发制造灭菌机器人、环境监测机器人、静脉配药机器人、高分子材料等产品的研究与应用。通过保障环境的洁净程度，保护和提升人员与药品安全，降低人员工作负荷。
+          - const descs = about.desc.split(';')
+          for desc of descs
+            p.about-banner-desc(qianli-animate='animate-fade-in') #{desc}
 
         .about-banner-wallpaper(qianli-animate='animate-fade-in')
-          img(src="/upload/20220614143609684592.png")
+          img(src=`${about.img}`)
 
   //- 公司环境
   section#about-environment

@@ -7,6 +7,6 @@ export class JobDTO {
   responsibility: string
 }
 
-export class JobUpdateDTO extends JobDTO {
+export class JobEditDTO extends JobDTO {
   id: number
 }
