@@ -18,7 +18,7 @@ const sql = `
 
 @Injectable()
 export class JobService {
-  constructor(@InjectRepository(JobEntity) private jobRepository: Repository<JobEntity>) {}
+  constructor(@InjectRepository(JobEntity) private readonly jobRepository: Repository<JobEntity>) {}
 
   add(body: JobDTO) {
     return this.jobRepository.save(body)

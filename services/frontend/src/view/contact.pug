@@ -19,15 +19,15 @@ block content
 
       .contact-form-container
         h2.contact-form-title(qianli-animate='animate-fade-in') 在线留言
-        form.contact-form(method="post" action="/api/feedback")
+        form.contact-form(method="post" action="javascript:;")
           .contact-form-item(qianli-animate='animate-fade-in')
-            input.contact-form-input(type="text" name="title" placeholder="姓名" required)
+            input.contact-form-input(type="text" name="name" placeholder="姓名" required)
           .contact-form-item(qianli-animate='animate-fade-in')
-            input.contact-form-input(type="text" name="tel" placeholder="联系方式" required)
+            input.contact-form-input(type="text" name="contact" placeholder="联系方式" required)
           .contact-form-item(qianli-animate='animate-fade-in')
             input.contact-form-input(type="text" name="area" placeholder="地区" required)
           .contact-form-item(qianli-animate='animate-fade-in' style='flex-basis: 100%')
-            textarea.contact-form-input(name="con" required cols="30" rows="5" placeholder="您的留言")
+            textarea.contact-form-input(name="message" required cols="30" rows="5" placeholder="您的留言")
           .contact-form-item(qianli-animate='animate-fade-in')
             button.qianli-button(type="submit") 提交
 
@@ -36,13 +36,12 @@ block content
       +qianli-badge-title(['TALENT', 'RECRUITMENT'], '人才招聘')(large center qianli-animate='animate-fade-in')
 
       table.contact-job-table
-        <colgroup>
-          <col width="20%">
-          <col width="20%">
-          <col width="20%">
-          <col width="20%">
-          <col width="20%">
-        </colgroup>
+        colgroup
+          col(width='20%')
+          col(width='20%')
+          col(width='20%')
+          col(width='20%')
+          col(width='20%')
 
         thead
           tr.contact-job-table-row.thead(qianli-animate='animate-fade-in')

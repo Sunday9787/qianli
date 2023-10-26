@@ -6,7 +6,9 @@ import { DepartmentDTO, DepartmentUpdateDTO } from './department.dto'
 
 @Injectable()
 export class DepartmentService {
-  constructor(@InjectRepository(DepartmentEntity) private departmentRepository: Repository<DepartmentEntity>) {}
+  constructor(
+    @InjectRepository(DepartmentEntity) private readonly departmentRepository: Repository<DepartmentEntity>
+  ) {}
 
   add(body: DepartmentDTO) {
     return this.departmentRepository.save(body)

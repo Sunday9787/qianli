@@ -9,27 +9,37 @@ import { AboutModule } from './about/about.module'
 import { ContactModule } from './contact/contact.module'
 import { NewsModule } from './news/news.module'
 import { PostModule } from './post/post.module'
-
-import { PostEntity } from './post/post.entity'
-import { CategoryEntity } from './category/category.entity'
 import { CategoryModule } from './category/category.module'
-import { JobModule } from './job/job.module'
 import { DepartmentModule } from './department/department.module'
-import { JobEntity } from './job/job.entity'
+import { JobModule } from './job/job.module'
+
 import { DepartmentEntity } from './department/department.entity'
+import { ContactFeedbackEntity } from './contact/contact.feedback.entity'
+import { CategoryEntity } from './category/category.entity'
+import { ContactEntity } from './contact/contact.entity'
 import { AboutEntity } from './about/about.entity'
+import { PostEntity } from './post/post.entity'
+import { JobEntity } from './job/job.entity'
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: '192.168.0.102',
+      host: 'localhost',
       port: 3306,
       username: 'qianli',
       password: '123123',
       database: 'qianli',
       // synchronize: true,
-      entities: [PostEntity, CategoryEntity, JobEntity, DepartmentEntity, AboutEntity]
+      entities: [
+        PostEntity,
+        CategoryEntity,
+        JobEntity,
+        DepartmentEntity,
+        AboutEntity,
+        ContactEntity,
+        ContactFeedbackEntity
+      ]
     }),
     LayoutModule,
     ProductModule,

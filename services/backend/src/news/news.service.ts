@@ -5,10 +5,8 @@ import { PostService } from '@/post/post.service'
 @Injectable()
 export class NewsService {
   constructor(
-    @Inject(LayoutService)
-    private layoutService: LayoutService,
-    @Inject(PostService)
-    private postService: PostService
+    @Inject(LayoutService) private readonly layoutService: LayoutService,
+    @Inject(PostService) private readonly postService: PostService
   ) {}
 
   async data() {
