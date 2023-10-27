@@ -37,10 +37,13 @@ export class PostService {
       .select(sql)
       .getRawOne<PostEntity>()
 
-    const recommends = await this.postRepository.createQueryBuilder().where('id != :id', { id }).getMany()
+    const [layout, recommends] = await Promise.all([
+      this.layoutService.layout(),
+      this.postRepository.createQueryBuilder().where('id != :id', { id }).getMany()
+    ])
 
     return {
-      layout: this.layoutService.layout(),
+      layout,
       post,
       recommends
     }

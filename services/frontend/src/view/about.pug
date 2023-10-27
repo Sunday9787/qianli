@@ -5,6 +5,7 @@ block style
 
 block content
   //- 关于
+  #about
   section#about-banner
     .about-banner-container
       .about-banner-inner
@@ -20,22 +21,25 @@ block content
           img(src=`${about.img}`)
 
   //- 公司环境
+  #env
   section#about-environment
-    +qianli-badge-title(['COMPANY', 'ENVIRONMENT'], '公司环境')(center qianli-animate='animate-fade-in').about-environment-title
-    .about-environment-swiper(qianli-animate='animate-fade-in')
-      +swiper
-        block wrapper
-          for item of environment
-            .swiper-slide
-              .about-environment-slide
-                img(src=`${item.img}`)
-          block pagination
-            a.about-environment__swiper-button.prev(href="javascript:;")
-              img(src="/image/arrow_left_small.png")
-            a.about-environment__swiper-button.next(href="javascript:;")
-              img(src="/image/arrow_right_small.png")
+    .about-environment-container
+      +qianli-badge-title(['COMPANY', 'ENVIRONMENT'], '公司环境')(center qianli-animate='animate-fade-in').about-environment-title
+      .about-environment-swiper(qianli-animate='animate-fade-in')
+        +swiper
+          block wrapper
+            for item of environment
+              .swiper-slide
+                .about-environment-slide
+                  img(src=`${item.img}`)
+            block pagination
+              a.about-environment__swiper-button.prev(href="javascript:;")
+                img(src="/image/arrow_left_small.png")
+              a.about-environment__swiper-button.next(href="javascript:;")
+                img(src="/image/arrow_right_small.png")
 
   //- 专利展示
+  #patent
   section#about-patent
     .about-patent-container
       +qianli-badge-title(['PATENT', 'DISPLAY'], '专利展示')(center qianli-animate='animate-fade-in').about-patent-title
@@ -60,6 +64,7 @@ block content
             img(src="/image/arrow_right_2.png")
 
   //- 合作伙伴
+  #partner
   section#about-partner
     .about-partner-container
       .about-partner-head(qianli-animate='animate-fade-in')

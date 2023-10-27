@@ -25,7 +25,8 @@ export class AboutService {
   }
 
   async data() {
-    const [about, environment, patent, partner] = await Promise.all([
+    const [layout, about, environment, patent, partner] = await Promise.all([
+      this.layoutService.layout(),
       this.aboutRepository.findOneByOrFail({ type: 'about' }),
       this.aboutRepository.findBy({ type: 'env' }),
       this.aboutRepository.findBy({ type: 'patent' }),
@@ -33,7 +34,7 @@ export class AboutService {
     ])
 
     return {
-      layout: this.layoutService.layout(),
+      layout,
       about,
       environment,
       patent,

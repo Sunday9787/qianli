@@ -5,9 +5,11 @@ import { LayoutService } from '@/layout/layout.service'
 export class AppService {
   constructor(@Inject(LayoutService) private layoutService: LayoutService) {}
 
-  data() {
+  async data() {
+    const [layout] = await Promise.all([this.layoutService.layout({ ghost: ['index'] })])
+
     return {
-      layout: this.layoutService.layout({ ghost: ['index'] }),
+      layout,
       message: 'hello word',
       productBanner: [
         {

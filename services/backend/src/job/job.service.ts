@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common'
 import { Repository } from 'typeorm'
 import { JobEntity } from './job.entity'
 import { JobDTO, JobEditDTO } from './job.dto'
-import { DepartmentEntity } from '@/department/department.entity'
+import { DepartmentEntity } from '@/common/department/department.entity'
 
 const sql = `
   job.id,

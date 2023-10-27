@@ -11,10 +11,14 @@ import { ContactFeedbackDTO } from './contact.feedback.dto'
 @Injectable()
 export class ContactService {
   constructor(
-    @Inject(LayoutService) private readonly layoutService: LayoutService,
-    @Inject(JobService) private readonly jobService: JobService,
-    @InjectRepository(ContactEntity) private readonly contactRepository: Repository<ContactEntity>,
-    @InjectRepository(ContactFeedbackEntity) private readonly contactFeedbackRepository: Repository<ContactFeedbackEntity>
+    @Inject(LayoutService)
+    private readonly layoutService: LayoutService,
+    @Inject(JobService)
+    private readonly jobService: JobService,
+    @InjectRepository(ContactEntity)
+    private readonly contactRepository: Repository<ContactEntity>,
+    @InjectRepository(ContactFeedbackEntity)
+    private readonly contactFeedbackRepository: Repository<ContactFeedbackEntity>
   ) {}
 
   add(body: ContactDTO[]) {
@@ -34,10 +38,14 @@ export class ContactService {
   }
 
   async data() {
-    const [jobs, contact] = await Promise.all([this.jobService.all(), this.contactRepository.find()])
+    const [layout, jobs, contact] = await Promise.all([
+      this.layoutService.layout(),
+      this.jobService.all(),
+      this.contactRepository.find()
+    ])
 
     return {
-      layout: this.layoutService.layout(),
+      layout,
       contact,
       jobs
     }

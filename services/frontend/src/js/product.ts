@@ -2,7 +2,7 @@ import Swiper from 'swiper'
 import $ from 'jquery'
 
 interface State {
-  id: number
+  category: number
 }
 
 const $buttons = $('.product-center-title .qianli-button')
@@ -13,10 +13,14 @@ const productSwiper = new Swiper('.product-center-swiper > .swiper-container', {
   speed: 1000
 })
 
+function action(index: number) {
+  productSwiper.slideTo(index)
+  $buttons.eq(index).addClass('active').siblings().removeClass('active')
+}
+
 window.addEventListener('popstate', function (e) {
   const data = e.state as State
-  productSwiper.slideTo(data.id)
-  $buttons.eq(data.id).addClass('active').siblings().removeClass('active')
+  action(Number(data.category))
 })
 
 $('.product-center-title').on('click', '.qianli-button', function (e) {
@@ -24,9 +28,14 @@ $('.product-center-title').on('click', '.qianli-button', function (e) {
   $(e.target).addClass('active').siblings().removeClass('active')
   productSwiper.slideTo(index)
 
-  // pushState
+  // replaceState
   const data = $(e.target).data() as State
   const url = new URL(location.href)
-  url.searchParams.set('id', String(data.id))
-  window.history.pushState(data, '', url)
+  url.searchParams.set('category', String(data.category))
+  window.history.replaceState(data, '', url)
 })
+
+setTimeout(function () {
+  const url = new URL(location.href)
+  action(Number(url.searchParams.get('category')) - 1)
+}, 0)

@@ -1,14 +1,62 @@
+import { Repository } from 'typeorm'
 import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
 import manifest from 'backend/manifest.json'
 import dayjs from 'dayjs'
+import { LayoutEntity } from './layout.entity'
+import { LayoutDTO, LayoutEditDTO } from './layout.dto'
 
 interface LayoutServiceOption {
   ghost: string[]
 }
 
+class MenuDTO extends LayoutEntity {
+  children: LayoutEntity[]
+}
+
+function transform(data: LayoutEntity[]) {
+  const map = new Map<number, MenuDTO>(
+    data.map(function (item) {
+      const value = new MenuDTO()
+      value.id = item.id
+      value.link = item.link
+      value.title = item.title
+      value.parent_id = item.parent_id
+      value.children = []
+
+      return [item.id, value]
+    })
+  )
+
+  for (const item of data) {
+    if (item.parent_id) {
+      map.get(item.parent_id).children.push(item)
+    }
+  }
+
+  return Array.from(map.values()).filter(item => item.parent_id === null)
+}
+
 @Injectable()
 export class LayoutService {
-  layout(option?: LayoutServiceOption) {
+  constructor(@InjectRepository(LayoutEntity) private layoutRepository: Repository<LayoutEntity>) {}
+
+  add(body: LayoutDTO) {
+    return this.layoutRepository.save(body)
+  }
+
+  edit(body: LayoutEditDTO) {
+    return this.layoutRepository.update({ id: body.id }, body)
+  }
+
+  del(id: number) {
+    return this.layoutRepository.delete(id)
+  }
+
+  async layout(option?: LayoutServiceOption) {
+    const response = await this.layoutRepository.find()
+    const menus = transform(response)
+
     return {
       manifest,
       helper: {
@@ -16,41 +64,7 @@ export class LayoutService {
       },
       isIndex: option?.ghost.includes('index'),
       isNews: option?.ghost.includes('news'),
-      menus: [
-        { title: '首页', url: '/', children: [] },
-        {
-          title: '关于千立',
-          url: '/about',
-          children: [
-            { title: '公司介绍 ', url: '/' },
-            { title: '公司环境 ', url: '/' },
-            { title: '专利展示 ', url: '/' },
-            { title: '合作伙伴 ', url: '/' }
-          ]
-        },
-        {
-          title: '产品中心',
-          url: '/product',
-          children: [
-            { title: '智能机器人系列', url: '/' },
-            { title: '灭菌系列产品', url: '/' },
-            { title: '耗材系列', url: '/' }
-          ]
-        },
-        {
-          title: '解决方案',
-          url: '/',
-          children: [
-            { title: '医院', url: '/' },
-            { title: '生物制药', url: '/' },
-            { title: '实验室', url: '/' },
-            { title: '急救中心', url: '/' },
-            { title: '公共场所', url: '/' }
-          ]
-        },
-        { title: '新闻动态', url: '/news', children: [] },
-        { title: '联系我们', url: '/contact', children: [{ title: '人才招聘', url: '/' }] }
-      ]
+      menus
     }
   }
 }

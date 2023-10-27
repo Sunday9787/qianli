@@ -9,10 +9,11 @@ import { AboutModule } from './about/about.module'
 import { ContactModule } from './contact/contact.module'
 import { NewsModule } from './news/news.module'
 import { PostModule } from './post/post.module'
-import { DepartmentModule } from './department/department.module'
 import { JobModule } from './job/job.module'
+import { CommonModule } from './common/common.module'
 
-import { DepartmentEntity } from './department/department.entity'
+import { LayoutEntity } from './layout/layout.entity'
+import { DepartmentEntity } from './common/department/department.entity'
 import { ContactFeedbackEntity } from './contact/contact.feedback.entity'
 import { ContactEntity } from './contact/contact.entity'
 import { AboutEntity } from './about/about.entity'
@@ -33,6 +34,7 @@ import { JobEntity } from './job/job.entity'
       database: 'qianli',
       // synchronize: true,
       entities: [
+        LayoutEntity,
         PostEntity,
         PostCategoryEntity,
         JobEntity,
@@ -51,7 +53,7 @@ import { JobEntity } from './job/job.entity'
     NewsModule,
     PostModule,
     JobModule,
-    DepartmentModule
+    CommonModule
   ],
   controllers: [AppController],
   providers: [AppService]

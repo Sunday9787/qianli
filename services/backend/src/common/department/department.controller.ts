@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Post, HttpCode, HttpStatus, Param, ParseIntPi
 import { DepartmentService } from './department.service'
 import { DepartmentDTO, DepartmentUpdateDTO } from './department.dto'
 
-@Controller('department')
+@Controller('common/department')
 export class DepartmentController {
   constructor(private departmentService: DepartmentService) {}
 

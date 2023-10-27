@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : docker-mysql-qianli
+ Source Server         : qianli
  Source Server Type    : MySQL
  Source Server Version : 80027
  Source Host           : localhost:3306

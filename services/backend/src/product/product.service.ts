@@ -49,7 +49,11 @@ export class ProductService {
   }
 
   async data() {
-    const [categories, products] = await Promise.all([this.categoryService.all(), this.productRepository.find()])
+    const [layout, categories, products] = await Promise.all([
+      this.layoutService.layout(),
+      this.categoryService.all(),
+      this.productRepository.find()
+    ])
     const productMap = new Map<number, ProductEntity[]>(categories.map(item => [item.id, []]))
 
     for (const item of products) {
@@ -65,7 +69,7 @@ export class ProductService {
     })
 
     return {
-      layout: this.layoutService.layout(),
+      layout,
       product
     }
   }

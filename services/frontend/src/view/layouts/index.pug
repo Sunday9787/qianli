@@ -54,7 +54,7 @@ html(lang="zh-CN")
     block script
     title 千立生物_打造洁净无菌空间 - #{ title }
     include ../components/index.pug
-  body
+  body(class=`${layout.isIndex || layout.isNews ? '' : 'qianli-body'}`)
     header(class=`${(layout.isIndex || layout.isNews) ? 'qianli-header-ghost' : 'qianli-header'}`)
       .qianli-header-inner
         a.qianli-header-logo(href="/")
@@ -64,7 +64,7 @@ html(lang="zh-CN")
 
         nav.qianli-header-nav
           each item in layout.menus
-            a.qianli-header-nav-item(href=`${item.url}`) #{item.title}
+            a.qianli-header-nav-item(href=`${item.link}`) #{item.title}
 
         form.qianli-header-form(action="/product" methed="get")
           .qianli-header-form-inner
@@ -122,9 +122,9 @@ html(lang="zh-CN")
             ol.qianli-footer-nav
               for item of layout.menus
                 li.qianli-footer-nav-group
-                  a(href=`${item.url}`).qianli-footer-nav__item #{item.title}
+                  a(href=`${item.link}`).qianli-footer-nav__item #{item.title}
                   for children of item.children
-                    a(href=`${children.url}`).qianli-footer-nav__item #{children.title}
+                    a(href=`${children.link}`).qianli-footer-nav__item #{children.title}
 
         .qianli-footer-copyright
           p

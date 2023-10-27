@@ -10,10 +10,10 @@ export class NewsService {
   ) {}
 
   async data() {
-    const news = await this.postService.all()
+    const [layout, news] = await Promise.all([this.layoutService.layout({ ghost: ['news'] }), this.postService.all()])
 
     return {
-      layout: this.layoutService.layout({ ghost: ['news'] }),
+      layout,
       post: news.shift(),
       news
     }
