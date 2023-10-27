@@ -9,16 +9,17 @@ import { AboutModule } from './about/about.module'
 import { ContactModule } from './contact/contact.module'
 import { NewsModule } from './news/news.module'
 import { PostModule } from './post/post.module'
-import { CategoryModule } from './category/category.module'
 import { DepartmentModule } from './department/department.module'
 import { JobModule } from './job/job.module'
 
 import { DepartmentEntity } from './department/department.entity'
 import { ContactFeedbackEntity } from './contact/contact.feedback.entity'
-import { CategoryEntity } from './category/category.entity'
 import { ContactEntity } from './contact/contact.entity'
 import { AboutEntity } from './about/about.entity'
 import { PostEntity } from './post/post.entity'
+import { PostCategoryEntity } from './post/category/category.entity'
+import { ProductEntity } from './product/product.entity'
+import { ProductCategoryEntity } from './product/category/category.entity'
 import { JobEntity } from './job/job.entity'
 
 @Module({
@@ -33,12 +34,14 @@ import { JobEntity } from './job/job.entity'
       // synchronize: true,
       entities: [
         PostEntity,
-        CategoryEntity,
+        PostCategoryEntity,
         JobEntity,
         DepartmentEntity,
         AboutEntity,
         ContactEntity,
-        ContactFeedbackEntity
+        ContactFeedbackEntity,
+        ProductEntity,
+        ProductCategoryEntity
       ]
     }),
     LayoutModule,
@@ -47,7 +50,6 @@ import { JobEntity } from './job/job.entity'
     ContactModule,
     NewsModule,
     PostModule,
-    CategoryModule,
     JobModule,
     DepartmentModule
   ],

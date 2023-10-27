@@ -31,7 +31,7 @@ CREATE TABLE `qianli_post` (
   `content` longtext NOT NULL COMMENT '文章内容',
   `img` varchar(255) NOT NULL COMMENT '文章封面',
   PRIMARY KEY (`id`),
-  FOREIGN KEY (category_id) REFERENCES qianli_category(id)
+  FOREIGN KEY (category_id) REFERENCES qianli_post_category(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------

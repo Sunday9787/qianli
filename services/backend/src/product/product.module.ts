@@ -1,12 +1,16 @@
+import { TypeOrmModule } from '@nestjs/typeorm'
 import { Module } from '@nestjs/common'
-import { LayoutService } from '@/layout/layout.service'
+import { LayoutModule } from '@/layout/layout.module'
+import { CategoryModule } from './category/category.module'
+
 import { ProductController } from './product.controller'
 import { ProductService } from './product.service'
-import { DetailModule } from './detail/detail.module'
+import { ProductEntity } from './product.entity'
+import { ProductDetailEntity } from './product.detail.entity'
 
 @Module({
-  imports: [DetailModule],
+  imports: [TypeOrmModule.forFeature([ProductEntity, ProductDetailEntity]), LayoutModule, CategoryModule],
   controllers: [ProductController],
-  providers: [ProductService, LayoutService]
+  providers: [ProductService]
 })
 export class ProductModule {}

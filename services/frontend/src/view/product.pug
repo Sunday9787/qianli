@@ -12,9 +12,9 @@ block content
         +qianli-button-group()(qianli-animate='animate-fade-in')
           each item,index in product
             if (index === 0)
-              +qianli-button(item.category)(data-id=`${item.id}`).active
+              +qianli-button(item.category_name)(data-id=`${item.id}`).active
             else
-              +qianli-button(item.category)(data-id=`${item.id}`)
+              +qianli-button(item.category_name)(data-id=`${item.id}`)
 
       .product-center-swiper
         +swiper(false)

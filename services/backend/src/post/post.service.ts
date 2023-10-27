@@ -2,7 +2,7 @@ import { Repository } from 'typeorm'
 import { Inject, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { LayoutService } from '@/layout/layout.service'
-import { CategoryEntity } from '@/category/category.entity'
+import { PostCategoryEntity } from './category/category.entity'
 import { PostEntity } from './post.entity'
 import { PostAddDTO } from './post.dto'
 
@@ -32,7 +32,7 @@ export class PostService {
   async data(id: number) {
     const post = await this.postRepository
       .createQueryBuilder('post')
-      .leftJoinAndSelect(CategoryEntity, 'category', 'post.category_id = category.id')
+      .leftJoinAndSelect(PostCategoryEntity, 'category', 'post.category_id = category.id')
       .where('post.id = :id', { id })
       .select(sql)
       .getRawOne<PostEntity>()
@@ -49,7 +49,7 @@ export class PostService {
   all() {
     return this.postRepository
       .createQueryBuilder('post')
-      .leftJoinAndSelect(CategoryEntity, 'category', 'post.category_id = category.id')
+      .leftJoinAndSelect(PostCategoryEntity, 'category', 'post.category_id = category.id')
       .select(sql)
       .getRawMany<PostEntity>()
   }
