@@ -9,7 +9,13 @@
   transition all 480ms
 
   .qianli-header-nav-item
-      @apply text-gray-700
+    @apply text-gray-700
+  .qianli-header-form__icon
+    @apply text-gray-700
+  .qianli-header-form-input
+    @apply text-gray-700
+  .qianli-header-form__line
+    background-color rgba(51,51,51,30%)
 
 .qianli-header-ghost
   position fixed
@@ -24,6 +30,12 @@
 
     .qianli-header-nav-item
       @apply text-gray-700
+    .qianli-header-form__icon
+      @apply text-gray-700
+    .qianli-header-form-input
+      @apply text-gray-700
+    .qianli-header-form__line
+      background-color rgba(51,51,51,30%)
 
   &.pin
     background-color #fff
@@ -31,8 +43,14 @@
     box-shadow 0 0px 2px 0 rgba(0, 0, 0, 18%)
 
     .qianli-header-nav-item
-      padding 24px 38px
+      margin 24px 38px
       @apply text-gray-700
+    .qianli-header-form__icon
+      @apply text-gray-700
+    .qianli-header-form-input
+      @apply text-gray-700
+    .qianli-header-form__line
+        background-color rgba(51,51,51,30%)
 
 .qianli-header-inner
   position relative
@@ -50,8 +68,7 @@
   display flex
 
   &-item
-    display inline-block
-    padding 30px 28px
+    margin 30px 28px
     font-size 16px
     transition all .48s
     @apply text-white
@@ -59,6 +76,55 @@
 .qianli-footer
   position relative
   background-color #40327d
+
+.qianli-header-form
+  position relative
+  display flex
+  @apply items-center
+
+  &__icon
+    display block
+    width 18px
+    color #fff
+    transition all .48s
+    &.icon-close
+      display none
+
+  &__line
+    display block
+    width 1px
+    height 30px
+    margin 0 16px
+    background-color rgba(255,255,255,30%)
+    transition all .48s
+
+.qianli-header-form-inner
+  position relative
+  width 0
+  margin-right 20px
+  overflow hidden
+  opacity 0
+  transition all .48s
+  &.open
+    width 240px
+    opacity 1
+
+.qianli-header-form-input
+  position relative
+  width 100%
+  padding 5px 10px 5px 40px
+  @apply text-white
+  background none
+  border 1px solid #EFEFF1
+  border-radius 25px
+  outline none
+  transition all .68s
+
+  & + .qianli-header-form__icon
+    position absolute
+    top 50%
+    left 10px
+    transform translateY(-50%)
 
 .qianli-footer-top
   display flex
