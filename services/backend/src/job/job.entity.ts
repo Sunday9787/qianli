@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { DepartmentEntity } from '@/common/department/department.entity'
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('qianli_job')
 export class JobEntity {
@@ -23,5 +24,7 @@ export class JobEntity {
   @Column({ type: 'varchar', length: 1000, comment: '岗位职责' })
   responsibility: string
 
+  @OneToOne(() => DepartmentEntity, metadata => metadata.department_name)
+  @JoinColumn({ name: 'department_id', referencedColumnName: 'id' })
   department_name: string
 }

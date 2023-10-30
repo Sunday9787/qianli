@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common'
 import { Repository } from 'typeorm'
 import { JobEntity } from './job.entity'
 import { JobDTO, JobEditDTO } from './job.dto'
-import { DepartmentEntity } from '@/common/department/department.entity'
 
 const sql = `
   job.id,
@@ -38,7 +37,7 @@ export class JobService {
   all() {
     return this.jobRepository
       .createQueryBuilder('job')
-      .innerJoin(DepartmentEntity, 'department', 'job.department_id = department.id')
+      .innerJoin('job.department_name', 'department')
       .select(sql)
       .getRawMany<JobEntity>()
   }

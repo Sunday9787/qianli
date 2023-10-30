@@ -14,27 +14,21 @@ class MenuDTO extends LayoutEntity {
   children: LayoutEntity[]
 }
 
-function transform(data: LayoutEntity[]) {
-  const map = new Map<number, MenuDTO>(
-    data.map(function (item) {
-      const value = new MenuDTO()
-      value.id = item.id
-      value.link = item.link
-      value.title = item.title
-      value.parent_id = item.parent_id
-      value.children = []
-
-      return [item.id, value]
-    })
-  )
-
+function buildMenu(data: LayoutEntity[], parentId: null | number) {
+  const result: MenuDTO[] = []
   for (const item of data) {
-    if (item.parent_id) {
-      map.get(item.parent_id).children.push(item)
+    if (item.parent_id === parentId) {
+      const menu = new MenuDTO()
+      menu.id = item.id
+      menu.parent_id = item.parent_id
+      menu.title = item.title
+      menu.link = item.link
+      menu.children = buildMenu(data, item.id)
+      result.push(menu)
     }
   }
 
-  return Array.from(map.values()).filter(item => item.parent_id === null)
+  return result
 }
 
 @Injectable()
@@ -55,7 +49,7 @@ export class LayoutService {
 
   async layout(option?: LayoutServiceOption) {
     const response = await this.layoutRepository.find()
-    const menus = transform(response)
+    const menus = buildMenu(response, null)
 
     return {
       manifest,

@@ -28,6 +28,6 @@ export class PostEntity {
   img: string
 
   @OneToOne(() => PostCategoryEntity, metadata => metadata.category_name)
-  @JoinColumn({ name: 'category_id', referencedColumnName: 'id', foreignKeyConstraintName: 'category_id' })
+  @JoinColumn({ name: 'category_id', referencedColumnName: 'id' })
   category_name: string
 }
