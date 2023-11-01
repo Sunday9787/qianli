@@ -1,0 +1,114 @@
+extends layouts/index.pug
+
+block style
+  link(rel="stylesheet" href=`${layout.manifest['product_detail.css']}`)
+
+block content
+
+  //- 产品功能
+  section#product-detail
+    .product-detail-inner
+      +qianli-breadcrumb(breadcrumbs)
+      .product-detail-banner
+        .product-detail-banner__content
+          h1.product-detail__head(qianli-animate='animate-fade-in')
+            p.product-detail-title #{detail.category}
+            p.product-detail-subtitle
+              | #{detail.title}
+              i #{detail.name}
+          .product-detail__content
+            h2.product-detail-part(qianli-animate='animate-fade-in') 产品功能
+
+            ol.product-detail-parts(qianli-animate='animate-fade-in')
+              - var details = detail.detail.split(/\r|\n/)
+              - details.pop()
+              for item of details
+                li.product-detail__item
+                  p #{item}
+
+        #product-detail-banner-swiper.product-detail-banner__swiper
+          .swiper-container.product-detail-swiper
+            .swiper-wrapper
+              for item of detail.img
+                .swiper-slide
+                  .product-detail-slide
+                    img(src=`${item}`)
+                    if detail.media
+                      a.product-detail-play(href="javascript:;")
+                        img(src="/image/play.png")
+
+          .swiper-container.product-detail-swiper__preview
+            .swiper-wrapper
+              for item of detail.img
+                .swiper-slide(style="height: 126px;")
+                  .product-detail-swiper__preview-slide
+                    img(src=`${item}`)
+
+  //- 产品特点
+  if detail.feature
+    section#product-detail-feature
+      .product-detail-inner
+        .product-detail-head(qianli-animate='animate-fade-in')
+          +qianli-badge-title(['PRODUCT', 'FEATURES'], '产品特点')(center large)
+
+        .product-detail-feature-swiper
+          .swiper-container
+            .swiper-wrapper
+              each item,index in detail.feature
+                .swiper-slide
+                  .product-detail-feature__slide
+                    img.product-detail-feature__icon(src=`${item.img}` qianli-animate='animate-fade-in')
+                    p.product-detail-feature__title(qianli-animate='animate-fade-in')
+                      b #{item.title}
+                    p.product-detail-feature__desc(qianli-animate='animate-fade-in') #{item.desc}
+                    i.product-detail-feature__index 0#{index + 1}
+            .swiper-pagination
+
+          a.prev(href="javascript:;")
+            img(src="/image/pro_l.png")
+          a.next(href="javascript:;")
+            img(src="/image/pro_r.png")
+
+  //- 应用场景
+  if detail.env
+    section#product-detail-env
+      .product-detail-inner
+        .product-detail-head(qianli-animate='animate-fade-in')
+          +qianli-badge-title(['APPLICATION', 'SCENARIOS'], '应用场景')(center large)
+
+        ol.product-detail-env-banner(qianli-animate='animate-fade-in' style=`background-image: url(${detail.env[0].img})`)
+          for item of detail.env
+            li.product-detail-env-slide.flex1(data-img=`${item.img}`)
+              .product-detail-env-slide__wrapper
+                img.product-detail-env-slide__icon(src=`${item.icon}`)
+                i.product-detail-env-slide__text #{item.text}
+
+  //- 技术参数
+  section#product-detail-spec
+    .product-detail-inner
+      .product-detail-head(qianli-animate='animate-fade-in')
+        +qianli-badge-title(['TECHNICAL', 'PARAMETER'], '技术参数')(center large)
+
+      table.product-detail-table
+        colgroup
+          col(width="30%")
+          col(width="70%")
+        tbody
+          for item of detail.spec
+            tr.product-detail-table__row(qianli-animate='animate-fade-in')
+              td.product-detail-table__cell.label.text-right #{item.label}
+              td.product-detail-table__cell.value.text-left!= item.value.replace(/(\r|\n)/g, '<br />')
+
+  if detail.media
+    .product-detail-dialog-container
+      .product-detail-dialog
+        .product-detail-dialog__content
+          video(id="media" src=`${detail.media}` playsinline="true" controls loop)
+        .product-detail-dialog__footer
+          a.close(href="javascript:;")
+            img(src="/image/close.png")
+
+block footer
+  script(type="text/javascript" charset="utf-8").
+    window.qianli_data = {data: !{JSON.stringify(detail)}}
+    require(['#{layout.manifest["product_detail.js"]}'])

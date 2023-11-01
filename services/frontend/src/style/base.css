@@ -12,3 +12,34 @@ body {
   background-color: #40327d;
   color: #fff;
 }
+
+/*滚动条宽高及背景*/
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+/*轨道颜色、内阴影及圆角*/
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px #e9f1f2;
+  background-color: #fff;
+  border-radius: 0px;
+}
+
+/*滑块*/
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  box-shadow: inset 0 0 6px #e5e5e5;
+  background-color: #e5e5e5;
+}
+
+/*两端按钮*/
+::-webkit-scrollbar-button {
+  background-color: transparent;
+  height: 0;
+}
+
+/*右下角汇合处样式*/
+::-webkit-scrollbar-corner {
+  background: khaki;
+}

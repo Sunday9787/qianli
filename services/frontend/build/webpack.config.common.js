@@ -20,6 +20,7 @@ module.exports = {
     layout: ['./src/js/layout.ts', './src/style/layout.styl'],
     common: ['./src/js/common.ts', './src/style/common.styl'],
     product: ['./src/js/product.ts', './src/style/product.styl'],
+    product_detail: ['./src/js/product_detail.ts', './src/style/product_detail.styl'],
     about: ['./src/js/about.ts', './src/style/about.styl'],
     contact: ['./src/js/contact.ts', './src/style/contact.styl'],
     news: ['./src/js/news.ts', './src/style/news.styl'],

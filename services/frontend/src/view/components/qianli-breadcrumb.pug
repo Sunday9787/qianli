@@ -1,0 +1,8 @@
+mixin qianli-breadcrumb(data)
+  nav.qianli-breadcrumb
+    for item of data
+      if item === data.at(-1)
+        span.qianli-breadcrumb-item.active #{item.label}
+      else
+        a.qianli-breadcrumb-item(href=`${item.link}`) #{item.label}
+        i.qianli-breadcrumb-separator /

@@ -1,14 +1,9 @@
 import { LayoutService } from '@/layout/layout.service'
 import { Injectable } from '@nestjs/common'
-import yaml from 'js-yaml'
-import path from 'path'
-import fs from 'fs'
+import { loadYaml } from 'backend/tools'
 import { PostEntity } from './post.entity'
 
-const projectRoot = path.join(process.cwd(), '..', '..')
-const postYaml = fs.readFileSync(path.join(projectRoot, '/services/backend/data/post.yaml'), { encoding: 'utf-8' })
-const posts = (yaml.load(postYaml) as { post: PostEntity[] }).post
-
+const { posts } = loadYaml<{ posts: PostEntity[] }>('/services/backend/data/post.yaml')
 const postMap: Map<number, PostEntity> = new Map(
   posts.map(function (item, index) {
     return [index, item]
