@@ -14,6 +14,8 @@ const productSwiper = new Swiper('.product-center-swiper > .swiper-container', {
 })
 
 function action(index: number) {
+  if (index < 0) index = 0
+
   productSwiper.slideTo(index)
   $buttons.eq(index).addClass('active').siblings().removeClass('active')
 }
@@ -37,5 +39,6 @@ $('.product-center-title').on('click', '.qianli-button', function (e) {
 
 setTimeout(function () {
   const url = new URL(location.href)
-  action(Number(url.searchParams.get('category')) - 1)
+  const index = url.searchParams.get('category')
+  action(Number(index) - 1)
 }, 0)
