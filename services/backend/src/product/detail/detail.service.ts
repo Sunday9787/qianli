@@ -16,6 +16,22 @@ class RenderDetailDTO extends ProductBaseEditDTO {
   spec: ProductSpecDTO[] | null
 }
 
+function buildRenderDetailDTO(data: ProductEntity) {
+  const dto = new RenderDetailDTO()
+  dto.title = data.title
+  dto.name = data.name
+  dto.category_id = data.category_id
+  dto.category_name = data.category.category_name
+  dto.detail = data.detail
+  dto.media = data.media
+  dto.img = data.img.map(img => img.path)
+  dto.scenario = data.scenario
+  dto.feature = data.feature
+  dto.spec = data.spec
+
+  return dto
+}
+
 @Injectable()
 export class DetailService {
   constructor(
@@ -36,21 +52,7 @@ export class DetailService {
           id
         }
       })
-      .then(function (product) {
-        const renderDetailDTO = new RenderDetailDTO()
-        renderDetailDTO.title = product.title
-        renderDetailDTO.name = product.name
-        renderDetailDTO.category_id = product.category_id
-        renderDetailDTO.category_name = product.category.category_name
-        renderDetailDTO.detail = product.detail
-        renderDetailDTO.media = product.media
-        renderDetailDTO.img = product.img.map(img => img.path)
-        renderDetailDTO.scenario = product.scenario
-        renderDetailDTO.feature = product.feature
-        renderDetailDTO.spec = product.spec
-
-        return renderDetailDTO
-      })
+      .then(buildRenderDetailDTO)
 
     return {
       layout,

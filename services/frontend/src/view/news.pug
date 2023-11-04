@@ -22,7 +22,7 @@ block content
   section#news-container
     .news-inner
       ol.news-list
-        for item of news
+        for item of news.list
           li.news-item
             .news-item-cover(qianli-animate='animate-fade-in')
               img(src=`${item.img}`)
@@ -34,6 +34,9 @@ block content
               p.news-item-date(qianli-animate='animate-fade-in')
                 b #{layout.helper.dayjs(item.date).format('YYYY-MM-DD')}
               img.news-item-icon(src="/image/case_r.png" qianli-animate='animate-fade-in')
+
+      .flex.justify-center
+        +qianli-pagination(pagination)
 
 block footer
   script(type="text/javascript" charset="utf-8").

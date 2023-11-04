@@ -1,0 +1,36 @@
+.qianli-pagination
+  position relative
+
+  &-item
+    position relative
+    display inline-block
+    padding 6px 12px
+    line-height 1.4
+    color #868c93
+    text-decoration none
+    background-color #fff
+    border 0
+
+    &:hover
+      color #40327d
+      background-color lighten(#40327d, 80%)
+      border-color #ddd
+
+    &--current
+      color #fff
+      background-color #40327d
+      border-color #40327d
+      &:hover
+        color #fff
+        background-color #40327d
+        border-color #40327d
+
+    &--disabled
+      cursor not-allowed
+      background-color #eee
+      &:hover
+        color #868c93
+        text-decoration none
+
+    & + &
+      margin-left 10px

@@ -1,16 +1,22 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { LayoutService } from '@/layout/layout.service'
+import { PostService } from './post/post.service'
 
 @Injectable()
 export class AppService {
-  constructor(@Inject(LayoutService) private layoutService: LayoutService) {}
+  constructor(
+    @Inject(LayoutService) private readonly layoutService: LayoutService,
+    @Inject(PostService) private readonly postService: PostService
+  ) {}
 
   async data() {
-    const [layout] = await Promise.all([this.layoutService.layout({ ghost: ['index'] })])
+    const [layout, { list: news }] = await Promise.all([
+      this.layoutService.layout({ ghost: ['index'] }),
+      this.postService.all({ size: 4, current: 1 })
+    ])
 
     return {
       layout,
-      message: 'hello word',
       productBanner: [
         {
           model: 'Cubic 1000',
@@ -89,32 +95,7 @@ export class AppService {
           }
         ]
       },
-      news: [
-        {
-          title: '过氧化氢灭菌在生产车间B级区的应用',
-          link: '/',
-          date: '2023-04-28',
-          img: '/upload/20230428144847664046.jpg'
-        },
-        {
-          title: '洁净室竣工后的开荒保洁与灭菌（二）',
-          link: '/',
-          date: '2022-12-30',
-          img: '/upload/20221230154013471254.png'
-        },
-        {
-          title: '洁净室竣工后的开荒保洁与灭菌（一）',
-          link: '/',
-          date: '2023-04-28',
-          img: '/upload/20221212170017104398.png'
-        },
-        {
-          title: '洁净车间不同化学消毒方式的对比',
-          link: '/',
-          date: '2023-04-28',
-          img: '/upload/20221110141603377875.jpeg'
-        }
-      ]
+      news
     }
   }
 }

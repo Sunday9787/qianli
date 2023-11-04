@@ -1,0 +1,25 @@
+mixin qianli-pagination(pagination)
+  .qianli-pagination
+    a.qianli-pagination-item.qianli-pagination-item--prev(
+      href=`${pagination.prevPage}`
+      class=`${(pagination.current === 1 && 'qianli-pagination-item--disabled') || ''}`) 上一页
+
+    a.qianli-pagination-item(
+      href=`${pagination.transformURL(1)}`
+      class=`${(pagination.current === 1 && 'qianli-pagination-item--current') || ''}`) 1
+
+    if pagination.showPrevMore
+      span.qianli-pagination-item ...
+
+    for pager of pagination.pagers
+      a.qianli-pagination-item(
+        href=`${pagination.transformURL(pager)}`
+        class=`${(pagination.current === pager && 'qianli-pagination-item--current') || ''}`) #{pager}
+
+    a.qianli-pagination-item(
+      href=`${pagination.transformURL(pagination.total_page)}`
+      class=`${(pagination.current === pagination.total_page && 'qianli-pagination-item--current') || ''}`) #{pagination.total_page}
+
+    a.qianli-pagination-item.next(
+      href=`${pagination.nextPage}`
+      class=`${(pagination.current === pagination.total_page && 'disabled') || ''}`) 下一页

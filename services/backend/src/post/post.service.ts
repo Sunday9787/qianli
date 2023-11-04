@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { LayoutService } from '@/layout/layout.service'
 import { PostEntity } from './post.entity'
-import { PostDTO } from './post.dto'
+import { ListDTO, PostDTO, PostQueryDTO } from './post.dto'
 
 class RenderPostDTO extends PostDTO {
   id: number
@@ -52,9 +52,21 @@ export class PostService {
     }
   }
 
-  all(): Promise<RenderPostDTO[]> {
-    return this.postRepository.find({ relations: { category: true } }).then(function (result) {
-      return result.map(buildRenderPostDTO)
-    })
+  all(query: PostQueryDTO): Promise<ListDTO<RenderPostDTO>> {
+    return this.postRepository
+      .findAndCount({
+        relations: { category: true },
+        take: query.size,
+        skip: query.size * (query.current - 1)
+      })
+      .then(function ([result, total]) {
+        const dto = new ListDTO<RenderPostDTO>()
+        dto.current = query.current
+        dto.size = query.size
+        dto.total = total
+        dto.list = result.map(buildRenderPostDTO)
+
+        return dto
+      })
   }
 }

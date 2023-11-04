@@ -45,7 +45,7 @@ block content
                     img(src=`${item}`)
 
   //- 产品特点
-  if detail.feature
+  if detail.feature.length
     section#product-detail-feature
       .product-detail-inner
         .product-detail-head(qianli-animate='animate-fade-in')
@@ -70,14 +70,14 @@ block content
             img(src="/image/pro_r.png")
 
   //- 应用场景
-  if detail.env
+  if detail.scenario.length
     section#product-detail-env
       .product-detail-inner
         .product-detail-head(qianli-animate='animate-fade-in')
           +qianli-badge-title(['APPLICATION', 'SCENARIOS'], '应用场景')(center large)
 
-        ol.product-detail-env-banner(qianli-animate='animate-fade-in' style=`background-image: url(${detail.env[0].img})`)
-          for item of detail.env
+        ol.product-detail-env-banner(qianli-animate='animate-fade-in' style=`background-image: url(${detail.scenario[0].img})`)
+          for item of detail.scenario
             li.product-detail-env-slide.flex1(data-img=`${item.img}`)
               .product-detail-env-slide__wrapper
                 img.product-detail-env-slide__icon(src=`${item.icon}`)

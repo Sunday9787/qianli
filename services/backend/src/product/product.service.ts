@@ -30,6 +30,28 @@ class RenderProductDTO {
   img: string[]
 }
 
+function buildRenderDTO(data: CategoryEntity[]) {
+  return data.map(function (item) {
+    const dto = new RenderDTO()
+    dto.id = item.id
+    dto.category_name = item.category_name
+    dto.data = item.product.map(buildRenderProductDTO)
+
+    return dto
+  })
+}
+
+function buildRenderProductDTO(data: ProductEntity) {
+  const dto = new RenderProductDTO()
+  dto.id = data.id
+  dto.title = data.title
+  dto.name = data.name
+  dto.category_id = data.category_id
+  dto.img = data.img.map(img => img.path)
+
+  return dto
+}
+
 @Injectable()
 export class ProductService {
   constructor(
@@ -132,24 +154,7 @@ export class ProductService {
           type: 'product'
         }
       })
-      .then(function (result) {
-        return result.map(function (center) {
-          const renderDTO = new RenderDTO()
-          renderDTO.id = center.id
-          renderDTO.category_name = center.category_name
-          renderDTO.data = center.product.map(function (product) {
-            const renderProductDTO = new RenderProductDTO()
-            renderProductDTO.id = product.id
-            renderProductDTO.title = product.title
-            renderProductDTO.name = product.name
-            renderProductDTO.category_id = product.category_id
-            renderProductDTO.img = product.img.map(img => img.path)
-            return renderProductDTO
-          })
-
-          return renderDTO
-        })
-      })
+      .then(buildRenderDTO)
 
     return {
       layout,
