@@ -91,7 +91,7 @@ block content
 
         nav.product-center-series(qianli-animate='animate-fade-in')
           each item in productCenter.series
-            a.product-center-nav(href=`${item.link}`) #{item.label}
+            a.product-center-nav(href=`/product?category=${item.id}`) #{item.category_name}
 
       .product-center-content
         .product-center-main
@@ -104,13 +104,13 @@ block content
                       h2.product-center-side__title(qianli-animate='animate-fade-in')
                         .bg
                         | #{item.title}
-                      p.product-center-side__sub(qianli-animate='animate-fade-in') #{item.sub}
+                      p.product-center-side__sub(qianli-animate='animate-fade-in') #{item.category_name}
 
                       p.product-center-side__desc(qianli-animate='animate-fade-in')
-                      +qianli-ghost-button('VIEW MORE')(href=`${item.link}` mode="dark" qianli-animate='animate-fade-in')
+                      +qianli-ghost-button('VIEW MORE')(href=`/product/detail?id=${item.id}` mode="dark" qianli-animate='animate-fade-in')
 
                     .product-center-side__legend
-                      img(src=`${item.image}`)
+                      img(src=`${item.img[0]}`)
 
             .product-center-navigation
               a.product-center-navigation__button.prev(href="javascript:;")
@@ -125,11 +125,11 @@ block content
                 .swiper-slide
                   .product-center-side.sub
                     .product-center-side__legend
-                      img(src=`${item.image}`)
+                      img(src=`${item.img[0]}`)
                     .product-center-side__content(qianli-animate='animate-fade-in')
                       h2.product-center-side__title #{item.title}
                         .bg
-                      p.product-center-side__sub #{item.sub}
+                      p.product-center-side__sub #{item.category_name}
 
   //- 导航
   section#navigation-container

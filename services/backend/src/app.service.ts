@@ -1,18 +1,48 @@
+import { InjectEntityManager } from '@nestjs/typeorm'
 import { Inject, Injectable } from '@nestjs/common'
+import { EntityManager } from 'typeorm'
 import { LayoutService } from '@/layout/layout.service'
 import { PostService } from './post/post.service'
+import { ProductEntity } from './product/product.entity'
+import { CategoryEntity } from './common/category/category.entity'
+
+class ProductCenterBannerDTO {
+  id: number
+  title: string
+  category_id: number
+  category_name: string
+  img: string[]
+}
+
+function buildProductCenterBannerDTO(data: ProductEntity[]) {
+  return data.map(function (product) {
+    const dto = new ProductCenterBannerDTO()
+    dto.id = product.id
+    dto.img = product.img.map(item => item.path)
+    dto.category_name = product.category.category_name
+    dto.category_id = product.category_id
+    dto.title = product.title
+
+    return dto
+  })
+}
 
 @Injectable()
 export class AppService {
   constructor(
     @Inject(LayoutService) private readonly layoutService: LayoutService,
-    @Inject(PostService) private readonly postService: PostService
+    @Inject(PostService) private readonly postService: PostService,
+    @InjectEntityManager() private readonly entityManager: EntityManager
   ) {}
 
   async data() {
-    const [layout, { list: news }] = await Promise.all([
+    const [layout, { list: news }, productCenterSeries, productCenterBanner] = await Promise.all([
       this.layoutService.layout({ ghost: ['index'] }),
-      this.postService.all({ size: 4, current: 1 })
+      this.postService.all({ size: 4, current: 1 }),
+      this.entityManager.find(CategoryEntity, { where: { type: 'product' } }),
+      this.entityManager
+        .find(ProductEntity, { take: 5, relations: { category: true, img: true } })
+        .then(buildProductCenterBannerDTO)
     ])
 
     return {
@@ -52,48 +82,8 @@ export class AppService {
         { title: '公共场所', icon: '/upload/20220614162610551710.png', translate: 'Public places' }
       ],
       productCenter: {
-        series: [
-          { label: '智能机器人系列', link: '/product/1' },
-          { label: '灭菌系列产品', link: '/product/2' },
-          { label: '耗材系列', link: '/product/3' }
-        ],
-        mainBanner: [
-          {
-            title: '便携式过氧化氢消毒机 ',
-            sub: '灭菌系列产品',
-            desc: '',
-            link: '/product/7',
-            image: '/upload/20220626161856158843.png'
-          },
-          {
-            title: '车载式过氧化氢消毒机',
-            sub: '灭菌系列产品',
-            desc: '',
-            link: '/product/7',
-            image: '/upload/20220626162355757476.png'
-          },
-          {
-            title: '过氧化氢灭菌机器人',
-            sub: '智能机器人系列',
-            desc: 'Cubic 1000灭菌机器人采用最新的压缩喷雾技术，实现过氧化氢粒子小于2μm，对空气和物体表面进行灭菌，做到更强的扩散效力。机器人部分采用工业级AGV机器人底盘，利用激光雷达导航系统，精确定位，利用深度摄像头、超声波传感器等做到精确避障，到达指定位置。',
-            link: '/product/7',
-            image: '/upload/20220714104839370819.png'
-          },
-          {
-            title: '浮游菌采样机器人',
-            sub: '智能机器人系列',
-            desc: '',
-            link: '/product/7',
-            image: '/upload/20220819160532423622.png'
-          },
-          {
-            title: '固定式过氧化氢灭菌器',
-            sub: '灭菌系列产品',
-            desc: '',
-            link: '/product/7',
-            image: '/upload/20220626161550774566.png'
-          }
-        ]
+        series: productCenterSeries,
+        mainBanner: productCenterBanner
       },
       news
     }
