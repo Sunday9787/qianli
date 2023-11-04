@@ -2,9 +2,10 @@ import { Body, Controller, Delete, HttpCode, HttpStatus, Param, ParseIntPipe, Po
 import { CategoryService } from './category.service'
 import { CategoryDTO, CategoryEditDTO } from './category.dto'
 
-@Controller('product/category')
+@Controller('common/category')
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}
+
   @HttpCode(HttpStatus.OK)
   @Put('add')
   add(@Body() body: CategoryDTO) {

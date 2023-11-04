@@ -4,16 +4,23 @@ import { Repository } from 'typeorm'
 import { JobEntity } from './job.entity'
 import { JobDTO, JobEditDTO } from './job.dto'
 
-const sql = `
-  job.id,
-  job.title,
-  job.num,
-  job.department_id,
-  job.city,
-  job.requirement,
-  job.responsibility,
-  department.department_name
-`
+class RenderJobDTO extends JobDTO {
+  id: number
+  department_name: string
+}
+
+function buildRenderJobDTO(entity: JobEntity) {
+  const dto = new RenderJobDTO()
+  dto.title = entity.title
+  dto.num = entity.num
+  dto.department_name = entity.department.department_name
+  dto.department_id = entity.department_id
+  dto.city = entity.city
+  dto.requirement = entity.requirement
+  dto.responsibility = entity.responsibility
+
+  return dto
+}
 
 @Injectable()
 export class JobService {
@@ -34,11 +41,9 @@ export class JobService {
   /**
    * 所有职位
    */
-  all() {
-    return this.jobRepository
-      .createQueryBuilder('job')
-      .innerJoin('job.department_name', 'department')
-      .select(sql)
-      .getRawMany<JobEntity>()
+  all(): Promise<RenderJobDTO[]> {
+    return this.jobRepository.find({ relations: { department: true } }).then(function (result) {
+      return result.map(buildRenderJobDTO)
+    })
   }
 }

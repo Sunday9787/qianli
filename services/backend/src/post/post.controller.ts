@@ -1,6 +1,6 @@
 import { Controller, Get, Render, Param, ParseIntPipe, Post, Body, HttpCode, HttpStatus } from '@nestjs/common'
 import { PostService } from './post.service'
-import { PostAddDTO } from './post.dto'
+import { PostDTO } from './post.dto'
 
 @Controller('post')
 export class PostController {
@@ -14,7 +14,7 @@ export class PostController {
 
   @HttpCode(HttpStatus.OK)
   @Post('add')
-  add(@Body() body: PostAddDTO) {
+  add(@Body() body: PostDTO) {
     console.log(body)
     return this.postService.add(body)
   }

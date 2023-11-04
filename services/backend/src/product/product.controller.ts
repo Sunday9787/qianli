@@ -12,7 +12,8 @@ import {
   Render
 } from '@nestjs/common'
 import { ProductService } from './product.service'
-import { ProductDTO, ProductEditDTO } from './product.dto'
+import { ProductAddDTO, ProductEditDTO } from './product.dto'
+import { ProductFileDTO } from './detail/detail.file.dto'
 
 @Controller('product')
 export class ProductController {
@@ -26,8 +27,16 @@ export class ProductController {
 
   @HttpCode(HttpStatus.OK)
   @Put('add')
-  add(@Body() body: ProductDTO) {
-    return this.productService.add(body)
+  add(@Body() body: ProductAddDTO) {
+    const { img, spec, scenario, feature, ...base } = body
+
+    const file = img.map(function (path) {
+      const result = new ProductFileDTO()
+      result.path = path
+      return result
+    })
+
+    return this.productService.add(base, feature, scenario, spec, file)
   }
 
   @HttpCode(HttpStatus.OK)

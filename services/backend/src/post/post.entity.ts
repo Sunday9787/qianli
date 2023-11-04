@@ -1,5 +1,5 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { PostCategoryEntity } from './category/category.entity'
+import { CategoryEntity } from '@/common/category/category.entity'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('qianli_post')
 export class PostEntity {
@@ -27,7 +27,7 @@ export class PostEntity {
   @Column({ type: 'varchar', nullable: false, length: 255, comment: '文章封面' })
   img: string
 
-  @OneToOne(() => PostCategoryEntity, metadata => metadata.category_name)
-  @JoinColumn({ name: 'category_id', referencedColumnName: 'id' })
-  category_name: string
+  @ManyToOne(() => CategoryEntity, metadata => metadata.post)
+  @JoinColumn({ name: 'category_id' })
+  category: CategoryEntity
 }

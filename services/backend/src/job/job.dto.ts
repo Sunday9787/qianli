@@ -1,5 +1,5 @@
 export class JobDTO {
-  job: string
+  title: string
   num: number
   department_id: number
   city: string

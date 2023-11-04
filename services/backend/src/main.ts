@@ -11,7 +11,16 @@ async function bootstrap() {
   app.setBaseViewsDir(path.join(projectRoot, 'services/frontend/src/view'))
   app.setViewEngine('pug')
   app.setGlobalPrefix('api', {
-    exclude: ['/', '/about', '/product', '/news', '/contact', '/post', { path: '/post/:id', method: 0 }]
+    exclude: [
+      '/',
+      '/about',
+      '/product',
+      { path: '/product/detail', method: 0 },
+      '/news',
+      '/contact',
+      '/post',
+      { path: '/post/:id', method: 0 }
+    ]
   })
 
   await app.listen(3000)

@@ -1,21 +1,29 @@
-import { Repository } from 'typeorm'
+import { Not, Repository } from 'typeorm'
 import { Inject, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { LayoutService } from '@/layout/layout.service'
 import { PostEntity } from './post.entity'
-import { PostAddDTO } from './post.dto'
+import { PostDTO } from './post.dto'
 
-const sql = `
-  post.id,
-  post.category_id,
-  post.date,
-  post.pv,
-  post.title,
-  post.desc,
-  post.content,
-  post.img,
-  category.category_name
-`
+class RenderPostDTO extends PostDTO {
+  id: number
+  category_name: string
+}
+
+function buildRenderPostDTO(entity: PostEntity) {
+  const dto = new RenderPostDTO()
+  dto.id = entity.id
+  dto.category_name = entity.category.category_name
+  dto.category_id = entity.category_id
+  dto.date = entity.date
+  dto.pv = entity.pv
+  dto.title = entity.title
+  dto.desc = entity.desc
+  dto.content = entity.content
+  dto.img = entity.img
+
+  return dto
+}
 
 @Injectable()
 export class PostService {
@@ -24,20 +32,17 @@ export class PostService {
     @Inject(LayoutService) private readonly layoutService: LayoutService
   ) {}
 
-  add(body: PostAddDTO) {
+  add(body: PostDTO) {
     return this.postRepository.save(body)
   }
 
   async data(id: number) {
-    const post = await this.postRepository
-      .createQueryBuilder('post')
-      .innerJoin('post.category_name', 'category')
-      .select(sql)
-      .getRawOne<PostEntity>()
-
-    const [layout, recommends] = await Promise.all([
+    const [layout, post, recommends] = await Promise.all([
       this.layoutService.layout(),
-      this.postRepository.createQueryBuilder().where('id != :id', { id }).getMany()
+      this.postRepository.findOne({ where: { id }, relations: { category: true } }).then(buildRenderPostDTO),
+      this.postRepository.find({ where: { id: Not(id) }, relations: { category: true } }).then(function (result) {
+        return result.map(buildRenderPostDTO)
+      })
     ])
 
     return {
@@ -47,11 +52,9 @@ export class PostService {
     }
   }
 
-  all() {
-    return this.postRepository
-      .createQueryBuilder('post')
-      .innerJoin('post.category_name', 'category')
-      .select(sql)
-      .getRawMany<PostEntity>()
+  all(): Promise<RenderPostDTO[]> {
+    return this.postRepository.find({ relations: { category: true } }).then(function (result) {
+      return result.map(buildRenderPostDTO)
+    })
   }
 }

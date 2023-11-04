@@ -1,43 +1,114 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
+import { EntityManager, Repository } from 'typeorm'
 import { LayoutService } from '@/layout/layout.service'
-import { CategoryService } from './category/category.service'
 import { ProductEntity } from './product.entity'
-import { ProductCategoryEntity } from './category/category.entity'
-import { ProductDTO, ProductEditDTO } from './product.dto'
+import { ProductEditDTO } from './product.dto'
+import { ProductFeatureEntity } from './detail/detail.feature.entity'
+import { ProductScenarioEntity } from './detail/detail.scenario.entity'
+import { ProductSpecEntity } from './detail/detail.spec.entity'
+import { ProductFileEntity } from './detail/detail.file.entity'
 
-class RenderDTO extends ProductCategoryEntity {
-  data: ProductEntity[]
+import { CategoryDTO } from '@/common/category/category.dto'
+import { CategoryEntity } from '@/common/category/category.entity'
+import { ProductFeatureDTO } from './detail/detail.feature.dto'
+import { ProductScenarioDTO } from './detail/detail.scenario.dto'
+import { ProductSpecDTO } from './detail/detail.spec.dto'
+import { ProductFileDTO } from './detail/detail.file.dto'
+import { ProductBaseDTO } from './detail/detail.dto'
+
+class RenderDTO extends CategoryDTO {
+  id: number
+  data: RenderProductDTO[]
 }
 
-const sql = `
-  product.id,
-  product.category_id,
-  product.title,
-  product.desc,
-  product.img,
-  category.category_name
-`
+class RenderProductDTO {
+  id: number
+  title: string
+  name: string
+  category_id: number
+  img: string[]
+}
 
 @Injectable()
 export class ProductService {
   constructor(
-    @Inject(LayoutService) private layoutService: LayoutService,
-    @Inject(CategoryService) private categoryService: CategoryService,
-    @InjectRepository(ProductEntity) private productRepository: Repository<ProductEntity>
+    @Inject(LayoutService)
+    private readonly layoutService: LayoutService,
+    @InjectRepository(CategoryEntity)
+    private readonly categoryRepository: Repository<CategoryEntity>,
+    @InjectRepository(ProductEntity)
+    private readonly productRepository: Repository<ProductEntity>,
+    @InjectRepository(ProductFeatureEntity)
+    private readonly productFeatureRepository: Repository<ProductFeatureEntity>,
+    @InjectRepository(ProductScenarioEntity)
+    private readonly productScenarioRepository: Repository<ProductScenarioEntity>,
+    @InjectRepository(ProductSpecEntity)
+    private readonly productSpecRepository: Repository<ProductSpecEntity>,
+    @InjectRepository(ProductFileEntity)
+    private readonly productFileRepository: Repository<ProductFileEntity>,
+    @InjectEntityManager()
+    private readonly entityManager: EntityManager
   ) {}
 
   all() {
-    return this.productRepository
-      .createQueryBuilder('product')
-      .innerJoin(ProductCategoryEntity, 'category', 'category.id = product.category_id')
-      .select(sql)
-      .getRawMany<ProductEntity>()
+    return this.productRepository.find({ relations: { img: true, category: true } })
   }
 
-  add(body: ProductDTO) {
-    return this.productRepository.save(body)
+  add(
+    productBase: ProductBaseDTO,
+    productFeature: ProductFeatureDTO[] | null,
+    productScenario: ProductScenarioDTO[] | null,
+    productSpec: ProductSpecDTO[],
+    productFile: ProductFileDTO[]
+  ) {
+    return this.entityManager.transaction(async transactionalEntityManager => {
+      /**
+       * 保存 产品基础
+       */
+      const product = this.productRepository.create(productBase)
+      await transactionalEntityManager.save(ProductEntity, product)
+
+      /**
+       * 保存 产品特点
+       */
+      if (productFeature) {
+        for (const feature of productFeature) {
+          const featureEntity = this.productFeatureRepository.create(feature)
+          featureEntity.product = product
+          await transactionalEntityManager.save(ProductFeatureEntity, featureEntity)
+        }
+      }
+
+      /**
+       * 保存 产品场景
+       */
+      if (productScenario) {
+        for (const scenario of productScenario) {
+          const scenarioEntity = this.productScenarioRepository.create(scenario)
+          scenarioEntity.product = product
+          await transactionalEntityManager.save(ProductScenarioEntity, scenarioEntity)
+        }
+      }
+
+      /**
+       * 保存 产品规格
+       */
+      for (const spec of productSpec) {
+        const specEntity = this.productSpecRepository.create(spec)
+        specEntity.product = product
+        await transactionalEntityManager.save(ProductSpecEntity, specEntity)
+      }
+
+      /**
+       * 保存 产品图片/video
+       */
+      for (const file of productFile) {
+        const fileEntity = this.productFileRepository.create(file)
+        fileEntity.product = product
+        await transactionalEntityManager.save(ProductFileEntity, fileEntity)
+      }
+    })
   }
 
   edit(body: ProductEditDTO) {
@@ -49,24 +120,36 @@ export class ProductService {
   }
 
   async data() {
-    const [layout, categories, products] = await Promise.all([
-      this.layoutService.layout(),
-      this.categoryService.all(),
-      this.productRepository.find()
-    ])
-    const productMap = new Map<number, ProductEntity[]>(categories.map(item => [item.id, []]))
+    const layout = await this.layoutService.layout()
+    const product: RenderDTO[] = await this.categoryRepository
+      .find({
+        relations: {
+          product: {
+            img: true
+          }
+        },
+        where: {
+          type: 'product'
+        }
+      })
+      .then(function (result) {
+        return result.map(function (center) {
+          const renderDTO = new RenderDTO()
+          renderDTO.id = center.id
+          renderDTO.category_name = center.category_name
+          renderDTO.data = center.product.map(function (product) {
+            const renderProductDTO = new RenderProductDTO()
+            renderProductDTO.id = product.id
+            renderProductDTO.title = product.title
+            renderProductDTO.name = product.name
+            renderProductDTO.category_id = product.category_id
+            renderProductDTO.img = product.img.map(img => img.path)
+            return renderProductDTO
+          })
 
-    for (const item of products) {
-      productMap.get(item.category_id).push(item)
-    }
-
-    const product: RenderDTO[] = categories.map(function (category) {
-      const item = new RenderDTO()
-      item.id = category.id
-      item.category_name = category.category_name
-      item.data = productMap.get(category.id)
-      return item
-    })
+          return renderDTO
+        })
+      })
 
     return {
       layout,

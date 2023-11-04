@@ -25,10 +25,10 @@ block content
                   for item of category.data
                     a.product-card(href=`/product/detail?id=${item.id}`)
                       .product-card-wallpaper(qianli-animate='animate-fade-in')
-                        img(src=`${item.img}`)
+                        img(src=`${item.img[0]}`)
                       .product-card-inner
                         p.product-card__title(qianli-animate='animate-fade-in') #{item.title}
-                        p.product-card__desc(qianli-animate='animate-fade-in') #{item.desc}
+                        p.product-card__desc(qianli-animate='animate-fade-in') #{item.name}
 
 block footer
   script(type="text/javascript" charset="utf-8").

@@ -1,4 +1,4 @@
-export class PostAddDTO {
+export class PostDTO {
   category_id: number
   date: Date
   pv: number
@@ -6,4 +6,8 @@ export class PostAddDTO {
   desc: string
   content: string
   img: string
+}
+
+export class PostEditDTO extends PostDTO {
+  id: number
 }
