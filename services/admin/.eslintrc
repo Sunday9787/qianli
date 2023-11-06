@@ -1,0 +1,30 @@
+{
+  "root": false,
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "plugin:vue/vue3-essential",
+    "plugin:vue-pug/vue3-recommended",
+    "@vue/eslint-config-typescript/recommended",
+    "@vue/eslint-config-prettier"
+  ],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "vueFeatures": {
+      "filter": true
+    },
+    "templateTokenizer": {
+      "pug": "vue-eslint-parser-template-tokenizer-pug"
+    },
+    "tsconfigRootDir": ["./tsconfig.json"]
+  },
+  "rules": {
+    "vue/multi-word-component-names": ["error", { "ignores": ["index"] }],
+    "@typescript-eslint/no-this-alias": ["error", { "allowedNames": ["self"] }]
+  }
+}
