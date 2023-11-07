@@ -1,6 +1,6 @@
 import router from '.'
 import store from '@/store'
-import { useUserModule } from '@/store/user'
+import { useUserModule } from '@/store/modules/user'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 

@@ -5,8 +5,10 @@
     ]
   },
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.vue","./*.config.ts"],
+  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue","./*.config.ts"],
   "exclude": ["src/**/__tests__/*"],
+  "jsx": "preserve",
+  "lib": ["ES2020", "DOM", "DOM.Iterable"],
   "compilerOptions": {
     "composite": true,
     "baseUrl": ".",

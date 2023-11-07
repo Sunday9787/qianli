@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { dashboardRoute } from './modules/dashboard'
+import { userRoute } from './modules/user'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,11 +10,8 @@ const router = createRouter({
       name: 'QianliLogin',
       component: () => import('@/views/login/index.vue')
     },
-    {
-      path: '/dashboard',
-      name: 'QianliDashboard',
-      component: () => import('@/views/dashboard/index.vue')
-    }
+    dashboardRoute,
+    userRoute
   ]
 })
 

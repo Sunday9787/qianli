@@ -19,7 +19,7 @@ import type { FormInst } from 'naive-ui'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import { UserDTO } from '@/api/user'
-import { useUserModule } from '@/store/user'
+import { useUserModule } from '@/store/modules/user'
 
 defineOptions({
   name: 'QianliLogin'

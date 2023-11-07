@@ -1,7 +1,7 @@
 import axios, { type AxiosRequestConfig } from 'axios'
 import router from '@/router'
 import store from '@/store'
-import { useUserModule } from '@/store/user'
+import { useUserModule } from '@/store/modules/user'
 
 const AxiosInstance = axios.create({
   timeout: 5000,
