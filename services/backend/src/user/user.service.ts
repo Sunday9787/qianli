@@ -1,12 +1,12 @@
-import { Repository } from 'typeorm'
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { UserEntity } from './user.entity'
-import { UserAddDTO, UserDTO, UserEditDTO, UserLoginDTO } from './user.dto'
+import { Repository } from 'typeorm'
 import * as jwt from 'jsonwebtoken'
 import md5 from 'md5'
-
-const TOKEN_SECRET = 'qianli_secret'
+import { UserEntity } from './user.entity'
+import { UserAddDTO, UserDTO, UserEditDTO, UserForgetDTO, UserLoginDTO } from './user.dto'
+import { TOKEN_SECRET } from '@/config'
+import { JwtDTO } from './user.jwt.dto'
 
 @Injectable()
 export class UserService {
@@ -17,15 +17,14 @@ export class UserService {
     const exp = new Date(today)
     exp.setDate(today.getDate() + 60)
 
-    return jwt.sign(
-      {
-        id: user.id,
-        username: user.username,
-        password: user.password,
-        exp: exp.getTime() / 1000
-      },
-      TOKEN_SECRET
-    )
+    const dto: JwtDTO = {
+      id: user.id,
+      username: user.username,
+      password: user.password,
+      exp: exp.getTime() / 1000
+    }
+
+    return jwt.sign(dto, TOKEN_SECRET)
   }
 
   async login(body: UserDTO): Promise<UserLoginDTO> {
@@ -37,7 +36,7 @@ export class UserService {
     })
 
     if (!user) {
-      return null
+      throw new HttpException('用户名或密码不正确', HttpStatus.UNAUTHORIZED)
     }
 
     const dto = new UserLoginDTO()
@@ -63,11 +62,31 @@ export class UserService {
     await this.userRepository.save(userEntity)
   }
 
-  edit(body: UserEditDTO) {
-    return this.userRepository.update({ id: body.id }, body)
+  async edit(body: UserEditDTO) {
+    await this.userRepository.update({ id: body.id }, body)
+  }
+
+  async forget(body: UserForgetDTO) {
+    await this.userRepository.update({ id: body.id }, { password: md5(body.password) })
   }
 
   del(id: number) {
     return this.userRepository.delete(id)
+  }
+
+  findById(id: number) {
+    return this.userRepository.findOneBy({ id })
+  }
+
+  validateToken(token: string) {
+    try {
+      const decoded = jwt.verify(token, TOKEN_SECRET) as JwtDTO
+      if (decoded) {
+        return true
+      }
+      return false
+    } catch {
+      return false
+    }
   }
 }

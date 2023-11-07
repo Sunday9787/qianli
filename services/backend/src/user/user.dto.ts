@@ -13,9 +13,19 @@ export class UserAddDTO extends UserDTO {
   avatar: string | null
 }
 
-export class UserEditDTO extends UserDTO {
+export class UserForgetDTO {
   @IsNumber()
   id: number
+  @IsString()
+  password: string
+}
+
+export class UserEditDTO {
+  @IsNumber()
+  id: number
+  @IsOptional()
+  @IsString()
+  avatar: string | null
 }
 
 export class UserLoginDTO {

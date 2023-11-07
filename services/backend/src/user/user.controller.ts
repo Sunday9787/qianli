@@ -3,17 +3,18 @@ import {
   Controller,
   Delete,
   HttpCode,
-  HttpException,
   HttpStatus,
   Param,
   ParseIntPipe,
   Post,
   Put,
-  UsePipes,
-  ValidationPipe
+  UseGuards,
+  UsePipes
 } from '@nestjs/common'
 import { UserService } from './user.service'
-import { UserAddDTO, UserDTO, UserEditDTO } from './user.dto'
+import { UserAddDTO, UserDTO, UserEditDTO, UserForgetDTO } from './user.dto'
+import { ValidationPipe } from '@/pipe/validation.pipe'
+import { UserGuard } from './user.guard'
 
 @UsePipes(new ValidationPipe())
 @Controller('user')
@@ -27,12 +28,21 @@ export class UserController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @UseGuards(UserGuard)
   @Post('edit')
   edit(@Body() body: UserEditDTO) {
     console.log(body)
   }
 
   @HttpCode(HttpStatus.OK)
+  @UseGuards(UserGuard)
+  @Post('forget')
+  forget(@Body() body: UserForgetDTO) {
+    return this.userService.forget(body)
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(UserGuard)
   @Delete('del')
   del(@Param('id', new ParseIntPipe()) id: number) {
     console.log(id)
@@ -41,12 +51,6 @@ export class UserController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   async login(@Body() body: UserDTO) {
-    const response = await this.userService.login(body)
-
-    if (!response) {
-      return new HttpException({ message: '用户名或密码不正确' }, HttpStatus.UNAUTHORIZED)
-    }
-
-    return response
+    return this.userService.login(body)
   }
 }
