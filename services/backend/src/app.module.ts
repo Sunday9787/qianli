@@ -4,6 +4,7 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 
 import { LayoutModule } from './layout/layout.module'
+import { UserModule } from './user/user.module'
 import { ProductModule } from './product/product.module'
 import { AboutModule } from './about/about.module'
 import { ContactModule } from './contact/contact.module'
@@ -25,6 +26,7 @@ import { ProductFeatureEntity } from './product/detail/detail.feature.entity'
 import { ProductScenarioEntity } from './product/detail/detail.scenario.entity'
 import { ProductSpecEntity } from './product/detail/detail.spec.entity'
 import { ProductFileEntity } from './product/detail/detail.file.entity'
+import { UserEntity } from './user/user.entity'
 
 @Module({
   imports: [
@@ -38,6 +40,7 @@ import { ProductFileEntity } from './product/detail/detail.file.entity'
       // synchronize: true,
       entities: [
         LayoutEntity,
+        UserEntity,
         PostEntity,
         CategoryEntity,
         JobEntity,
@@ -53,6 +56,7 @@ import { ProductFileEntity } from './product/detail/detail.file.entity'
       ]
     }),
     LayoutModule,
+    UserModule,
     ProductModule,
     AboutModule,
     ContactModule,

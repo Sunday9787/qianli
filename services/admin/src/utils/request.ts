@@ -4,8 +4,10 @@ import router from '@/router'
 import store from '@/store'
 import { useUserModule } from '@/store/user'
 
+console.log(import.meta.env.VITE_APP_BASE_API)
 const AxiosInstance = axios.create({
   timeout: 5000,
+  baseURL: import.meta.env.VITE_APP_BASE_API,
   headers: {
     'Content-type': 'application/json'
   }
@@ -65,6 +67,10 @@ AxiosInstance.interceptors.response.use(
 
 export function request<R = unknown>(config: AxiosRequestConfig) {
   return AxiosInstance.request<Response.Body<R>>(config).then(response => response.data)
+}
+
+request.put = function <R = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig) {
+  return AxiosInstance.put<Response.Body<R>>(url, data, config).then(response => response.data.data)
 }
 
 request.post = function <R = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig) {
