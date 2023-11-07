@@ -6,8 +6,10 @@ export class UserDTO {
   password!: string
 }
 
-export class UserResponseDTO extends UserDTO {
+export class UserResponseDTO {
   token!: string
+  username!: string
+  avatar!: string
 }
 
 class UserService extends AbstractService {

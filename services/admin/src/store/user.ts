@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
-import { UserDTO, UserResponseDTO, userService } from '@/api/user'
+import { UserDTO, userService, UserResponseDTO } from '@/api/user'
 
 export const useUserModule = defineStore('userModule', {
   state() {
     return {
       username: '',
-      password: '',
+      avatar: '',
       token: ''
     } as UserResponseDTO
   },
@@ -14,10 +14,11 @@ export const useUserModule = defineStore('userModule', {
       const response = await userService.logIn(data)
       this.token = response.token
       this.username = response.username
-      this.password = response.password
+      this.avatar = response.avatar
     },
     logOut() {
       return userService.logOut()
     }
-  }
+  },
+  persist: true
 })

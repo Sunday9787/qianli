@@ -33,6 +33,7 @@ export default defineConfig(function (env) {
         template: 'index.html'
       }),
       AutoImport({
+        dts: './src/@types/auto-imports.d.ts',
         imports: [
           'vue',
           {
@@ -41,6 +42,7 @@ export default defineConfig(function (env) {
         ]
       }),
       Components({
+        dts: './src/@types/components.d.ts',
         resolvers: [NaiveUiResolver()]
       }),
       vueJsx()

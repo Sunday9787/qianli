@@ -1,10 +1,8 @@
 import axios, { type AxiosRequestConfig } from 'axios'
-import { useMessage } from 'naive-ui'
 import router from '@/router'
 import store from '@/store'
 import { useUserModule } from '@/store/user'
 
-console.log(import.meta.env.VITE_APP_BASE_API)
 const AxiosInstance = axios.create({
   timeout: 5000,
   baseURL: import.meta.env.VITE_APP_BASE_API,
@@ -34,7 +32,6 @@ AxiosInstance.interceptors.response.use(
   response => {
     const req: XMLHttpRequest = response.request
     const userModule = useUserModule(store)
-    const message = useMessage()
 
     /**
      * blob 文件处理
@@ -45,8 +42,8 @@ AxiosInstance.interceptors.response.use(
       return response
     }
 
-    if (response.data.code !== 0) {
-      message.error(response.data.message)
+    if (response.data.code !== 200) {
+      console.error(response.data)
 
       // ! TOKEN 失效退出登录
       if (response.data.code === 3) {

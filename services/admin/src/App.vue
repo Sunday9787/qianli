@@ -1,6 +1,8 @@
 <template>
   <n-config-provider :locale="zhTW" :theme="theme" style="height: inherit">
-    <RouterView />
+    <n-message-provider>
+      <RouterView />
+    </n-message-provider>
   </n-config-provider>
 </template>
 

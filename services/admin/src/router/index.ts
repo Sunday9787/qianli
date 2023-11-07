@@ -9,9 +9,9 @@ const router = createRouter({
       component: () => import('@/views/login/index.vue')
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue')
+      path: '/dashboard',
+      name: 'QianliDashboard',
+      component: () => import('@/views/dashboard/index.vue')
     }
   ]
 })
