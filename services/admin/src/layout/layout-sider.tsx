@@ -1,5 +1,12 @@
-import { NMenu, NLayoutSider, type MenuOption } from 'naive-ui'
+import { h } from 'vue'
+import { NMenu, NLayoutSider, NIcon, type MenuOption } from 'naive-ui'
 import { RouterLink, useRoute, useRouter, type RouteRecordRaw } from 'vue-router'
+import LayoutSiderLogo from './layout-sider-logo.vue'
+import { useSystemModule } from '@/store/modules/system'
+
+function renderIcon(icon: Component) {
+  return h(NIcon, null, { default: () => h(icon) })
+}
 
 function buildMenu(data: ReadonlyArray<RouteRecordRaw>, baseKey: string): MenuOption[] {
   const result: MenuOption[] = []
@@ -12,7 +19,11 @@ function buildMenu(data: ReadonlyArray<RouteRecordRaw>, baseKey: string): MenuOp
       label() {
         return <RouterLink to={baseKey.concat(item.path)}>{item.meta?.title}</RouterLink>
       },
-      icon: item.meta?.icon,
+      icon() {
+        if (item.meta?.icon) {
+          return renderIcon(item.meta.icon)
+        }
+      },
       key: baseKey.concat(item.path)
     }
 
@@ -33,6 +44,7 @@ export default defineComponent({
   setup() {
     const router = useRouter()
     const route = useRoute()
+    const systemModule = useSystemModule()
     const menuOptions = computed(() => {
       return buildMenu(router.options.routes, '')
     })
@@ -41,12 +53,21 @@ export default defineComponent({
       return route.meta.activeMenu!
     })
 
-    return { activeMenu, menuOptions }
+    const collapse = computed(() => systemModule.sidebar.collapse)
+
+    return { activeMenu, menuOptions, collapse }
   },
   render() {
     return (
-      <NLayoutSider contentStyle={{ padding: '24px' }} showTrigger nativeScrollbar={false} bordered>
-        <NMenu value={this.activeMenu} collapsedWidth={64} collapsedIconSize={22} options={this.menuOptions}></NMenu>
+      <NLayoutSider
+        collapsed={this.collapse}
+        collapseMode='width'
+        nativeScrollbar={false}
+        collapsedWidth={64}
+        width={240}
+        bordered>
+        <LayoutSiderLogo collapse={this.collapse} />
+        <NMenu value={this.activeMenu} options={this.menuOptions} collapsedWidth={64} collapsedIconSize={22} />
       </NLayoutSider>
     )
   }

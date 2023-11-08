@@ -16,8 +16,9 @@ export const useUserModule = defineStore('userModule', {
       this.username = response.username
       this.avatar = response.avatar
     },
-    logOut() {
-      return userService.logOut()
+    async logOut() {
+      await userService.logOut()
+      this.$reset()
     }
   },
   persist: true

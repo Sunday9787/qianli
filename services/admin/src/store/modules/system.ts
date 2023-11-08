@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-export const systemModule = defineStore('userModule', {
+export const useSystemModule = defineStore('systemModule', {
   state() {
     return {
       sidebar: {

@@ -11,7 +11,7 @@ interface ImportMeta {
   readonly env: ImportMetaEnv
 }
 
-import type { VNodeChild } from 'vue'
+import type { Component, DefineComponent } from 'vue'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -19,10 +19,10 @@ declare module 'vue-router' {
     title?: string
     /** 是否隐藏 */
     hidden?: boolean
-    /** 是否不显示 子路由 */
+    /** 不显示 子路由 */
     noShowingChildren?: boolean
     /** 活动菜单 */
     activeMenu?: string
-    icon?(): VNodeChild
+    icon?: DefineComponent | Component
   }
 }
