@@ -9,6 +9,11 @@ n-layout-header.layout-header(bordered)
 
   n-space(:wrap="false" :wrap-item="false")
     nav.flex
+      a.layout-item(href="javascript:;" @click="systemModule.TOGGLE_THEME")
+        n-icon(size="24")
+          NightlightRoundFilled(v-if="systemModule.isLightTheme")
+          LightModeRound(v-else)
+
       a.layout-item(href="javascript:;" :class="{ active: isFullscreen }" @click="toggle")
         n-icon(size="24")
           FullscreenExitRound(v-if="isFullscreen")
@@ -21,7 +26,14 @@ n-layout-header.layout-header(bordered)
 </template>
 
 <script lang="ts" setup>
-import { MenuFilled, MenuOpenFilled, FullscreenRound, FullscreenExitRound } from '@vicons/material'
+import {
+  MenuFilled,
+  MenuOpenFilled,
+  FullscreenRound,
+  FullscreenExitRound,
+  LightModeRound,
+  NightlightRoundFilled
+} from '@vicons/material'
 import { useSystemModule } from '@/store/modules/system'
 import { useUserModule } from '@/store/modules/user'
 import { useFullscreen } from '@vueuse/core'
@@ -64,7 +76,7 @@ async function selectItem(key: DropdownMenuKey) {
 
   &.active,
   &:hover {
-    background-color: #f6f6f6;
+    background-color: var(--layout-item-hover);
   }
 }
 </style>

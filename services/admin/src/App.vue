@@ -9,14 +9,24 @@
 <script lang="ts" setup>
 import { zhTW, lightTheme, darkTheme } from 'naive-ui'
 import { usePreferredColorScheme } from '@vueuse/core'
-import { computed } from 'vue'
+import { useSystemModule } from './store/modules/system'
 
+const systemModule = useSystemModule()
 const colorScheme = usePreferredColorScheme()
+
+if (colorScheme.value !== 'no-preference') {
+  systemModule.CHANGE_THEME(colorScheme.value)
+}
+
 const theme = computed(function () {
-  if (colorScheme.value === 'light') {
+  if (systemModule.theme.mode === 'light') {
     return lightTheme
   }
 
   return darkTheme
+})
+
+systemModule.$subscribe(function (mutation, state) {
+  document.documentElement.setAttribute('data-theme', state.theme.mode)
 })
 </script>
