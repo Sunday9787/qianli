@@ -2,13 +2,14 @@ import { AbstractService } from '@/class/abstractService'
 import { request } from '@/utils/request'
 
 export class UserDTO {
-  username!: string
+  email!: string
   password!: string
 }
 
 export class UserResponseDTO {
   token!: string
   username!: string
+  email!: string
   avatar!: string
 }
 

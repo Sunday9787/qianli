@@ -2,12 +2,14 @@ import { IsNumber, IsOptional, IsString } from 'class-validator'
 
 export class UserDTO {
   @IsString()
-  username: string
+  email: string
   @IsString()
   password: string
 }
 
 export class UserAddDTO extends UserDTO {
+  @IsString()
+  username: string
   @IsOptional()
   @IsString()
   avatar: string | null
@@ -28,9 +30,10 @@ export class UserEditDTO {
   avatar: string | null
 }
 
-export class UserLoginDTO {
+export class UserLoginResponseDTO {
   id: number
   username: string
+  email: string
   token: string
   avatar: string
 }

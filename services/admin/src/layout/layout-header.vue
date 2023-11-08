@@ -16,7 +16,7 @@ n-layout-header.layout-header(bordered)
 
       n-dropdown(trigger="click" :options="menuOptions" @select="selectItem")
         a.layout-item(href="javascript:;")
-          n-avatar(size="medium" round :src="avatar")
+          n-avatar(size="medium" round :src="userModule.avatar")
           | &nbsp;{{ userModule.username }}
 </template>
 
@@ -27,7 +27,6 @@ import { useUserModule } from '@/store/modules/user'
 import { useFullscreen } from '@vueuse/core'
 import { useRouter } from 'vue-router'
 import type { DropdownOption } from 'naive-ui'
-import avatar from '@/assets/avatar.jpg'
 
 type DropdownMenuKey = 'logout'
 

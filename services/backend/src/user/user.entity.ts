@@ -5,6 +5,9 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number
 
+  @Column({ type: 'varchar', nullable: false, comment: '用户邮箱' })
+  email: string
+
   @Column({ type: 'varchar', nullable: false, comment: '用户名' })
   username: string
 

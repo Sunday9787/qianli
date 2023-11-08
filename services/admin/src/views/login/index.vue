@@ -3,8 +3,8 @@
   h1.login-title Login
 
   n-form.login-form(ref="formRef" label-placement="left" :model="form" :rules="formRule" :label-width="80")
-    n-form-item(label="用户名" path="username" :theme-overrides="{labelTextColor: '#fff'}")
-      n-input(v-model:value="form.username" placeholder="请输入用户名")
+    n-form-item(label="邮箱" path="email" :theme-overrides="{labelTextColor: '#fff'}")
+      n-input(v-model:value="form.email" placeholder="请输入邮箱")
 
     n-form-item(label="密码" path="password" :theme-overrides="{labelTextColor: '#fff'}")
       n-input(type="password" v-model:value="form.password" placeholder="请输入密码")
@@ -31,7 +31,7 @@ const router = useRouter()
 const userModule = useUserModule()
 
 const formRule: FormRule<UserDTO> = {
-  username: { required: true, message: '请输入用户名' },
+  email: { required: true, message: '请输入邮箱' },
   password: { required: true, message: '请输入密码' }
 }
 

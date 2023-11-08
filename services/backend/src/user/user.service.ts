@@ -4,8 +4,9 @@ import { Repository } from 'typeorm'
 import * as jwt from 'jsonwebtoken'
 import md5 from 'md5'
 import { UserEntity } from './user.entity'
-import { UserAddDTO, UserDTO, UserEditDTO, UserForgetDTO, UserLoginDTO } from './user.dto'
 import { TOKEN_SECRET } from '@/config'
+
+import { UserAddDTO, UserDTO, UserEditDTO, UserForgetDTO, UserLoginResponseDTO } from './user.dto'
 import { JwtDTO } from './user.jwt.dto'
 
 @Injectable()
@@ -15,32 +16,34 @@ export class UserService {
   generateJWT(user: UserEntity) {
     const today = new Date()
     const exp = new Date(today)
-    exp.setDate(today.getDate() + 60)
+    exp.setHours(today.getHours() + 1)
 
     const dto: JwtDTO = {
       id: user.id,
+      email: user.email,
       username: user.username,
       password: user.password,
-      exp: exp.getTime() / 1000
+      exp: exp.getTime()
     }
 
     return jwt.sign(dto, TOKEN_SECRET)
   }
 
-  async login(body: UserDTO): Promise<UserLoginDTO> {
+  async login(body: UserDTO): Promise<UserLoginResponseDTO> {
     const user = await this.userRepository.findOne({
       where: {
-        username: body.username,
+        email: body.email,
         password: md5(body.password)
       }
     })
 
     if (!user) {
-      throw new HttpException('用户名或密码不正确', HttpStatus.UNAUTHORIZED)
+      throw new HttpException('邮箱或密码不正确', HttpStatus.UNAUTHORIZED)
     }
 
-    const dto = new UserLoginDTO()
+    const dto = new UserLoginResponseDTO()
     dto.id = user.id
+    dto.email = user.email
     dto.username = user.username
     dto.avatar = user.avatar
     dto.token = this.generateJWT(user)
@@ -48,15 +51,18 @@ export class UserService {
     return dto
   }
 
+  async logout() {}
+
   async add(body: UserAddDTO) {
-    const user = await this.userRepository.findOne({ where: { username: body.username } })
+    const user = await this.userRepository.findOne({ where: { email: body.email } })
 
     if (user) {
-      throw new HttpException({ message: '已存在相同用户名' }, HttpStatus.BAD_REQUEST)
+      throw new HttpException({ message: '已存在相同用户' }, HttpStatus.BAD_REQUEST)
     }
 
     const userEntity = new UserEntity()
     userEntity.avatar = body.avatar
+    userEntity.email = body.email
     userEntity.username = body.username
     userEntity.password = md5(body.password)
     await this.userRepository.save(userEntity)
@@ -81,12 +87,12 @@ export class UserService {
   validateToken(token: string) {
     try {
       const decoded = jwt.verify(token, TOKEN_SECRET) as JwtDTO
-      if (decoded) {
-        return true
+      if (decoded && decoded.exp > Date.now()) {
+        return decoded
       }
-      return false
+      return null
     } catch {
-      return false
+      return null
     }
   }
 }

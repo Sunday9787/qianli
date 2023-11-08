@@ -15,6 +15,8 @@ import { UserService } from './user.service'
 import { UserAddDTO, UserDTO, UserEditDTO, UserForgetDTO } from './user.dto'
 import { ValidationPipe } from '@/pipe/validation.pipe'
 import { UserGuard } from './user.guard'
+import { User } from './user.decorator'
+import { JwtDTO } from './user.jwt.dto'
 
 @UsePipes(new ValidationPipe())
 @Controller('user')
@@ -52,5 +54,13 @@ export class UserController {
   @Post('login')
   async login(@Body() body: UserDTO) {
     return this.userService.login(body)
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(UserGuard)
+  @Post('logout')
+  async logout(@User() user: JwtDTO) {
+    console.log(user)
+    // return this.userService.logout()
   }
 }
