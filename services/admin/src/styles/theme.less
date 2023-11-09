@@ -1,11 +1,17 @@
 [data-theme="light"],
 ::before,
 ::after {
-  --layout-item-hover: rgb(243, 243, 245);
+  --color-background: rgb(243, 243, 243);
+  --layout-item-hover: var(--color-background);
+  --color-logo-background: rgb(121,107,175);
+  --color-background-2: #fff;
 }
 
 [data-theme="dark"],
 ::before,
 ::after {
-  --layout-item-hover: rgba(255, 255, 255, 0.09);
+  --color-background: rgba(255, 255, 255, 0.09);
+  --layout-item-hover: var(--color-background);
+  --color-logo-background: rgb(64,50,125);
+  --color-background-2: var(--color-background);
 }

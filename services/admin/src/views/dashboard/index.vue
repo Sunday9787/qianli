@@ -1,6 +1,7 @@
 <template lang="pug">
-section
-  h1 dashboard
+app-view
+  app-card
+    h1 dashboard
 </template>
 
 <script lang="ts" setup>

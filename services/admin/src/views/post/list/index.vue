@@ -1,9 +1,9 @@
 <template lang="pug">
 app-view
   app-card
-    h1 用户列表
+    h1 文章列表
 </template>
 
 <script lang="ts" setup>
-defineOptions({ name: 'QianliUserIndex' })
+defineOptions({ name: 'QianliProductIndex' })
 </script>

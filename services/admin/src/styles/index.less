@@ -4,9 +4,19 @@
 @import './transition.less';
 @import './theme.less';
 
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
 html,
 body {
   height: 100%;
+}
+
+body {
+  color: #333;
 }
 
 #app {

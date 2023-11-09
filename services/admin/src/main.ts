@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
-import NaiveUi from 'naive-ui'
+import Components from './components'
+import 'virtual:svg-icons-register'
 
 import App from './App.vue'
 import router from './router'
@@ -12,6 +13,10 @@ const app = createApp(App)
 
 app.use(router)
 app.use(store)
-app.use(NaiveUi)
+app.use(Components)
+
+const meta = document.createElement('meta')
+meta.name = 'naive-ui-style'
+document.head.appendChild(meta)
 
 app.mount('#app')

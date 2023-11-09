@@ -26,7 +26,7 @@ defineProps<Props>()
   overflow: hidden;
   line-height: 60px;
   text-align: center;
-  background: rgb(48, 65, 86);
+  background-color: var(--color-logo-background);
 
   & .sidebar-logo-link {
     width: 100%;

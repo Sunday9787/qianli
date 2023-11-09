@@ -7,12 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    HelloWorld: typeof import('./../components/HelloWorld.vue')['default']
-    IconCommunity: typeof import('./../components/icons/IconCommunity.vue')['default']
-    IconDocumentation: typeof import('./../components/icons/IconDocumentation.vue')['default']
-    IconEcosystem: typeof import('./../components/icons/IconEcosystem.vue')['default']
-    IconSupport: typeof import('./../components/icons/IconSupport.vue')['default']
-    IconTooling: typeof import('./../components/icons/IconTooling.vue')['default']
+    AppCard: typeof import('./../components/app-card/index.vue')['default']
+    AppPage: typeof import('./../components/app-page/index.vue')['default']
+    AppSvgIcon: typeof import('./../components/app-svg-icon/index.tsx')['default']
+    AppView: typeof import('./../components/app-view/index.vue')['default']
+    Components: typeof import('./../components/index.ts')['default']
     NAvatar: typeof import('naive-ui')['NAvatar']
     NButton: typeof import('naive-ui')['NButton']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']

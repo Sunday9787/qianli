@@ -10,7 +10,7 @@ interface State {
   }
 }
 
-type ThemeMode = 'light' | 'dark'
+export type ThemeMode = 'light' | 'dark'
 
 export const useSystemModule = defineStore('systemModule', {
   state() {
