@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { ConfigModule } from '@nestjs/config'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 
@@ -27,9 +28,13 @@ import { ProductScenarioEntity } from './product/detail/detail.scenario.entity'
 import { ProductSpecEntity } from './product/detail/detail.spec.entity'
 import { ProductFileEntity } from './product/detail/detail.file.entity'
 import { UserEntity } from './user/user.entity'
+import { RedisModule } from './redis/redis.module'
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -55,6 +60,7 @@ import { UserEntity } from './user/user.entity'
         ProductFileEntity
       ]
     }),
+    RedisModule,
     LayoutModule,
     UserModule,
     ProductModule,

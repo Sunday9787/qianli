@@ -52,15 +52,14 @@ export class UserController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  async login(@Body() body: UserDTO) {
+  login(@Body() body: UserDTO) {
     return this.userService.login(body)
   }
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(UserGuard)
   @Post('logout')
-  async logout(@User() user: JwtDTO) {
-    console.log(user)
-    // return this.userService.logout()
+  logout(@User() user: JwtDTO) {
+    return this.userService.logout(user)
   }
 }

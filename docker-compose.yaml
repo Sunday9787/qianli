@@ -6,6 +6,8 @@ services:
     image: mysql:latest
     command: mysqld --default-authentication-plugin=mysql_native_password
     restart: always
+    networks:
+      - qianli
     environment:
       MYSQL_DATABASE: qianli
       MYSQL_USER: qianli
@@ -15,3 +17,15 @@ services:
       - ./data:/docker-entrypoint-initdb.d
     ports:
       - 3306:3306
+
+  cache:
+    container_name: redis
+    image: redis:alpine3.18
+    networks:
+      - qianli
+    ports:
+      - 6379:6379
+
+networks:
+  qianli:
+    driver: bridge

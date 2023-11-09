@@ -1,17 +1,24 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import * as jwt from 'jsonwebtoken'
 import md5 from 'md5'
-import { UserEntity } from './user.entity'
+import { RedisService } from '@/redis/redis.service'
 import { TOKEN_SECRET } from '@/config'
+import { UserEntity } from './user.entity'
 
 import { UserAddDTO, UserDTO, UserEditDTO, UserForgetDTO, UserLoginResponseDTO } from './user.dto'
 import { JwtDTO } from './user.jwt.dto'
 
+/** token 失效时间 */
+const TOKEN_EXP_TIME = 1000 * 60 * 60 * 1
+
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>) {}
+  constructor(
+    @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
+    @Inject(RedisService) private readonly redisService: RedisService
+  ) {}
 
   generateJWT(user: UserEntity) {
     const today = new Date()
@@ -48,10 +55,14 @@ export class UserService {
     dto.avatar = user.avatar
     dto.token = this.generateJWT(user)
 
+    this.redisService.redis.set(dto.email, dto.token, 'EX', TOKEN_EXP_TIME)
+
     return dto
   }
 
-  async logout() {}
+  async logout(user: JwtDTO) {
+    await this.redisService.redis.del(user.email)
+  }
 
   async add(body: UserAddDTO) {
     const user = await this.userRepository.findOne({ where: { email: body.email } })
@@ -85,14 +96,11 @@ export class UserService {
   }
 
   validateToken(token: string) {
-    try {
-      const decoded = jwt.verify(token, TOKEN_SECRET) as JwtDTO
-      if (decoded && decoded.exp > Date.now()) {
-        return decoded
-      }
-      return null
-    } catch {
-      return null
+    const decoded = jwt.verify(token, TOKEN_SECRET) as JwtDTO
+    if (decoded && decoded.exp > Date.now()) {
+      return decoded
     }
+
+    return null
   }
 }

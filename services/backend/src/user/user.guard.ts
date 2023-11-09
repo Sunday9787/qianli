@@ -13,22 +13,26 @@ export class UserGuard implements CanActivate {
     const authorization = request.header('authorization')
 
     if (!authorization) {
-      throw new HttpException('token失效 请重新登录', HttpStatus.UNAUTHORIZED)
+      throw new HttpException('未授权 请重新登录', HttpStatus.UNAUTHORIZED)
     }
 
     const token = authorization.split(' ')[1]
 
     if (!token) {
-      throw new HttpException('token失效 请重新登录', HttpStatus.UNAUTHORIZED)
+      throw new HttpException('未授权 请重新登录', HttpStatus.UNAUTHORIZED)
     }
 
-    const user = this.userService.validateToken(token)
+    try {
+      const user = this.userService.validateToken(token)
 
-    if (!user) {
+      if (!user) {
+        throw new HttpException('token失效 请重新登录', HttpStatus.UNAUTHORIZED)
+      }
+
+      request.user = user
+    } catch {
       throw new HttpException('token失效 请重新登录', HttpStatus.UNAUTHORIZED)
     }
-
-    request.user = user
 
     return true
   }
