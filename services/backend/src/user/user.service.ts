@@ -101,8 +101,16 @@ export class UserService {
   }
 
   all(query: UserQueryDTO) {
-    const qianliQuery = new QianliQuery(query, function (item: UserResponseDTO) {
-      return item
+    const qianliQuery = new QianliQuery(query, function (entity: UserEntity) {
+      const dto = new UserResponseDTO()
+      dto.id = entity.id
+      dto.email = entity.email
+      dto.username = entity.username
+      dto.avatar = entity.avatar
+      dto.created = entity.created
+      dto.updated = entity.updated
+
+      return dto
     })
 
     return this.userRepository

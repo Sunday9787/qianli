@@ -3,9 +3,9 @@ app-view
   app-card
     n-form(inline :model="form" :show-feedback="false" label-placement="left" :label-width="80")
       n-form-item(label="用户名" path="username")
-        n-input(v-model:value="form.username")
+        n-input(v-model:value="form.username" clearable)
       n-form-item(label="用户邮箱" path="email")
-        n-input(v-model:value="form.email")
+        n-input(v-model:value="form.email" clearable)
 
       n-button(type="primary" @click="search()") 搜索
 

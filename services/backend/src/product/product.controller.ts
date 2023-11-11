@@ -9,12 +9,15 @@ import {
   ParseIntPipe,
   Post,
   Put,
-  Render
+  Render,
+  UsePipes,
+  ValidationPipe
 } from '@nestjs/common'
 import { ProductService } from './product.service'
-import { ProductAddDTO, ProductEditDTO } from './product.dto'
+import { ProductAddDTO, ProductEditDTO, ProductQueryListDTO } from './product.dto'
 import { ProductFileDTO } from './detail/detail.file.dto'
 
+@UsePipes(ValidationPipe)
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -49,5 +52,11 @@ export class ProductController {
   @Delete('del/:id')
   del(@Param(new ParseIntPipe()) id: number) {
     return this.productService.del(id)
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('list')
+  list(@Body() body: ProductQueryListDTO) {
+    return this.productService.all(body)
   }
 }

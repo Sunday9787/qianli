@@ -1,9 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
-import { EntityManager, Repository } from 'typeorm'
+import { EntityManager, Like, Repository } from 'typeorm'
 import { LayoutService } from '@/layout/layout.service'
+import { QianliQuery } from '@/class/query'
 import { ProductEntity } from './product.entity'
-import { ProductEditDTO } from './product.dto'
+import { ProductEditDTO, ProductQueryListDTO, ProductResultListDTO } from './product.dto'
 import { ProductFeatureEntity } from './detail/detail.feature.entity'
 import { ProductScenarioEntity } from './detail/detail.scenario.entity'
 import { ProductSpecEntity } from './detail/detail.spec.entity'
@@ -73,8 +74,32 @@ export class ProductService {
     private readonly entityManager: EntityManager
   ) {}
 
-  all() {
-    return this.productRepository.find({ relations: { img: true, category: true } })
+  all(query: ProductQueryListDTO) {
+    const qianliQuery = new QianliQuery(query, function (entity: ProductEntity) {
+      const dto = new ProductResultListDTO()
+      dto.created = entity.created
+      dto.updated = entity.updated
+      dto.category_id = entity.category_id
+      dto.category_name = entity.category.category_name
+      dto.title = entity.title
+      dto.name = entity.name
+
+      return dto
+    })
+
+    return this.productRepository
+      .findAndCount({
+        where: {
+          category_id: query.category_id,
+          title: Like(`%${query.title}%`),
+          name: Like(`%${query.name}%`)
+        },
+        relations: { category: true },
+        ...qianliQuery.option
+      })
+      .then(function (result) {
+        return qianliQuery.data(result)
+      })
   }
 
   add(

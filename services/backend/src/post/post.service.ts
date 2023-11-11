@@ -11,6 +11,8 @@ class RenderPostDTO {
   category_name: string
   category_id: number
   date: Date
+  created: Date
+  updated: Date
   pv: number
   title: string
   desc: string
@@ -24,6 +26,8 @@ class RenderPostDetailDTO extends RenderPostDTO {
 function buildRenderPostDTO(entity: PostEntity) {
   const dto = new RenderPostDTO()
   dto.id = entity.id
+  dto.created = entity.created
+  dto.updated = entity.updated
   dto.category_name = entity.category.category_name
   dto.category_id = entity.category_id
   dto.date = entity.date
@@ -38,6 +42,8 @@ function buildRenderPostDTO(entity: PostEntity) {
 function buildRenderPostDetailDTO(entity: PostEntity) {
   const dto = new RenderPostDetailDTO()
   dto.id = entity.id
+  dto.created = entity.created
+  dto.updated = entity.updated
   dto.category_name = entity.category.category_name
   dto.category_id = entity.category_id
   dto.date = entity.date

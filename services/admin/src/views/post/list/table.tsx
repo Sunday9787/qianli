@@ -13,7 +13,9 @@ export function createTableColumns(action: ColumnAction) {
   const columnHead: TableWidgetItem[] = reactive([
     { label: 'No', key: 'no', required: true, enable: true },
     { label: '文章标题', key: 'title', enable: true },
-    { label: '发布日期', key: 'date', enable: true }
+    { label: '发布日期', key: 'date', enable: true },
+    { label: '创建日期', key: 'created', enable: true },
+    { label: '更新日期', key: 'updated', enable: true }
   ])
 
   const columnsMap: DataTableColumns<PostListResponseDTO> = [
@@ -29,9 +31,25 @@ export function createTableColumns(action: ColumnAction) {
     {
       title: '发布日期',
       key: 'date',
-      width: 200,
+      width: 250,
       render(row: PostListResponseDTO) {
         return formatDate(row.date)
+      }
+    },
+    {
+      title: '创建日期',
+      key: 'created',
+      width: 250,
+      render(row) {
+        return formatDate(row.created)
+      }
+    },
+    {
+      title: '更新日期',
+      key: 'updated',
+      width: 250,
+      render(row) {
+        return formatDate(row.updated)
       }
     }
   ]

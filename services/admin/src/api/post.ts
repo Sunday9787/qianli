@@ -1,8 +1,8 @@
 import { request } from '@/utils/request'
 
 export interface PostListDTO extends AppRequest.List {
-  category_id: number | null
-  title: string | null
+  category_id?: number | null
+  title?: string | null
 }
 
 export interface PostListResponseDTO {
@@ -10,6 +10,8 @@ export interface PostListResponseDTO {
   category_name: string
   category_id: number
   date: Date
+  created: Date
+  updated: Date
   pv: number
   title: string
   desc: string

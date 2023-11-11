@@ -3,7 +3,7 @@ app-view
   app-card
     n-form(inline :model="form" :show-feedback="false" label-placement="left" :label-width="80")
       n-form-item(label="文章标题" path="title")
-        n-input(v-model:value="form.title")
+        n-input(v-model:value="form.title" clearable)
 
       n-button(type="primary" @click="search()") 搜索
 

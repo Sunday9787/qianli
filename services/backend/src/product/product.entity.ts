@@ -1,4 +1,13 @@
-import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn
+} from 'typeorm'
 import { ProductFeatureEntity } from './detail/detail.feature.entity'
 import { ProductScenarioEntity } from './detail/detail.scenario.entity'
 import { ProductSpecEntity } from './detail/detail.spec.entity'
@@ -31,6 +40,12 @@ export class ProductEntity {
 
   @Column({ type: 'varchar', length: 255, nullable: true, comment: '产品视频' })
   media: string | null
+
+  @CreateDateColumn({ comment: '创建时间' })
+  created: Date
+
+  @UpdateDateColumn({ comment: '更新时间' })
+  updated: Date
 
   @OneToMany(() => ProductFileEntity, metadata => metadata.product)
   img: ProductFileEntity[]

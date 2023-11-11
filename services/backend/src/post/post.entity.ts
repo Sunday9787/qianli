@@ -1,5 +1,13 @@
 import { CategoryEntity } from '@/common/category/category.entity'
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+  PrimaryGeneratedColumn
+} from 'typeorm'
 
 @Entity('qianli_post')
 export class PostEntity {
@@ -11,6 +19,12 @@ export class PostEntity {
 
   @Column({ type: 'datetime', nullable: false, comment: '文章发布时间' })
   date: Date
+
+  @CreateDateColumn({ comment: '文章创建时间' })
+  created: Date
+
+  @UpdateDateColumn({ comment: '文章更新时间' })
+  updated: Date
 
   @Column({ type: 'integer', nullable: false, comment: '文章浏览量' })
   pv: number
