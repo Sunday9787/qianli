@@ -1,5 +1,5 @@
 <template lang="pug">
-.app-view
+main.app-view
   slot
 </template>
 

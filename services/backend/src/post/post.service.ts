@@ -5,9 +5,19 @@ import { LayoutService } from '@/layout/layout.service'
 import { PostEntity } from './post.entity'
 import { ListDTO, PostDTO, PostQueryDTO } from './post.dto'
 
-class RenderPostDTO extends PostDTO {
+class RenderPostDTO {
   id: number
   category_name: string
+  category_id: number
+  date: Date
+  pv: number
+  title: string
+  desc: string
+  img: string
+}
+
+class RenderPostDetailDTO extends RenderPostDTO {
+  content: string
 }
 
 function buildRenderPostDTO(entity: PostEntity) {
@@ -19,7 +29,21 @@ function buildRenderPostDTO(entity: PostEntity) {
   dto.pv = entity.pv
   dto.title = entity.title
   dto.desc = entity.desc
+  dto.img = entity.img
+
+  return dto
+}
+
+function buildRenderPostDetailDTO(entity: PostEntity) {
+  const dto = new RenderPostDetailDTO()
+  dto.id = entity.id
+  dto.category_name = entity.category.category_name
+  dto.category_id = entity.category_id
+  dto.date = entity.date
+  dto.pv = entity.pv
+  dto.title = entity.title
   dto.content = entity.content
+  dto.desc = entity.desc
   dto.img = entity.img
 
   return dto
@@ -39,7 +63,7 @@ export class PostService {
   async data(id: number) {
     const [layout, post, recommends] = await Promise.all([
       this.layoutService.layout(),
-      this.postRepository.findOne({ where: { id }, relations: { category: true } }).then(buildRenderPostDTO),
+      this.postRepository.findOne({ where: { id }, relations: { category: true } }).then(buildRenderPostDetailDTO),
       this.postRepository.find({ where: { id: Not(id) }, relations: { category: true } }).then(function (result) {
         return result.map(buildRenderPostDTO)
       })
@@ -55,6 +79,7 @@ export class PostService {
   all(query: PostQueryDTO): Promise<ListDTO<RenderPostDTO>> {
     return this.postRepository
       .findAndCount({
+        select: ['category', 'category_id', 'date', 'desc', 'id', 'title', 'img'],
         relations: { category: true },
         take: query.size,
         skip: query.size * (query.current - 1)

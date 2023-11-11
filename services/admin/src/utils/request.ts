@@ -63,17 +63,17 @@ AxiosInstance.interceptors.response.use(
 )
 
 export function request<R = unknown>(config: AxiosRequestConfig) {
-  return AxiosInstance.request<Response.Body<R>>(config).then(response => response.data)
+  return AxiosInstance.request<AppResponse.Body<R>>(config).then(response => response.data)
 }
 
 request.put = function <R = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig) {
-  return AxiosInstance.put<Response.Body<R>>(url, data, config).then(response => response.data.data)
+  return AxiosInstance.put<AppResponse.Body<R>>(url, data, config).then(response => response.data.data)
 }
 
 request.post = function <R = unknown>(url: string, data?: unknown, config?: AxiosRequestConfig) {
-  return AxiosInstance.post<Response.Body<R>>(url, data, config).then(response => response.data.data)
+  return AxiosInstance.post<AppResponse.Body<R>>(url, data, config).then(response => response.data.data)
 }
 
 request.get = function <R = unknown>(url: string, config?: AxiosRequestConfig) {
-  return AxiosInstance.get<Response.Body<R>>(url, config).then(response => response.data.data)
+  return AxiosInstance.get<AppResponse.Body<R>>(url, config).then(response => response.data.data)
 }

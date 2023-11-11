@@ -1,17 +1,11 @@
-<template>
-  <div
-    class="app-card"
-    :class="[
-      {
-        flex1: flex1,
-        'app-card--flex': type === 'flex',
-        'app-card--vertical': direction === 'vertical',
-        'app-card--horizontal': direction === 'horizontal'
-      }
-    ]"
-  >
-    <slot />
-  </div>
+<template lang="pug">
+section.app-card(:class=`{
+  'flex-1': flex1,
+  'app-card--flex': type === 'flex',
+  'app-card--vertical': direction === 'vertical',
+  'app-card--horizontal': direction === 'horizontal'
+}`)
+  slot
 </template>
 
 <script lang="ts" setup>

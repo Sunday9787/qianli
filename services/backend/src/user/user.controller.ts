@@ -57,7 +57,6 @@ export class UserController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(UserGuard)
   @Post('logout')
   logout(@User() user: JwtDTO) {
     return this.userService.logout(user)

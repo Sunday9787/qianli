@@ -3,10 +3,10 @@
   h1.login-title Login
 
   n-form.login-form(ref="formRef" label-placement="left" :model="form" :rules="formRule" :label-width="80")
-    n-form-item(label="邮箱" path="email" :theme-overrides="{labelTextColor: '#fff'}")
+    n-form-item(label="邮箱" path="email")
       n-input(v-model:value="form.email" placeholder="请输入邮箱")
 
-    n-form-item(label="密码" path="password" :theme-overrides="{labelTextColor: '#fff'}")
+    n-form-item(label="密码" path="password")
       n-input(type="password" v-model:value="form.password" placeholder="请输入密码")
 
     n-form-item

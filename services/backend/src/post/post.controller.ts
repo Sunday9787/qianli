@@ -1,6 +1,18 @@
-import { Controller, Get, Render, Param, ParseIntPipe, Post, Body, HttpCode, HttpStatus } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  Render,
+  Param,
+  ParseIntPipe,
+  Post,
+  Body,
+  HttpCode,
+  HttpStatus,
+  UsePipes,
+  ValidationPipe
+} from '@nestjs/common'
 import { PostService } from './post.service'
-import { PostDTO } from './post.dto'
+import { PostDTO, PostQueryDTO } from './post.dto'
 
 @Controller('post')
 export class PostController {
@@ -17,5 +29,12 @@ export class PostController {
   add(@Body() body: PostDTO) {
     console.log(body)
     return this.postService.add(body)
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @UsePipes(new ValidationPipe({ transform: true }))
+  @Post('list')
+  list(@Body() body: PostQueryDTO) {
+    return this.postService.all(body)
   }
 }
