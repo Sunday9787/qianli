@@ -1,14 +1,23 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { Repository, Like } from 'typeorm'
 import * as jwt from 'jsonwebtoken'
 import md5 from 'md5'
 import { RedisService } from '@/redis/redis.service'
 import { TOKEN_SECRET } from '@/config'
 import { UserEntity } from './user.entity'
 
-import { UserAddDTO, UserDTO, UserEditDTO, UserForgetDTO, UserLoginResponseDTO } from './user.dto'
+import {
+  UserAddDTO,
+  UserDTO,
+  UserEditDTO,
+  UserForgetDTO,
+  UserLoginResponseDTO,
+  UserQueryDTO,
+  UserResponseDTO
+} from './user.dto'
 import { JwtDTO } from './user.jwt.dto'
+import { QianliQuery } from '@/class/query'
 
 /** token 失效时间 */
 const TOKEN_EXP_TIME = 1000 * 60 * 60 * 1
@@ -87,8 +96,26 @@ export class UserService {
     await this.userRepository.update({ id: body.id }, { password: md5(body.password) })
   }
 
-  del(id: number) {
-    return this.userRepository.delete(id)
+  async del(id: number) {
+    await this.userRepository.delete(id)
+  }
+
+  all(query: UserQueryDTO) {
+    const qianliQuery = new QianliQuery(query, function (item: UserResponseDTO) {
+      return item
+    })
+
+    return this.userRepository
+      .findAndCount({
+        where: {
+          username: query.username ? Like(`%${query.username}%`) : null,
+          email: query.email ? Like(`%${query.email}%`) : null
+        },
+        ...qianliQuery.option
+      })
+      .then(function (result) {
+        return qianliQuery.data(result)
+      })
   }
 
   findById(id: number) {

@@ -1,27 +1,5 @@
-import { Type } from 'class-transformer'
 import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator'
-
-export class ListDTO<T> {
-  size: number
-  current: number
-  total: number
-  list: T[]
-}
-
-export class ListQueryDTO {
-  @Type(() => Number)
-  @IsNumber()
-  size: number
-
-  @Type(() => Number)
-  @IsNumber()
-  current: number
-
-  constructor(size = 10, current = 1) {
-    this.size = size
-    this.current = current
-  }
-}
+import { ListQueryDTO } from '@/class/query'
 
 export class PostDTO {
   @IsNumber()

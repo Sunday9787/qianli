@@ -1,9 +1,10 @@
-import { Not, Repository } from 'typeorm'
+import { Like, Not, Repository } from 'typeorm'
 import { Inject, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { LayoutService } from '@/layout/layout.service'
 import { PostEntity } from './post.entity'
-import { ListDTO, PostDTO, PostQueryDTO } from './post.dto'
+import { PostDTO, PostQueryDTO } from './post.dto'
+import { QianliQuery } from '@/class/query'
 
 class RenderPostDTO {
   id: number
@@ -76,22 +77,22 @@ export class PostService {
     }
   }
 
-  all(query: PostQueryDTO): Promise<ListDTO<RenderPostDTO>> {
+  all(query: PostQueryDTO) {
+    const qianliQuery = new QianliQuery(query, function (item: PostEntity) {
+      return buildRenderPostDTO(item)
+    })
+
     return this.postRepository
       .findAndCount({
+        where: {
+          title: query.title ? Like(`%${query.title}%`) : null
+        },
         select: ['category', 'category_id', 'date', 'desc', 'id', 'title', 'img'],
         relations: { category: true },
-        take: query.size,
-        skip: query.size * (query.current - 1)
+        ...qianliQuery.option
       })
-      .then(function ([result, total]) {
-        const dto = new ListDTO<RenderPostDTO>()
-        dto.current = query.current
-        dto.size = query.size
-        dto.total = total
-        dto.list = result.map(buildRenderPostDTO)
-
-        return dto
+      .then(function (result) {
+        return qianliQuery.data(result)
       })
   }
 }

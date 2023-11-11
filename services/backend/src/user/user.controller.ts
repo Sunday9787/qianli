@@ -12,13 +12,13 @@ import {
   UsePipes
 } from '@nestjs/common'
 import { UserService } from './user.service'
-import { UserAddDTO, UserDTO, UserEditDTO, UserForgetDTO } from './user.dto'
+import { UserAddDTO, UserDTO, UserEditDTO, UserForgetDTO, UserQueryDTO } from './user.dto'
 import { ValidationPipe } from '@/pipe/validation.pipe'
 import { UserGuard } from './user.guard'
 import { User } from './user.decorator'
 import { JwtDTO } from './user.jwt.dto'
 
-@UsePipes(new ValidationPipe())
+@UsePipes(ValidationPipe)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -34,6 +34,12 @@ export class UserController {
   @Post('edit')
   edit(@Body() body: UserEditDTO) {
     console.log(body)
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('list')
+  list(@Body() body: UserQueryDTO) {
+    return this.userService.all(body)
   }
 
   @HttpCode(HttpStatus.OK)

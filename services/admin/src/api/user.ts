@@ -13,6 +13,24 @@ export class UserResponseDTO {
   avatar!: string
 }
 
+export interface QueryUserList extends AppRequest.List {
+  username?: string
+  email?: string
+}
+
+export interface ResultUserList {
+  id: number
+  email: string
+  username: string
+  avatar: string
+  created: Date
+  updated: Date
+}
+
+export function userList(data: QueryUserList) {
+  return request.post<AppResponse.List<ResultUserList>>('/user/list', data)
+}
+
 class UserService extends AbstractService {
   public readonly baseURL = '/user'
 

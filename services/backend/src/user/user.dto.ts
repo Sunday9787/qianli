@@ -1,4 +1,5 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator'
+import { ListQueryDTO } from '@/class/query'
 
 export class UserDTO {
   @IsString()
@@ -36,4 +37,22 @@ export class UserLoginResponseDTO {
   email: string
   token: string
   avatar: string
+}
+
+export class UserQueryDTO extends ListQueryDTO {
+  @IsOptional()
+  @IsString()
+  email?: string
+  @IsOptional()
+  @IsString()
+  username?: string
+}
+
+export class UserResponseDTO {
+  id: number
+  email: string
+  username: string
+  avatar: string
+  created: Date
+  updated: Date
 }
