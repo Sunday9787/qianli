@@ -42,6 +42,14 @@ export class ProductQueryListDTO extends ListQueryDTO {
   @IsString()
   title?: string
 
+  @IsOptional()
+  @IsNumber()
+  created_start?: number
+
+  @IsOptional()
+  @IsNumber()
+  created_end?: number
+
   /** 产品名称 */
   @IsOptional()
   @IsString()

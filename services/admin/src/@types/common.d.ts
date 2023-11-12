@@ -29,7 +29,14 @@ declare type FormRule<T> = {
 declare namespace Page {
   type RequestFunction<P extends AppRequest.List, R> = (param: P) => Promise<AppResponse.List<R>>
 
-  interface Options<P extends AppRequest.List, R = unknown> {
+  type TimeField<Str extends string> = Str extends `${infer K}Date` ? K : unknown
+  type TimeFieldValueStart<Str extends string> = `${TimeField<Str>}_start`
+  type TimeFieldValueEnd<Str extends string> = `${TimeField<Str>}_end`
+  type TimeFieldMap<T> = { [K in T]: [TimeFieldValueStart<T>, TimeFieldValueEnd<T>] }
+  type TimeMap = null | [number, number]
+  type TimeMapField<Str extends string | unknown> = Str extends `${infer K}Date` ? `${K}Date` : string
+
+  interface Options<P extends AppRequest.List, K = unknown, R = unknown> {
     wait?: number
     request: RequestFunction<P, R>
     /** @default true */
@@ -37,7 +44,7 @@ declare namespace Page {
     /** 查询忽略字段 */
     ignoreField?: string[]
     /** 时间范围字段映射 */
-    timeFieldMap?: Record<string, [string, string]>
+    timeFieldMap?: TimeFieldMap<K>
     form: Record<string, unknown>
   }
 

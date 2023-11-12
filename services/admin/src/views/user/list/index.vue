@@ -7,7 +7,9 @@ app-view
       n-form-item(label="用户邮箱" path="email")
         n-input(v-model:value="form.email" clearable)
 
-      n-button(type="primary" @click="search()") 搜索
+      n-space
+        n-button(type="primary" @click="search()") 搜索
+        n-button(attr-type="reset") 重置
 
   app-data-view
     app-table-container

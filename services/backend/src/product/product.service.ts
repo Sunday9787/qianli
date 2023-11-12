@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
+import { Between, EntityManager, Like, Repository } from 'typeorm'
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
-import { EntityManager, Like, Repository } from 'typeorm'
 import { LayoutService } from '@/layout/layout.service'
 import { QianliQuery } from '@/class/query'
 import { ProductEntity } from './product.entity'
@@ -91,8 +91,12 @@ export class ProductService {
       .findAndCount({
         where: {
           category_id: query.category_id,
-          title: Like(`%${query.title}%`),
-          name: Like(`%${query.name}%`)
+          title: query.title && Like(`%${query.title}%`),
+          name: query.name && Like(`%${query.name}%`),
+          created:
+            query.created_start && query.created_end
+              ? Between(new Date(query.created_start), new Date(query.created_end))
+              : null
         },
         relations: { category: true },
         ...qianliQuery.option

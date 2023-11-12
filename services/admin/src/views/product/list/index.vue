@@ -6,8 +6,12 @@ app-view
         n-input(v-model:value="form.title" clearable)
       n-form-item(label="产品名称" path="name")
         n-input(v-model:value="form.name" clearable)
+      n-form-item(label="创建时间" path="created_start")
+        n-date-picker(v-model:value="mapper.createdDate" type="daterange" clearable)
 
-      n-button(type="primary" @click="search()") 搜索
+      n-space
+        n-button(type="primary" @click="search()") 搜索
+        n-button(attr-type="reset") 重置
 
   app-data-view
     app-table-container
@@ -33,12 +37,20 @@ import { createTableColumns } from './table'
 defineOptions({ name: 'QianliProductIndex' })
 
 const form = reactive<QueryProductList>({
-  title: '',
-  name: '',
-  category_id: null
+  title: undefined,
+  name: undefined,
+  category_id: undefined,
+  created_start: undefined,
+  created_end: undefined
 })
 
-const { table, pagination, search } = usePage({ request: productList, form })
+const { table, pagination, search, mapper } = usePage({
+  request: productList,
+  timeFieldMap: {
+    createdDate: ['created_start', 'created_end']
+  },
+  form
+})
 
 const columns = createTableColumns({
   edit(row) {

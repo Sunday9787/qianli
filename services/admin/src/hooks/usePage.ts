@@ -1,4 +1,3 @@
-import { reactive, provide, watch } from 'vue'
 import type { PaginationProps } from 'naive-ui'
 import { debounce } from 'lodash-es'
 import { wait } from '@/utils'
@@ -6,6 +5,7 @@ import { wait } from '@/utils'
 export interface PageContext<T = unknown> {
   pagination: PaginationProps
   table: Page.Table<T>
+  form: Record<string, unknown>
 }
 
 function updateFields(this: Page.SearchFields, ignoreField: string[], form: Record<string, unknown>) {
@@ -25,8 +25,35 @@ const defaultOption: Omit<Page.Options<AppRequest.List>, 'request' | 'form'> = {
   timeFieldMap: Object.create(null)
 }
 
-export function usePage<P extends AppRequest.List, R>(options: Page.Options<P, R>) {
-  const opt = Object.assign({}, defaultOption, options) as Required<Page.Options<P, R>>
+function pageHelpComputed<T>(context: PageContext<unknown>, fieldMap: Page.TimeFieldMap<T>) {
+  const computedMap: { [key in Page.TimeMapField<T>]: Page.TimeMap } = Object.create(null)
+
+  for (const [mapKey, value] of Object.entries(fieldMap)) {
+    const [startTimeKey, endTimeKey] = value as [string, string]
+
+    Object.defineProperty(computedMap, mapKey, {
+      configurable: false,
+      get() {
+        if (context.form[startTimeKey]) {
+          return [context.form[startTimeKey], context.form[endTimeKey]] as Page.TimeMap
+        }
+
+        return null
+      },
+      set(val: null | Page.TimeMap) {
+        const [startTime, endTime] = val || [undefined, undefined]
+
+        context.form[startTimeKey] = startTime
+        context.form[endTimeKey] = endTime
+      }
+    })
+  }
+
+  return computedMap
+}
+
+export function usePage<P extends AppRequest.List, K, R>(options: Page.Options<P, K, R>) {
+  const opt = Object.assign({}, defaultOption, options) as Required<Page.Options<P, K, R>>
   const searchFields: Page.SearchFields = Object.create(null)
 
   const pagination: PaginationProps = reactive({
@@ -50,8 +77,9 @@ export function usePage<P extends AppRequest.List, R>(options: Page.Options<P, R
     data: []
   })
 
-  const pageContext = { pagination, table } as PageContext<R>
-  provide('page', pageContext)
+  const pageContext = { pagination, table, form: opt.form } as PageContext<R>
+
+  const mapper = pageHelpComputed<K>(pageContext, opt.timeFieldMap)
 
   const search = debounce(function (current?: number) {
     if (typeof current === 'number') {
@@ -92,6 +120,8 @@ export function usePage<P extends AppRequest.List, R>(options: Page.Options<P, R
     search()
   }
 
+  provide('page', pageContext)
+
   watch(
     () => pagination.page,
     function (val) {
@@ -116,6 +146,7 @@ export function usePage<P extends AppRequest.List, R>(options: Page.Options<P, R
   )
 
   return {
+    mapper,
     pagination,
     table,
     search

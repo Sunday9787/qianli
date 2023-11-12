@@ -6,7 +6,9 @@ export interface QueryProductList extends AppRequest.List {
   /** 产品名称 */
   name?: string
   /** 产品分类 */
-  category_id?: number | null
+  category_id?: number
+  created_start?: number
+  created_end?: number
 }
 
 export interface ResultProductList {
@@ -14,8 +16,8 @@ export interface ResultProductList {
   name: string
   category_id: number
   category_name: string
-  updated: Date
-  created: Date
+  updated: number
+  created: number
 }
 
 export function productList(data: QueryProductList) {

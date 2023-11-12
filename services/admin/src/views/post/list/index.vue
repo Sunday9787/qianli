@@ -5,7 +5,9 @@ app-view
       n-form-item(label="文章标题" path="title")
         n-input(v-model:value="form.title" clearable)
 
-      n-button(type="primary" @click="search()") 搜索
+      n-space
+        n-button(type="primary" @click="search()") 搜索
+        n-button(attr-type="reset") 重置
 
   app-data-view
     app-table-container
