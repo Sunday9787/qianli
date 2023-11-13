@@ -1,11 +1,12 @@
 import type { PaginationProps } from 'naive-ui'
-import { debounce } from 'lodash-es'
+import { cloneDeep, debounce, type DebouncedFunc } from 'lodash-es'
 import { wait } from '@/utils'
 
 export interface PageContext<T = unknown> {
   pagination: PaginationProps
   table: Page.Table<T>
   form: Record<string, unknown>
+  search: DebouncedFunc<(page?: number) => void>
 }
 
 function updateFields(this: Page.SearchFields, ignoreField: string[], form: Record<string, unknown>) {
@@ -41,7 +42,7 @@ function pageHelpComputed<T>(context: PageContext<unknown>, fieldMap: Page.TimeF
         return null
       },
       set(val: null | Page.TimeMap) {
-        const [startTime, endTime] = val || [undefined, undefined]
+        const [startTime, endTime] = val || [void 0, void 0]
 
         context.form[startTimeKey] = startTime
         context.form[endTimeKey] = endTime
@@ -52,9 +53,19 @@ function pageHelpComputed<T>(context: PageContext<unknown>, fieldMap: Page.TimeF
   return computedMap
 }
 
+function reset(this: PageContext, initialData: Record<string, unknown>) {
+  for (const [key, value] of Object.entries(initialData)) {
+    this.form[key] = value
+  }
+
+  this.search()
+}
+
 export function usePage<P extends AppRequest.List, K, R>(options: Page.Options<P, K, R>) {
   const opt = Object.assign({}, defaultOption, options) as Required<Page.Options<P, K, R>>
   const searchFields: Page.SearchFields = Object.create(null)
+
+  const initialForm = cloneDeep(opt.form)
 
   const pagination: PaginationProps = reactive({
     size: 'medium',
@@ -77,10 +88,6 @@ export function usePage<P extends AppRequest.List, K, R>(options: Page.Options<P
     data: []
   })
 
-  const pageContext = { pagination, table, form: opt.form } as PageContext<R>
-
-  const mapper = pageHelpComputed<K>(pageContext, opt.timeFieldMap)
-
   const search = debounce(function (current?: number) {
     if (typeof current === 'number') {
       const params: AppRequest.List = {
@@ -100,6 +107,10 @@ export function usePage<P extends AppRequest.List, K, R>(options: Page.Options<P
 
     pagination.page = 1
   }, 300)
+
+  const pageContext = { pagination, table, form: opt.form, search } as PageContext<R>
+
+  const mapper = pageHelpComputed<K>(pageContext, opt.timeFieldMap)
 
   async function fetchData(this: PageContext<R>, params: AppRequest.List) {
     this.table.loading = true
@@ -146,6 +157,7 @@ export function usePage<P extends AppRequest.List, K, R>(options: Page.Options<P
   )
 
   return {
+    reset: reset.bind(pageContext, initialForm),
     mapper,
     pagination,
     table,

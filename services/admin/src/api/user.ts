@@ -16,6 +16,8 @@ export class UserResponseDTO {
 export interface QueryUserList extends AppRequest.List {
   username?: string
   email?: string
+  created_start?: number
+  created_end?: number
 }
 
 export interface ResultUserList {

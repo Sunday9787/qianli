@@ -10,6 +10,7 @@
 import { zhTW, lightTheme, darkTheme, type GlobalThemeOverrides } from 'naive-ui'
 import { usePreferredColorScheme } from '@vueuse/core'
 import { useSystemModule, type ThemeMode } from './store/modules/system'
+import { useCacheModule } from './store/modules/cache'
 
 const lightThemeOverrides: GlobalThemeOverrides = {
   common: {
@@ -24,6 +25,7 @@ const darkThemeOverrides: GlobalThemeOverrides = {
 }
 
 const systemModule = useSystemModule()
+const cacheModule = useCacheModule()
 const colorScheme = usePreferredColorScheme()
 
 const themeOverride = computed(function () {
@@ -47,6 +49,7 @@ watch(
   }
 )
 
+cacheModule.cache()
 systemModule.$subscribe(function (mutation, state) {
   document.documentElement.setAttribute('data-theme', state.theme.mode)
 })

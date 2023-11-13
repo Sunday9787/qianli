@@ -1,12 +1,12 @@
 import { NButton, type DataTableColumns, type DataTableColumn, NSpace } from 'naive-ui'
 import AppTableWidget from '@/components/app-table-widget/index.vue'
 import type { TableWidgetItem } from '@/components/app-table-widget/index.vue'
-import type { PostListResponseDTO } from '@/api/post'
+import type { ResultPostList } from '@/api/post'
 import { formatDate } from '@/utils'
 
 interface ColumnAction {
-  edit(row: PostListResponseDTO): void
-  del(row: PostListResponseDTO): void
+  edit(row: ResultPostList): void
+  del(row: ResultPostList): void
 }
 
 export function createTableColumns(action: ColumnAction) {
@@ -18,7 +18,7 @@ export function createTableColumns(action: ColumnAction) {
     { label: '更新日期', key: 'updated', enable: true }
   ])
 
-  const columnsMap: DataTableColumns<PostListResponseDTO> = [
+  const columnsMap: DataTableColumns<ResultPostList> = [
     {
       title: 'No',
       width: 60,
@@ -32,7 +32,7 @@ export function createTableColumns(action: ColumnAction) {
       title: '发布日期',
       key: 'date',
       width: 250,
-      render(row: PostListResponseDTO) {
+      render(row: ResultPostList) {
         return formatDate(row.date)
       }
     },
@@ -54,13 +54,13 @@ export function createTableColumns(action: ColumnAction) {
     }
   ]
 
-  const operationColumn: DataTableColumn<PostListResponseDTO> = {
+  const operationColumn: DataTableColumn<ResultPostList> = {
     title() {
       return <AppTableWidget text='操作' data={columnHead} storageKey='post_table_column_config' />
     },
     width: 160,
     key: 'operation',
-    render(row: PostListResponseDTO) {
+    render(row: ResultPostList) {
       return (
         <NSpace>
           <NButton size='small' onClick={() => action.edit(row)}>

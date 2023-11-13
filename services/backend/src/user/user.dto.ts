@@ -43,9 +43,18 @@ export class UserQueryDTO extends ListQueryDTO {
   @IsOptional()
   @IsString()
   email?: string
+
   @IsOptional()
   @IsString()
   username?: string
+
+  @IsOptional()
+  @IsNumber()
+  created_start?: number
+
+  @IsOptional()
+  @IsNumber()
+  created_end?: number
 }
 
 export class UserResponseDTO {

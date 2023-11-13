@@ -90,9 +90,9 @@ export class ProductService {
     return this.productRepository
       .findAndCount({
         where: {
-          category_id: query.category_id,
-          title: query.title && Like(`%${query.title}%`),
-          name: query.name && Like(`%${query.name}%`),
+          category_id: query.category_id ? query.category_id : null,
+          title: query.title ? Like(`%${query.title}%`) : null,
+          name: query.name ? Like(`%${query.name}%`) : null,
           created:
             query.created_start && query.created_end
               ? Between(new Date(query.created_start), new Date(query.created_end))

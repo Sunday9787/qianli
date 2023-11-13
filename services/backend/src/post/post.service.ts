@@ -91,7 +91,8 @@ export class PostService {
     return this.postRepository
       .findAndCount({
         where: {
-          title: query.title ? Like(`%${query.title}%`) : null
+          title: query.title ? Like(`%${query.title}%`) : null,
+          category_id: query.category_id ? query.category_id : null
         },
         select: ['category', 'category_id', 'date', 'desc', 'id', 'title', 'img'],
         relations: { category: true },

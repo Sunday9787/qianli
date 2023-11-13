@@ -9,7 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppCard: typeof import('./../components/app-card/index.vue')['default']
     AppDataView: typeof import('./../components/app-data-view/index.vue')['default']
-    AppPage: typeof import('@/components/app-page/index.vue')['default']
+    AppFormCollapse: typeof import('./../components/app-form-collapse/index.vue')['default']
     AppSvgIcon: typeof import('./../components/app-svg-icon/index.tsx')['default']
     AppTableContainer: typeof import('./../components/app-table-container/index.vue')['default']
     AppTableWidget: typeof import('./../components/app-table-widget/index.vue')['default']
@@ -40,13 +40,13 @@ declare module 'vue' {
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
     NPagination: typeof import('naive-ui')['NPagination']
     NPopover: typeof import('naive-ui')['NPopover']
+    NSelect: typeof import('naive-ui')['NSelect']
     NSpace: typeof import('naive-ui')['NSpace']
     NSwitch: typeof import('naive-ui')['NSwitch']
     NTable: typeof import('naive-ui')['NTable']
+    NText: typeof import('naive-ui')['NText']
     NTooltip: typeof import('naive-ui')['NTooltip']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TheWelcome: typeof import('./../components/TheWelcome.vue')['default']
-    WelcomeItem: typeof import('./../components/WelcomeItem.vue')['default']
   }
 }

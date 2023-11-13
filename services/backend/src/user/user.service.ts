@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Repository, Like } from 'typeorm'
+import { Repository, Like, Between } from 'typeorm'
 import * as jwt from 'jsonwebtoken'
 import md5 from 'md5'
 import { RedisService } from '@/redis/redis.service'
@@ -117,7 +117,11 @@ export class UserService {
       .findAndCount({
         where: {
           username: query.username ? Like(`%${query.username}%`) : null,
-          email: query.email ? Like(`%${query.email}%`) : null
+          email: query.email ? Like(`%${query.email}%`) : null,
+          created:
+            query.created_start && query.created_end
+              ? Between(new Date(query.created_start), new Date(query.created_end))
+              : null
         },
         ...qianliQuery.option
       })

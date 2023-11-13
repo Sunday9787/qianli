@@ -1,15 +1,18 @@
 <template lang="pug">
 app-view
   app-card
-    n-form(inline :model="form" :show-feedback="false" label-placement="left" :label-width="80")
-      n-form-item(label="用户名" path="username")
-        n-input(v-model:value="form.username" clearable)
-      n-form-item(label="用户邮箱" path="email")
-        n-input(v-model:value="form.email" clearable)
+    app-form-collapse
+      n-form.app-form(:model="form" :show-feedback="false" label-placement="left" :label-width="80")
+        n-form-item(label="用户名" path="username")
+          n-input(v-model:value="form.username" clearable)
+        n-form-item(label="用户邮箱" path="email")
+          n-input(v-model:value="form.email" clearable)
+        n-form-item(label="创建时间" path="created_start")
+          n-date-picker(v-model:value="mapper.createdDate" type="daterange" clearable)
 
-      n-space
+      template(#action)
         n-button(type="primary" @click="search()") 搜索
-        n-button(attr-type="reset") 重置
+        n-button(attr-type="reset" @click="reset()") 重置
 
   app-data-view
     app-table-container
@@ -34,8 +37,20 @@ import { createTableColumns } from './table'
 
 defineOptions({ name: 'QianliUserIndex' })
 
-const form = reactive<QueryUserList>({ username: '', email: '' })
-const { table, pagination, search } = usePage({ request: userList, form })
+const form = reactive<QueryUserList>({
+  username: '',
+  email: '',
+  created_start: void 0,
+  created_end: void 0
+})
+
+const { table, pagination, search, mapper, reset } = usePage({
+  request: userList,
+  timeFieldMap: {
+    createdDate: ['created_start', 'created_end']
+  },
+  form
+})
 
 const columns = createTableColumns({
   edit(row) {

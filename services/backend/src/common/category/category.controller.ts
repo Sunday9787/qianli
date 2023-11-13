@@ -23,4 +23,10 @@ export class CategoryController {
   del(@Param(new ParseIntPipe()) id: number) {
     return this.categoryService.del(id)
   }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('list')
+  list() {
+    return this.categoryService.all()
+  }
 }
