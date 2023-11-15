@@ -42,7 +42,9 @@ function useFormCollapse(height: number) {
   const open = ref(false)
   const vm = getCurrentInstance()?.proxy
   const resizeHandle = debounce(function (e?: UIEvent) {
-    maxHeight.value = vm?.$el.scrollHeight
+    setTimeout(function () {
+      maxHeight.value = vm?.$el.scrollHeight
+    }, 210)
     if (e) open.value = false
   })
 

@@ -1,4 +1,4 @@
-import axios, { type AxiosRequestConfig } from 'axios'
+import axios, { type AxiosRequestConfig, HttpStatusCode } from 'axios'
 import router from '@/router'
 import store from '@/store'
 import { useUserModule } from '@/store/modules/user'
@@ -46,7 +46,7 @@ AxiosInstance.interceptors.response.use(
       console.error(response.data)
 
       // ! TOKEN 失效退出登录
-      if (response.data.code === 3) {
+      if (response.data.code === HttpStatusCode.Unauthorized) {
         userModule.$reset()
         router.replace('/login')
       }

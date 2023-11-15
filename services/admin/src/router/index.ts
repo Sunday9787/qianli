@@ -14,11 +14,11 @@ const router = createRouter({
       component: () => import('@/views/login/index.vue')
     },
     dashboardRoute,
-    userRoute,
     postRoute,
     productRoute,
-    { path: '/403', name: 'Qianli403', meta: { hidden: true }, component: ErrorView, props: { status: 403 } },
-    { path: '/404', name: 'Qianli404', meta: { hidden: true }, component: ErrorView, props: { status: 404 } },
+    userRoute,
+    { path: '/403', name: 'Qianli403', meta: { hidden: true }, props: { status: 403 }, component: ErrorView },
+    { path: '/404', name: 'Qianli404', meta: { hidden: true }, props: { status: 404 }, component: ErrorView },
     { path: '/:catchAll(.*)', redirect: '/404', meta: { hidden: true } }
   ]
 })

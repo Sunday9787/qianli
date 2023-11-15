@@ -1,7 +1,7 @@
 import router from '.'
+import NProgress from 'nprogress'
 import store from '@/store'
 import { useUserModule } from '@/store/modules/user'
-import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 const whiteList: ReadonlyArray<string> = ['/login']
