@@ -29,6 +29,7 @@ import { ProductSpecEntity } from './product/detail/detail.spec.entity'
 import { ProductFileEntity } from './product/detail/detail.file.entity'
 import { UserEntity } from './user/user.entity'
 import { RedisModule } from './redis/redis.module'
+import { AuthModule } from './auth/auth.module'
 
 @Module({
   imports: [
@@ -62,6 +63,7 @@ import { RedisModule } from './redis/redis.module'
     }),
     RedisModule,
     LayoutModule,
+    AuthModule,
     UserModule,
     ProductModule,
     AboutModule,

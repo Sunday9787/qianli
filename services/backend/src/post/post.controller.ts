@@ -9,8 +9,11 @@ import {
   HttpCode,
   HttpStatus,
   UsePipes,
-  ValidationPipe
+  ValidationPipe,
+  UseGuards,
+  Put
 } from '@nestjs/common'
+import { AuthGuard } from '@/auth/auth.guard'
 import { PostService } from './post.service'
 import { PostDTO, PostQueryDTO } from './post.dto'
 
@@ -25,13 +28,15 @@ export class PostController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('add')
+  @UseGuards(AuthGuard)
+  @Put('add')
   add(@Body() body: PostDTO) {
     console.log(body)
     return this.postService.add(body)
   }
 
   @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
   @UsePipes(new ValidationPipe({ transform: true }))
   @Post('list')
   list(@Body() body: PostQueryDTO) {

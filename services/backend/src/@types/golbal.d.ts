@@ -1,5 +1,5 @@
 declare namespace Express {
-  import { JwtDTO } from '@/user/user.jwt.dto'
+  import { JwtDTO } from '@/auth/auth.jwt.dto'
   interface Request {
     user: JwtDTO
   }

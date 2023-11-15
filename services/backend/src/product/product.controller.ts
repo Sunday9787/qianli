@@ -10,9 +10,11 @@ import {
   Post,
   Put,
   Render,
+  UseGuards,
   UsePipes,
   ValidationPipe
 } from '@nestjs/common'
+import { AuthGuard } from '@/auth/auth.guard'
 import { ProductService } from './product.service'
 import { ProductAddDTO, ProductEditDTO, ProductQueryListDTO } from './product.dto'
 import { ProductFileDTO } from './detail/detail.file.dto'
@@ -29,6 +31,7 @@ export class ProductController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
   @Put('add')
   add(@Body() body: ProductAddDTO) {
     const { img, spec, scenario, feature, ...base } = body
@@ -43,18 +46,21 @@ export class ProductController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
   @Post('edit')
   edit(@Body() body: ProductEditDTO) {
     return this.productService.edit(body)
   }
 
   @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
   @Delete('del/:id')
   del(@Param(new ParseIntPipe()) id: number) {
     return this.productService.del(id)
   }
 
   @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
   @Post('list')
   list(@Body() body: ProductQueryListDTO) {
     return this.productService.all(body)

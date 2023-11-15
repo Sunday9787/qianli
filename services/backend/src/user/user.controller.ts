@@ -13,10 +13,11 @@ import {
 } from '@nestjs/common'
 import { UserService } from './user.service'
 import { UserAddDTO, UserDTO, UserEditDTO, UserForgetDTO, UserQueryDTO } from './user.dto'
-import { ValidationPipe } from '@/pipe/validation.pipe'
-import { UserGuard } from './user.guard'
+import { JwtDTO } from '@/auth/auth.jwt.dto'
 import { User } from './user.decorator'
-import { JwtDTO } from './user.jwt.dto'
+import { ValidationPipe } from '@/pipe/validation.pipe'
+import { AuthGuard } from '@/auth/auth.guard'
+import { AuthToken } from '@/auth/auth.decorator'
 
 @UsePipes(ValidationPipe)
 @Controller('user')
@@ -30,27 +31,28 @@ export class UserController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(UserGuard)
+  @UseGuards(AuthGuard)
   @Post('edit')
   edit(@Body() body: UserEditDTO) {
     console.log(body)
   }
 
   @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
   @Post('list')
   list(@Body() body: UserQueryDTO) {
     return this.userService.all(body)
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(UserGuard)
+  @UseGuards(AuthGuard)
   @Post('forget')
   forget(@Body() body: UserForgetDTO) {
     return this.userService.forget(body)
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(UserGuard)
+  @UseGuards(AuthGuard)
   @Delete('del')
   del(@Param('id', new ParseIntPipe()) id: number) {
     console.log(id)
@@ -64,7 +66,7 @@ export class UserController {
 
   @HttpCode(HttpStatus.OK)
   @Post('logout')
-  logout(@User() user: JwtDTO) {
-    return this.userService.logout(user)
+  logout(@AuthToken() token: string, @User() user: JwtDTO) {
+    return this.userService.logout(token, user)
   }
 }

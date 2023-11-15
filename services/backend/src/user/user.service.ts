@@ -1,9 +1,8 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common'
+import { HttpException, HttpStatus, Inject, Injectable, Logger } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository, Like, Between } from 'typeorm'
 import * as jwt from 'jsonwebtoken'
 import md5 from 'md5'
-import { RedisService } from '@/redis/redis.service'
 import { TOKEN_SECRET } from '@/config'
 import { UserEntity } from './user.entity'
 
@@ -16,17 +15,15 @@ import {
   UserQueryDTO,
   UserResponseDTO
 } from './user.dto'
-import { JwtDTO } from './user.jwt.dto'
+import { JwtDTO } from '@/auth/auth.jwt.dto'
 import { QianliQuery } from '@/class/query'
-
-/** token 失效时间 */
-const TOKEN_EXP_TIME = 1000 * 60 * 60 * 1
+import { AuthService } from '@/auth/auth.service'
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>,
-    @Inject(RedisService) private readonly redisService: RedisService
+    @Inject(AuthService) private readonly authService: AuthService
   ) {}
 
   generateJWT(user: UserEntity) {
@@ -64,13 +61,15 @@ export class UserService {
     dto.avatar = user.avatar
     dto.token = this.generateJWT(user)
 
-    this.redisService.redis.set(dto.email, dto.token, 'EX', TOKEN_EXP_TIME)
+    await this.authService.setToken(dto)
 
     return dto
   }
 
-  async logout(user: JwtDTO) {
-    await this.redisService.redis.del(user.email)
+  async logout(token: string, user: JwtDTO) {
+    Logger.log(user.email, '用户退出登录')
+    Logger.log(token, 'Remove Token')
+    await this.authService.removeToken(user)
   }
 
   async add(body: UserAddDTO) {
@@ -132,14 +131,5 @@ export class UserService {
 
   findById(id: number) {
     return this.userRepository.findOneBy({ id })
-  }
-
-  validateToken(token: string) {
-    const decoded = jwt.verify(token, TOKEN_SECRET) as JwtDTO
-    if (decoded && decoded.exp > Date.now()) {
-      return decoded
-    }
-
-    return null
   }
 }

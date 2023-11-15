@@ -9,3 +9,10 @@ export function loadYaml<R>(fileName: string) {
   })
   return yaml.load(yamlFile) as R
 }
+
+export function getToken(str?: string): string | null {
+  if (!str) return null
+  const token = str.split(' ')
+
+  return token ? token[1] : null
+}
