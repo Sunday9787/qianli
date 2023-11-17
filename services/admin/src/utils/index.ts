@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 
-export function formatDate(date: Date) {
+export function formatDate(date: Date | string | number) {
   return dayjs(date).format('YYYY-MM-DD HH:mm:ss')
 }
 

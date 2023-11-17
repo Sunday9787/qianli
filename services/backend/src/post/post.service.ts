@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { LayoutService } from '@/layout/layout.service'
 import { PostEntity } from './post.entity'
-import { PostDTO, PostQueryDTO } from './post.dto'
+import { PostDTO, PostEditDTO, PostQueryDTO } from './post.dto'
 import { QianliQuery } from '@/class/query'
 
 class RenderPostDTO {
@@ -63,11 +63,28 @@ export class PostService {
     @Inject(LayoutService) private readonly layoutService: LayoutService
   ) {}
 
-  add(body: PostDTO) {
-    return this.postRepository.save(body)
+  async add(body: PostDTO) {
+    await this.postRepository.save(body)
+  }
+
+  async del(id: number) {
+    await this.postRepository.delete({ id })
+  }
+
+  async edit(body: PostEditDTO) {
+    await this.postRepository.update({ id: body.id }, body)
   }
 
   async data(id: number) {
+    await this.postRepository
+      .createQueryBuilder()
+      .update()
+      .set({
+        pv: () => 'pv+1'
+      })
+      .where(`id = :id`, { id })
+      .execute()
+
     const [layout, post, recommends] = await Promise.all([
       this.layoutService.layout(),
       this.postRepository.findOne({ where: { id }, relations: { category: true } }).then(buildRenderPostDetailDTO),
@@ -101,5 +118,9 @@ export class PostService {
       .then(function (result) {
         return qianliQuery.data(result)
       })
+  }
+
+  detail(id: number) {
+    return this.postRepository.findOne({ where: { id }, relations: { category: true } }).then(buildRenderPostDetailDTO)
   }
 }

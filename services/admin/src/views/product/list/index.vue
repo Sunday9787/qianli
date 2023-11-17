@@ -14,7 +14,7 @@ app-view
             label-field="category_name"
             value-field="id"
             clearable
-            :options="cacheModule.productCategoryList")
+            :options="cacheModule.optionsProductCategory")
         n-form-item(label="创建时间" path="created_start")
           n-date-picker(v-model:value="mapper.createdDate" type="daterange" clearable)
 

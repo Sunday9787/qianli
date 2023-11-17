@@ -1,3 +1,4 @@
+import { RouterLink } from 'vue-router'
 import { NButton, type DataTableColumns, type DataTableColumn, NSpace } from 'naive-ui'
 import AppTableWidget from '@/components/app-table-widget/index.vue'
 import type { TableWidgetItem } from '@/components/app-table-widget/index.vue'
@@ -58,15 +59,22 @@ export function createTableColumns(action: ColumnAction) {
     title() {
       return <AppTableWidget text='操作' data={columnHead} storageKey='post_table_column_config' />
     },
-    width: 160,
+    width: 200,
     key: 'operation',
     render(row: ResultPostList) {
       return (
         <NSpace>
-          <NButton size='small' onClick={() => action.edit(row)}>
-            编辑
-          </NButton>
-          <NButton size='small' onClick={() => action.del(row)}>
+          <RouterLink to={`/post/detail/${row.id}`}>
+            <NButton size='small' type='info'>
+              查看
+            </NButton>
+          </RouterLink>
+          <RouterLink to={`/post/action?type=edit&id=${row.id}`}>
+            <NButton size='small' type='primary'>
+              编辑
+            </NButton>
+          </RouterLink>
+          <NButton size='small' type='warning' onClick={() => action.del(row)}>
             删除
           </NButton>
         </NSpace>

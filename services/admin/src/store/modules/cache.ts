@@ -12,8 +12,8 @@ export const useCacheModule = defineStore('cacheModule', {
     } as State
   },
   getters: {
-    postCategoryList: state => state.categoryList.filter(item => item.type === 'post'),
-    productCategoryList: state => state.categoryList.filter(item => item.type === 'product')
+    optionsPostCategory: state => state.categoryList.filter(item => item.type === 'post'),
+    optionsProductCategory: state => state.categoryList.filter(item => item.type === 'product')
   },
   actions: {
     cache() {

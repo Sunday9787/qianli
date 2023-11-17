@@ -12,7 +12,7 @@ app-view
             label-field="category_name"
             value-field="id"
             clearable
-            :options="cacheModule.postCategoryList")
+            :options="cacheModule.optionsPostCategory")
         n-form-item(label="创建时间" path="created_start")
           n-date-picker(v-model:value="mapper.createdDate" type="daterange" clearable)
 
@@ -37,7 +37,7 @@ app-view
 </template>
 
 <script lang="ts" setup>
-import { type QueryPostList, queryList } from '@/api/post'
+import { type QueryPostList, postList } from '@/api/post'
 import { usePage } from '@/hooks/usePage'
 import { useCacheModule } from '@/store/modules/cache'
 import { createTableColumns } from './table'
@@ -52,7 +52,7 @@ const form = reactive<QueryPostList>({
   title: ''
 })
 const { table, pagination, search, mapper, reset } = usePage({
-  request: queryList,
+  request: postList,
   timeFieldMap: {
     createdDate: ['created_start', 'created_end']
   },

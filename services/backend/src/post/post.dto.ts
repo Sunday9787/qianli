@@ -18,9 +18,19 @@ export class PostDTO {
   img: string
 }
 
-export class PostEditDTO extends PostDTO {
+export class PostEditDTO {
   @IsNumber()
   id: number
+  @IsNumber()
+  category_id: number
+  @IsString()
+  title: string
+  @IsString()
+  desc: string
+  @IsString()
+  content: string
+  @IsString()
+  img: string
 }
 
 export class PostQueryDTO extends ListQueryDTO {
