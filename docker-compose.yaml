@@ -21,6 +21,7 @@ services:
   cache:
     container_name: redis
     image: redis:alpine3.18
+    restart: always
     networks:
       - qianli
     ports:

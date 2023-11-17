@@ -35,7 +35,7 @@ block content
                     img(src=`${item}`)
                     if detail.media
                       a.product-detail-play(href="javascript:;")
-                        img(src="/image/play.png")
+                        img(src="//localhost:3000/image/play.png")
 
           .swiper-container.product-detail-swiper__preview
             .swiper-wrapper
@@ -65,9 +65,9 @@ block content
             .swiper-pagination
 
           a.prev(href="javascript:;")
-            img(src="/image/pro_l.png")
+            img(src="//localhost:3000/image/pro_l.png")
           a.next(href="javascript:;")
-            img(src="/image/pro_r.png")
+            img(src="//localhost:3000/image/pro_r.png")
 
   //- 应用场景
   if detail.scenario.length
@@ -106,7 +106,7 @@ block content
           video(id="media" src=`${detail.media}` playsinline="true" controls loop)
         .product-detail-dialog__footer
           a.close(href="javascript:;")
-            img(src="/image/close.png")
+            img(src="//localhost:3000/image/close.png")
 
 block footer
   script(type="text/javascript" charset="utf-8").

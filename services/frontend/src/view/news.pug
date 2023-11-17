@@ -33,7 +33,7 @@ block content
                 b #{item.title}
               p.news-item-date(qianli-animate='animate-fade-in')
                 b #{layout.helper.dayjs(item.date).format('YYYY-MM-DD')}
-              img.news-item-icon(src="/image/case_r.png" qianli-animate='animate-fade-in')
+              img.news-item-icon(src="//localhost:3000/image/case_r.png" qianli-animate='animate-fade-in')
 
       .flex.justify-center
         +qianli-pagination(pagination)

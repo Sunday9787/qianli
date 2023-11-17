@@ -31,18 +31,18 @@ block content
         .swiper-pagination
         .product-pagination-group
           a.product-pagination__button.prev(href="javascript:;")
-            img(src="/image/arrow_left.png")
+            img(src="//localhost:3000/image/arrow_left.png")
             | PREV
           a.product-pagination__button.next(href="javascript:;")
             | NEXT
-            img(src="/image/arrow_right.png")
+            img(src="//localhost:3000/image/arrow_right.png")
 
       .product-pagination-step
         div.product-pagination-step-fraction
           span.product-pagination-step-current 01
           span.product-pagination-step-total 0#{productBanner.length}
         i.product-pagination-step-line scroll
-        img(src="/image/mouse.png")
+        img(src="//localhost:3000/image/mouse.png")
 
   //- 解决方案
   section#solve-container
@@ -62,7 +62,7 @@ block content
 
               a.solve-desc-more(href="javascript:;" qianli-animate='animate-fade-in') #{item.more}
                 span.solve-desc-more__icon
-                  img(src="/image/more.png")
+                  img(src="//localhost:3000/image/more.png")
 
     #solve-item
       .swiper-container
@@ -76,9 +76,9 @@ block content
                 img.solve-item-slide__icon(src=`${item.icon}`)
 
       a.solve-item-button.prev(href="javascript:;")
-        img(src="/image/case_l.png")
+        img(src="//localhost:3000/image/case_l.png")
       a.solve-item-button.next(href="javascript:;")
-        img(src="/image/case_r.png")
+        img(src="//localhost:3000/image/case_r.png")
 
   //- 产品中心
   section#product-center
@@ -114,9 +114,9 @@ block content
 
             .product-center-navigation
               a.product-center-navigation__button.prev(href="javascript:;")
-                img(src="/image/pro_l.png")
+                img(src="//localhost:3000/image/pro_l.png")
               a.product-center-navigation__button.next(href="javascript:;")
-                img(src="/image/pro_r.png")
+                img(src="//localhost:3000/image/pro_r.png")
 
         .product-center-sub
           .swiper-container
@@ -134,7 +134,7 @@ block content
   //- 导航
   section#navigation-container
     .navigation-side.left.flex1
-      img(src="/upload/20220614174030551151.png")
+      img(src="//localhost:3000/upload/20220614174030551151.png")
     .navigation-side.right.flex1
       .navigation-inner-top.flex1
         .navigation-inner-top__bg
@@ -148,7 +148,7 @@ block content
       .navigation-inner-bottom.flex1
         a.navigation-inner-job.flex1(href="/contact")
           .navigation-item(qianli-animate='animate-fade-in')
-            img.navigation-item-icon(src="/upload/20220614174131112183.png")
+            img.navigation-item-icon(src="//localhost:3000/upload/20220614174131112183.png")
             .flex1
             h3.navigation-item-title 社会招聘
 
@@ -156,7 +156,7 @@ block content
 
         a.navigation-inner-news.flex1(href="/news")
           .navigation-item(qianli-animate='animate-fade-in')
-            img.navigation-item-icon(src="/upload/20220614174131131961.png")
+            img.navigation-item-icon(src="//localhost:3000/upload/20220614174131131961.png")
             .flex1
             h3.navigation-item-title 新闻中心
 
@@ -189,8 +189,8 @@ block content
               time.news-item-time #{layout.helper.dayjs(item.date).format('YYYY-MM-DD')}
               p.news-item-text #{item.title}
             .news-item-icon
-              img.news-item-icon__dark(src="/image/new_r.png")
-              img.news-item-icon__light(src="/image/new_rw.png")
+              img.news-item-icon__dark(src="//localhost:3000/image/new_r.png")
+              img.news-item-icon__light(src="//localhost:3000/image/new_rw.png")
 
 block footer
   script(type="text/javascript" charset="utf-8").
