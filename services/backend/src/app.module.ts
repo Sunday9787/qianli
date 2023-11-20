@@ -30,6 +30,7 @@ import { ProductFileEntity } from './product/detail/detail.file.entity'
 import { UserEntity } from './user/user.entity'
 import { RedisModule } from './redis/redis.module'
 import { AuthModule } from './auth/auth.module'
+import { UploadModule } from './upload/upload.module'
 
 @Module({
   imports: [
@@ -71,7 +72,8 @@ import { AuthModule } from './auth/auth.module'
     NewsModule,
     PostModule,
     JobModule,
-    CommonModule
+    CommonModule,
+    UploadModule
   ],
   controllers: [AppController],
   providers: [AppService]

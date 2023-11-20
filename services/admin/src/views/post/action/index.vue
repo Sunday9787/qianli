@@ -17,7 +17,7 @@ main.h-full
       n-form-item(path="content")
         template(#label)
           n-h2 文章内容
-        CKEditor(tagName="article" v-model="action.content" :editor="editor" :config="editorConfig")
+        CKEditor(tagName="article" v-model="action.content" :editor="editor" :config="editorConfig" @ready="onReady")
       n-form-item
         n-space.flex-1(justify="center")
           n-button(type="primary" @click="save()") 保存
@@ -30,6 +30,7 @@ import { useRouter } from 'vue-router'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import type { EditorConfig } from '@ckeditor/ckeditor5-core'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { UploadPostAdapter } from './uploadAdapter'
 import { useAction, type PropsType } from '@/views/post/hooks'
 
 export default defineComponent({
@@ -42,6 +43,8 @@ export default defineComponent({
     type: { type: String as PropType<PropsType>, required: true }
   },
   beforeRouteEnter(to, from, next) {
+    if (to.query.type === 'add') return next()
+
     if (to.query.id && to.query.type) return next()
     return next('/404')
   },
@@ -52,8 +55,7 @@ export default defineComponent({
 
     const editor = ClassicEditor
     const editorConfig: EditorConfig = {
-      language: 'zh-cn',
-      ckfinder: { uploadUrl: '/api/upload/post', openerMethod: 'modal' }
+      language: 'zh-cn'
     }
 
     async function save() {
@@ -65,11 +67,20 @@ export default defineComponent({
       router.go(-1)
     }
 
-    function cancel() {}
+    function cancel() {
+      router.back()
+    }
+
+    function onReady(editor: ClassicEditor) {
+      editor.plugins.get('FileRepository').createUploadAdapter = function (loader) {
+        return new UploadPostAdapter(loader)
+      }
+    }
 
     return {
       save,
       cancel,
+      onReady,
       action,
       editorConfig,
       editor

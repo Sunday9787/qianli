@@ -24,6 +24,9 @@ app-view
     app-table-container
       template(#action)
         n-space(justify="end" :wrap-item="false")
+          router-link(to="/post/action?type=add")
+            n-button(type="primary") 添加文章
+
           n-button(type="primary") 导出
 
       n-data-table(
