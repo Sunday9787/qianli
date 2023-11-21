@@ -74,6 +74,10 @@ request.post = function <R = null>(url: string, data?: unknown, config?: AxiosRe
   return AxiosInstance.post<AppResponse.Body<R>>(url, data, config).then(response => response.data.data)
 }
 
+request.delete = function <R = null>(url: string) {
+  return AxiosInstance.delete<AppResponse.Body<R>>(url).then(response => response.data.data)
+}
+
 request.get = function <R = null>(url: string, config?: AxiosRequestConfig) {
   return AxiosInstance.get<AppResponse.Body<R>>(url, config).then(response => response.data.data)
 }

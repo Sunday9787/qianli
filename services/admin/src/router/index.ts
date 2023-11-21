@@ -4,6 +4,7 @@ import { dashboardRoute } from './modules/dashboard'
 import { userRoute } from './modules/user'
 import { postRoute } from './modules/post'
 import { productRoute } from './modules/product'
+import { systemRoute } from './modules/system'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +19,7 @@ const router = createRouter({
     postRoute,
     productRoute,
     userRoute,
+    systemRoute,
     { path: '/403', name: 'Qianli403', meta: { hidden: true }, props: { status: 403 }, component: ErrorView },
     { path: '/404', name: 'Qianli404', meta: { hidden: true }, props: { status: 404 }, component: ErrorView },
     { path: '/:catchAll(.*)', redirect: '/404', meta: { hidden: true } }

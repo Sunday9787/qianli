@@ -15,6 +15,8 @@ interface Props {
   status: 403 | 404
 }
 
+defineOptions({ name: 'QianliError' })
+
 const props = defineProps<Props>()
 
 const dataMap = new Map([

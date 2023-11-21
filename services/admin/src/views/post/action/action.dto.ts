@@ -1,8 +1,8 @@
 import { Expose } from 'class-transformer'
-import { AbstractDTO } from '@/class/abstractDTO'
+import { AbstractEntity } from '@/class/abstractDTO'
 import { type QueryPostAdd, type QueryPostEdit, PostServer } from '@/api/post'
 
-export class PostActionAddDTO extends AbstractDTO implements QueryPostAdd {
+export class PostActionAddDTO extends AbstractEntity implements QueryPostAdd {
   server = new PostServer()
 
   @Expose() category_id = -1
@@ -16,7 +16,7 @@ export class PostActionAddDTO extends AbstractDTO implements QueryPostAdd {
   }
 }
 
-export class PostActionEditDTO extends AbstractDTO implements QueryPostEdit {
+export class PostActionEditDTO extends AbstractEntity implements QueryPostEdit {
   server = new PostServer()
 
   @Expose() id!: number

@@ -20,7 +20,7 @@ export class CategoryController {
 
   @HttpCode(HttpStatus.OK)
   @Delete('del/:id')
-  del(@Param(new ParseIntPipe()) id: number) {
+  del(@Param('id', new ParseIntPipe()) id: number) {
     return this.categoryService.del(id)
   }
 

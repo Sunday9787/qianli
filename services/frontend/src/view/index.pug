@@ -171,7 +171,7 @@ block content
         p.en NEWS CENTER
         p.cn 新闻中心
       .flex1
-      +qianli-ghost-button('VIEW MORE')(href="/product" mode="dark" qianli-animate='animate-fade-in')
+      +qianli-ghost-button('VIEW MORE')(href="/news" mode="dark" qianli-animate='animate-fade-in')
 
     .news-inner
       .news-thumb
@@ -184,7 +184,7 @@ block content
 
       .news-list.flex1
         each item,index in news
-          a.news-item(href='javascript:;' qianli-animate='animate-fade-in' class=`${(index === 0 && 'active') || ''}`)
+          a.news-item(href=`/post/${item.id}` qianli-animate='animate-fade-in' class=`${(index === 0 && 'active') || ''}`)
             .news-item-content
               time.news-item-time #{layout.helper.dayjs(item.date).format('YYYY-MM-DD')}
               p.news-item-text #{item.title}
