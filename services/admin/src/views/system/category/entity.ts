@@ -23,8 +23,4 @@ export class CategoryEntity extends AbstractEntity<CategoryService> {
   save() {
     return this.service.save(this.toJSON())
   }
-
-  create() {
-    return this.service.create(this.toJSON())
-  }
 }

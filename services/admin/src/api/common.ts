@@ -34,13 +34,27 @@ export class CategoryService {
   select() {
     return request.post<CategoryEntity[]>('/common/category/list')
   }
-  create<T extends QueryCategoryDTO>(data: T) {
-    return request.put('/common/category/add', data)
-  }
   save<T extends QueryCategoryDTO>(data: T) {
-    return request.post('/common/category/add', data)
+    return request.put('/common/category/save', data)
   }
   del(id: number) {
     return request.delete(`/common/category/del/${id}`)
+  }
+}
+
+export interface DepartmentDTO {
+  id: number
+  department_name: string
+}
+
+export class DepartmentService {
+  select() {
+    return request.post<DepartmentDTO[]>('/common/department/list')
+  }
+  save<T extends DepartmentDTO>(data: T) {
+    return request.put('/common/department/save', data)
+  }
+  del(id: number) {
+    return request.delete(`/common/department/del/${id}`)
   }
 }

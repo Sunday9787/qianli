@@ -1,21 +1,15 @@
 import { Body, Controller, Delete, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put } from '@nestjs/common'
 import { CategoryService } from './category.service'
-import { CategoryDTO, CategoryEditDTO } from './category.dto'
+import { CategoryDTO } from './category.dto'
 
 @Controller('common/category')
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}
 
   @HttpCode(HttpStatus.OK)
-  @Put('add')
-  add(@Body() body: CategoryDTO) {
-    return this.categoryService.add(body)
-  }
-
-  @HttpCode(HttpStatus.OK)
-  @Post('edit/:id')
-  edit(@Body() body: CategoryEditDTO) {
-    return this.categoryService.edit(body)
+  @Put('save')
+  save(@Body() body: CategoryDTO) {
+    return this.categoryService.save(body)
   }
 
   @HttpCode(HttpStatus.OK)

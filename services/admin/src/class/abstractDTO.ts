@@ -1,9 +1,9 @@
 import { instanceToPlain } from 'class-transformer'
-type ExcludeAbstractEntityMethod = 'toJSON' | 'save' | 'server' | 'create' | 'reset' | 'del' | 'select'
+type ExcludeAbstractEntityMethod = 'toJSON' | 'save' | 'server' | 'create' | 'reset' | 'del' | 'select' | 'init'
 
 export abstract class AbstractEntity<Service> {
   protected sourceValue: Omit<this, ExcludeAbstractEntityMethod> = Object.create(null)
-  constructor(public readonly service: Service) {}
+  constructor(protected readonly service: Service) {}
 
   public init() {
     this.sourceValue = this.toJSON()

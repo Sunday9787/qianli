@@ -1,7 +1,9 @@
-export class DepartmentDTO {
-  department_name: string
-}
+import { IsNumber, IsString } from 'class-validator'
 
-export class DepartmentUpdateDTO extends DepartmentDTO {
+export class DepartmentDTO {
+  @IsNumber()
   id: number
+
+  @IsString()
+  department_name: string
 }

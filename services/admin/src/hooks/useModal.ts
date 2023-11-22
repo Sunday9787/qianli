@@ -8,19 +8,22 @@ type Type = 'action:visible' | 'action:hidden' | 'action:submit'
 
 type Mode = 'update' | 'create'
 
+enum ActionType {
+  open = 'action:visible',
+  close = 'action:hidden',
+  submit = 'action:submit'
+}
+
 export function useModal(options: Options) {
   const message = useMessage()
-  const actionType = shallowReadonly({
-    open: 'action:visible',
-    close: 'action:hidden',
-    submit: 'action:submit'
-  })
 
   const modal = shallowReactive({
     visible: false,
-    mode: 'update' as Mode,
-    actionType,
-    action
+    mode: 'create' as Mode,
+    action,
+    get title() {
+      return (modal.mode === 'create' ? '添加' : '编辑') + options.label
+    }
   })
 
   const successText = computed(function () {
@@ -29,17 +32,20 @@ export function useModal(options: Options) {
 
   async function action(type: Type) {
     switch (type) {
-      case actionType.open:
+      case ActionType.open:
         modal.visible = true
         options.open?.apply(null)
         break
-      case actionType.close:
+      case ActionType.close:
         modal.visible = false
+        setTimeout(function () {
+          modal.mode = 'create'
+        }, 0)
         break
-      case actionType.submit:
+      case ActionType.submit:
         await options.submit()
         message.success(successText.value)
-        modal.mode = 'create'
+        modal.action('action:hidden')
     }
   }
 

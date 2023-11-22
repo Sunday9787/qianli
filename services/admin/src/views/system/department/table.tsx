@@ -1,13 +1,13 @@
 import { NButton, type DataTableColumns, NSpace } from 'naive-ui'
-import type { CategoryEntity } from './entity'
+import type { DepartmentEntity } from './entity'
 
 interface ColumnAction {
-  edit(row: CategoryEntity): void
-  del(row: CategoryEntity, rowIndex: number): void
+  edit(row: DepartmentEntity): void
+  del(row: DepartmentEntity, rowIndex: number): void
 }
 
 export function createTableColumns(action: ColumnAction) {
-  const columns: DataTableColumns<CategoryEntity> = [
+  const columns: DataTableColumns<DepartmentEntity> = [
     {
       title: 'No',
       width: 60,
@@ -16,8 +16,7 @@ export function createTableColumns(action: ColumnAction) {
         return <span>{index + 1}</span>
       }
     },
-    { title: '分类名称', key: 'category_name' },
-    { title: '分类类型', key: 'type' },
+    { title: '部门名称', key: 'department_name' },
     {
       title: '操作',
       width: 150,

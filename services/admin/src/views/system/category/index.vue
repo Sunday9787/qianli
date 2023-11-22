@@ -10,8 +10,8 @@ app-card.h-full
 
       n-data-table.h-full(:data="table.data" :loading="table.loading" :columns="columns")
 
-n-modal(v-model:show="modal.visible" title="" transform-origin="center" @after-leave="category.reset()")
-  n-card(style="width: 600px")
+n-modal(v-model:show="modal.visible" transform-origin="center" @after-leave="category.reset()")
+  n-card(:title="modal.title" style="width: 600px")
     n-form(ref="formRef" :model="category" :rules="formRule" :label-width="80")
       n-form-item(label="分类名称" path="category_name")
         n-input(v-model:value="category.category_name")
@@ -21,8 +21,8 @@ n-modal(v-model:show="modal.visible" title="" transform-origin="center" @after-l
           n-radio(value="post") 文章
     template(#footer)
       n-space(justify="end")
-        n-button(type="primary" size="large" @click="modal.action('action:submit')") 确认
-        n-button(size="large" @click="modal.action('action:hidden')") 取消
+        n-button(type="primary" @click="modal.action('action:submit')") 确认
+        n-button(@click="modal.action('action:hidden')") 取消
 </template>
 
 <script lang="ts" setup>
@@ -51,7 +51,7 @@ const modal = useModal({
     }
 
     await formRef.value.validate()
-    await category.create()
+    await category.save()
     query()
     modal.action('action:hidden')
   }
