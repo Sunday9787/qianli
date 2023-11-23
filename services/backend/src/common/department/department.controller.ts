@@ -1,4 +1,16 @@
-import { Body, Controller, Delete, Post, HttpCode, HttpStatus, Param, ParseIntPipe, Put } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Post,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Put,
+  UseInterceptors
+} from '@nestjs/common'
+import { CacheInterceptor } from '@nestjs/cache-manager'
 import { DepartmentService } from './department.service'
 import { DepartmentDTO } from './department.dto'
 
@@ -19,6 +31,7 @@ export class DepartmentController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @UseInterceptors(CacheInterceptor)
   @Delete('del/:id')
   del(@Param('id', new ParseIntPipe()) id: number) {
     return this.departmentService.del(id)

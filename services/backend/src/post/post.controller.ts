@@ -12,8 +12,10 @@ import {
   ValidationPipe,
   UseGuards,
   Put,
-  Delete
+  Delete,
+  UseInterceptors
 } from '@nestjs/common'
+import { CacheInterceptor } from '@nestjs/cache-manager'
 import { AuthGuard } from '@/auth/auth.guard'
 import { PostService } from './post.service'
 import { PostDTO, PostQueryDTO } from './post.dto'
@@ -46,6 +48,7 @@ export class PostController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)
+  @UseInterceptors(CacheInterceptor)
   @UsePipes(new ValidationPipe({ transform: true }))
   @Post('list')
   list(@Body() body: PostQueryDTO) {
@@ -54,6 +57,7 @@ export class PostController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)
+  @UseInterceptors(CacheInterceptor)
   @Post(':id')
   detail(@Param('id', new ParseIntPipe()) id: number) {
     return this.postService.detail(id)

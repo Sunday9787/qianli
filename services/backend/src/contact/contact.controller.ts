@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Post, Put, Render } from '@nestjs/common'
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Post, Put, Render, UseInterceptors } from '@nestjs/common'
+import { CacheInterceptor } from '@nestjs/cache-manager'
 import { ContactService } from './contact.service'
 import { ContactDTO, ContactEditDTO } from './contact.dto'
 import { ContactFeedbackDTO } from './contact.feedback.dto'
@@ -8,6 +9,7 @@ export class ContactController {
   constructor(private readonly contactService: ContactService) {}
 
   @Get()
+  @UseInterceptors(CacheInterceptor)
   @Render('contact')
   render() {
     return this.contactService.data()

@@ -6,11 +6,13 @@ import { PostEntity } from './post.entity'
 import { PostDTO, PostQueryDTO } from './post.dto'
 import { QianliQuery } from '@/class/query'
 
+import dayjs from 'dayjs'
+
 class RenderPostDTO {
   id: number
   category_name: string
   category_id: number
-  date: Date | null
+  date: string
   created: Date
   updated: Date
   pv: number
@@ -30,7 +32,7 @@ function buildRenderPostDTO(entity: PostEntity) {
   dto.updated = entity.updated
   dto.category_name = entity.category.category_name
   dto.category_id = entity.category_id
-  dto.date = entity.date
+  dto.date = dayjs(entity.date).format('YYYY-MM-DD')
   dto.pv = entity.pv
   dto.title = entity.title
   dto.desc = entity.desc
@@ -46,7 +48,7 @@ function buildRenderPostDetailDTO(entity: PostEntity) {
   dto.updated = entity.updated
   dto.category_name = entity.category.category_name
   dto.category_id = entity.category_id
-  dto.date = entity.date
+  dto.date = dayjs(entity.date).format('YYYY-MM-DD')
   dto.pv = entity.pv
   dto.title = entity.title
   dto.content = entity.content

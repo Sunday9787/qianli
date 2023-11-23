@@ -8,10 +8,10 @@ import { TOKEN_SECRET } from '@/config'
 @Injectable()
 export class AuthService {
   /**
-   * ! token 失效时间(秒)
+   * ! token 失效时间(毫秒)
    * ! 默认token 1小时后失效
    */
-  static TOKEN_EXP_TIME = 60 * 60
+  static TOKEN_EXP_TIME = 60 * 60 * 1000
 
   static generateTokenKey<T extends { email: string }>(user: T) {
     return 'token:' + user.email
@@ -20,23 +20,22 @@ export class AuthService {
   constructor(@Inject(RedisService) private readonly redisService: RedisService) {}
 
   async setToken(dto: UserLoginResponseDTO) {
-    await this.redisService.redis.set(
+    await this.redisService.cacheManager.set(
       AuthService.generateTokenKey(dto),
       JSON.stringify(dto),
-      'EX',
       AuthService.TOKEN_EXP_TIME
     )
   }
 
   async removeToken(user: JwtDTO) {
-    await this.redisService.redis.del(AuthService.generateTokenKey(user))
+    await this.redisService.cacheManager.del(AuthService.generateTokenKey(user))
   }
 
   async validateToken(token: string): Promise<null | JwtDTO> {
     const decoded = jwt.verify(token, TOKEN_SECRET) as JwtDTO
 
     if (decoded) {
-      const result = await this.redisService.redis.get(AuthService.generateTokenKey(decoded))
+      const result = await this.redisService.cacheManager.get(AuthService.generateTokenKey(decoded))
       if (result) return decoded
     }
 

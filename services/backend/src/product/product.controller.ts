@@ -11,9 +11,11 @@ import {
   Put,
   Render,
   UseGuards,
+  UseInterceptors,
   UsePipes,
   ValidationPipe
 } from '@nestjs/common'
+import { CacheInterceptor } from '@nestjs/cache-manager'
 import { AuthGuard } from '@/auth/auth.guard'
 import { ProductService } from './product.service'
 import { ProductAddDTO, ProductEditDTO, ProductQueryListDTO } from './product.dto'
@@ -61,6 +63,7 @@ export class ProductController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)
+  @UseInterceptors(CacheInterceptor)
   @Post('list')
   list(@Body() body: ProductQueryListDTO) {
     return this.productService.all(body)

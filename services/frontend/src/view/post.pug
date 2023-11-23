@@ -10,7 +10,7 @@ block content
         .post-content-head
           h1.post-title(qianli-animate='animate-fade-in') #{post.title}
           p.post-meta(qianli-animate='animate-fade-in')
-            time.post-meta-date(datetime=`${post.date}`) 发布时间：#{layout.helper.dayjs(post.date).format('YYYY-MM-DD')}
+            time.post-meta-date(datetime=`${post.date}`) 发布时间：#{post.date}
             span.post-meta-pv 浏览次数：#{post.pv}
         article.post-article.ck-content(qianli-animate='animate-fade-in')!= post.content
 

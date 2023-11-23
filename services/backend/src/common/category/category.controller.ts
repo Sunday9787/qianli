@@ -1,4 +1,16 @@
-import { Body, Controller, Delete, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  UseInterceptors
+} from '@nestjs/common'
+import { CacheInterceptor } from '@nestjs/cache-manager'
 import { CategoryService } from './category.service'
 import { CategoryDTO } from './category.dto'
 
@@ -19,6 +31,7 @@ export class CategoryController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @UseInterceptors(CacheInterceptor)
   @Post('list')
   list() {
     return this.categoryService.all()

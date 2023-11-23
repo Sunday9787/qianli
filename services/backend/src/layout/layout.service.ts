@@ -2,7 +2,6 @@ import { Repository } from 'typeorm'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import manifest from 'backend/manifest.json'
-import dayjs from 'dayjs'
 import { LayoutEntity } from './layout.entity'
 import { LayoutDTO, LayoutEditDTO } from './layout.dto'
 
@@ -53,9 +52,6 @@ export class LayoutService {
 
     return {
       manifest,
-      helper: {
-        dayjs
-      },
       isIndex: option?.ghost.includes('index'),
       isNews: option?.ghost.includes('news'),
       menus

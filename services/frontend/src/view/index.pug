@@ -186,7 +186,7 @@ block content
         each item,index in news
           a.news-item(href=`/post/${item.id}` qianli-animate='animate-fade-in' class=`${(index === 0 && 'active') || ''}`)
             .news-item-content
-              time.news-item-time #{layout.helper.dayjs(item.date).format('YYYY-MM-DD')}
+              time.news-item-time #{item.date}
               p.news-item-text #{item.title}
             .news-item-icon
               img.news-item-icon__dark(src="//localhost:3000/image/new_r.png")

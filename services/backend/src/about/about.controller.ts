@@ -9,8 +9,10 @@ import {
   ParseIntPipe,
   Post,
   Put,
-  Render
+  Render,
+  UseInterceptors
 } from '@nestjs/common'
+import { CacheInterceptor } from '@nestjs/cache-manager'
 import { AboutService } from './about.service'
 import { AboutDTO, AboutEditDTO } from './about.dto'
 
@@ -19,6 +21,7 @@ export class AboutController {
   constructor(private readonly aboutService: AboutService) {}
 
   @Get()
+  @UseInterceptors(CacheInterceptor)
   @Render('about')
   render() {
     return this.aboutService.data()
