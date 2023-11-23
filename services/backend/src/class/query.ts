@@ -25,14 +25,13 @@ export class ListQueryDTO {
 }
 
 export class QianliQuery<T, D, Q extends ListQueryDTO> {
-  private result: ListDTO<D>
-  private query: Q
-  public option: Pick<FindManyOptions, 'skip' | 'take'>
-  private handle: (item: T) => D
+  private readonly result: ListDTO<D>
+  public readonly option: Pick<FindManyOptions, 'skip' | 'take'>
 
-  constructor(query: Q, handle: (item: T) => D) {
-    this.handle = handle
-    this.query = query
+  constructor(
+    private readonly query: Q,
+    private readonly handle: (item: T) => D
+  ) {
     this.option = { take: query.size, skip: query.size * (query.current - 1) }
     this.result = new ListDTO()
   }

@@ -17,7 +17,7 @@ export class PostEntity {
   @Column({ type: 'integer', comment: '文章分类' })
   category_id: number
 
-  @Column({ type: 'datetime', nullable: false, comment: '文章发布时间' })
+  @Column({ type: 'datetime', nullable: true, default: null, comment: '文章发布时间' })
   date: Date
 
   @CreateDateColumn({ comment: '文章创建时间' })
@@ -26,7 +26,13 @@ export class PostEntity {
   @UpdateDateColumn({ comment: '文章更新时间' })
   updated: Date
 
-  @Column({ type: 'integer', nullable: false, comment: '文章浏览量' })
+  /**
+   * 文章发布状态 0草稿 1发布
+   */
+  @Column({ type: 'integer', nullable: false, default: 0, comment: '文章发布状态 0草稿 1发布' })
+  status: 0 | 1
+
+  @Column({ type: 'integer', nullable: false, default: 0, comment: '文章浏览量' })
   pv: number
 
   @Column({ type: 'varchar', nullable: false, length: 255, comment: '文章标题' })

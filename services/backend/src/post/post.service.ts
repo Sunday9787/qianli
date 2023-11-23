@@ -3,14 +3,14 @@ import { Inject, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { LayoutService } from '@/layout/layout.service'
 import { PostEntity } from './post.entity'
-import { PostDTO, PostEditDTO, PostQueryDTO } from './post.dto'
+import { PostDTO, PostQueryDTO } from './post.dto'
 import { QianliQuery } from '@/class/query'
 
 class RenderPostDTO {
   id: number
   category_name: string
   category_id: number
-  date: Date
+  date: Date | null
   created: Date
   updated: Date
   pv: number
@@ -63,16 +63,12 @@ export class PostService {
     @Inject(LayoutService) private readonly layoutService: LayoutService
   ) {}
 
-  async add(body: PostDTO) {
+  async save(body: PostDTO) {
     await this.postRepository.save(body)
   }
 
   async del(id: number) {
     await this.postRepository.delete({ id })
-  }
-
-  async edit(body: PostEditDTO) {
-    await this.postRepository.update({ id: body.id }, body)
   }
 
   async data(id: number) {
@@ -87,10 +83,14 @@ export class PostService {
 
     const [layout, post, recommends] = await Promise.all([
       this.layoutService.layout(),
-      this.postRepository.findOne({ where: { id }, relations: { category: true } }).then(buildRenderPostDetailDTO),
-      this.postRepository.find({ where: { id: Not(id) }, relations: { category: true } }).then(function (result) {
-        return result.map(buildRenderPostDTO)
-      })
+      this.postRepository
+        .findOne({ where: { id, status: 1 }, relations: { category: true } })
+        .then(buildRenderPostDetailDTO),
+      this.postRepository
+        .find({ where: { id: Not(id), status: 1 }, relations: { category: true } })
+        .then(function (result) {
+          return result.map(buildRenderPostDTO)
+        })
     ])
 
     return {
@@ -100,7 +100,7 @@ export class PostService {
     }
   }
 
-  all(query: PostQueryDTO) {
+  all(query: PostQueryDTO, api = false) {
     const qianliQuery = new QianliQuery(query, function (item: PostEntity) {
       return buildRenderPostDTO(item)
     })
@@ -108,6 +108,7 @@ export class PostService {
     return this.postRepository
       .findAndCount({
         where: {
+          status: api ? null : 1,
           title: query.title ? Like(`%${query.title}%`) : null,
           category_id: query.category_id ? query.category_id : null
         },

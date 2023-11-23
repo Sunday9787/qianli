@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
-import path from 'path/posix'
+import path from 'path'
 import fs from 'fs'
 
 const host = 'http://localhost:3000'
-const projectRoot = path.resolve(process.cwd(), '..', '..', '..')
+const projectRoot = path.resolve(process.cwd(), '..', '..')
 
 @Injectable()
 export class UploadService {
