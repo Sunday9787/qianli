@@ -1,5 +1,6 @@
 import { request } from '@/utils/request'
 import type { CategoryEntity } from '@/views/system/category/entity'
+import type { AxiosRequestConfig } from 'axios'
 
 export interface ResultCategoryList {
   id: number
@@ -16,11 +17,12 @@ export interface ResultUploadPostFile {
   ossUrl: string
 }
 
-export function uploadPostFile(data: FormData) {
+export function uploadPostFile(data: FormData, config?: AxiosRequestConfig) {
   return request.post<ResultUploadPostFile>('/upload/post/image', data, {
     headers: {
       'Content-Type': 'multipart/form-data'
-    }
+    },
+    ...config
   })
 }
 

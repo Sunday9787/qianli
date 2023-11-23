@@ -7,7 +7,6 @@ export class UploadPostAdapter implements UploadAdapter {
   async upload() {
     const file = await this.loader.file
     const data = new FormData()
-    data.append('typeOption', 'upload_image')
     data.append('file', file!)
 
     const response = await uploadPostFile(data)

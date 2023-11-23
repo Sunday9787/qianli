@@ -2,9 +2,14 @@ import { Expose, plainToInstance } from 'class-transformer'
 import { AbstractEntity } from '@/class/abstractDTO'
 import { CategoryService } from '@/api/common'
 
-export class CategoryEntity extends AbstractEntity<CategoryService> {
+export class CategoryEntity extends AbstractEntity {
+  private static readonly service = new CategoryService()
+  static async select() {
+    return plainToInstance(CategoryEntity, await CategoryEntity.service.select(), { excludeExtraneousValues: true })
+  }
+
   constructor() {
-    super(new CategoryService())
+    super()
     this.init()
   }
 
@@ -12,15 +17,11 @@ export class CategoryEntity extends AbstractEntity<CategoryService> {
   @Expose() category_name!: string
   @Expose() type!: 'product' | 'post'
 
-  async select() {
-    return plainToInstance(CategoryEntity, await this.service.select(), { excludeExtraneousValues: true })
-  }
-
   del() {
-    return this.service.del(this.id)
+    return CategoryEntity.service.del(this.id)
   }
 
   save() {
-    return this.service.save(this.toJSON())
+    return CategoryEntity.service.save(this.toJSON())
   }
 }

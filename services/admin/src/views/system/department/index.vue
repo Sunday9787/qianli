@@ -81,7 +81,7 @@ const columns = createTableColumns({
 })
 
 async function query() {
-  table.data = await department.select()
+  table.data = await DepartmentEntity.select()
   table.loading = false
 }
 query()

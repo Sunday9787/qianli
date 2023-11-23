@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { categoryList, type ResultCategoryList } from '@/api/common'
 
-interface State {
+export interface State {
   categoryList: ResultCategoryList[]
 }
 

@@ -3,7 +3,7 @@ app-view
   app-card(type="flex" direction="vertical" )
     n-h1 {{ detail.title }}
     n-space
-      time(pubdate) 发布时间 {{ formatDate(detail.date) }}
+      time(pubdate) 发布时间 {{ formatDate(detail.date) || '-' }}
       span 浏览次数 {{ detail.pv }}
     n-hr
     .flex-1.overflow-hidden
@@ -11,7 +11,7 @@ app-view
 </template>
 
 <script lang="ts" setup>
-import { useDetail } from '@/views/post/hooks'
+import { usePost } from '@/views/post/hooks'
 import { formatDate } from '@/utils'
 
 interface Props {
@@ -27,5 +27,5 @@ defineOptions({
 })
 
 const props = defineProps<Props>()
-const { detail } = useDetail(props.id)
+const detail = usePost({ type: 'detail', id: props.id })
 </script>

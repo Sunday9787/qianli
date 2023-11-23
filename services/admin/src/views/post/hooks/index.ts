@@ -1,46 +1,22 @@
 import { plainToInstance } from 'class-transformer'
-import { postDetail, type ResultPostDetail } from '@/api/post'
-import { PostActionAddDTO, PostActionEditDTO } from '@/views/post/action/action.dto'
+import { PostEntity } from '@/views/post/entity'
 
-export function useDetail(id: number) {
-  const detail = ref<ResultPostDetail>({
-    id: 0,
-    category_id: 0,
-    title: '',
-    desc: '',
-    content: '',
-    category_name: '',
-    img: '',
-    date: '',
-    pv: 0,
-    created: '',
-    updated: ''
-  })
-
-  postDetail(id).then(function (response) {
-    detail.value = response
-  })
-
-  return { detail }
-}
-
-export type PropsType = 'edit' | 'add'
+export type PropsType = 'edit' | 'add' | 'detail'
 
 export interface ActionProps {
   id: number
   type: PropsType
 }
 
-export function useAction(props: ActionProps) {
-  const actionInstance = ref<PostActionAddDTO | PostActionEditDTO | null>(null)
+export function usePost(props: ActionProps) {
+  const post = ref(new PostEntity(props.id))
 
-  if (props.type === 'add') {
-    actionInstance.value = new PostActionAddDTO()
-  } else {
-    postDetail(props.id).then(function (response) {
-      actionInstance.value = plainToInstance(PostActionEditDTO, response, { excludeExtraneousValues: true })
+  if (props.type !== 'add') {
+    post.value.detail().then(function (response) {
+      console.log('response', response)
+      post.value = plainToInstance(PostEntity, response)
     })
   }
 
-  return actionInstance
+  return post
 }

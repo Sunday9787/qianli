@@ -1,3 +1,4 @@
+import type { PostEntity } from '@/views/post/entity'
 import { request } from '@/utils/request'
 
 export interface QueryPostList extends AppRequest.List {
@@ -24,7 +25,8 @@ export function postList(data: QueryPostList) {
   return request.post<AppResponse.List<ResultPostList>>('/post/list', data)
 }
 
-export interface QueryPostAdd {
+export interface QueryPostDTO {
+  id: number
   category_id: number
   title: string
   desc: string
@@ -32,11 +34,11 @@ export interface QueryPostAdd {
   img: string
 }
 
-export function postAdd(data: QueryPostAdd) {
+export function postAdd(data: QueryPostDTO) {
   return request.put('/post/add', data)
 }
 
-export interface ResultPostDetail extends QueryPostAdd {
+export interface ResultPostDetail extends QueryPostDTO {
   category_name: string
   id: number
   /** 发布时间 */
@@ -53,21 +55,13 @@ export function postDetail(id: number) {
   return request.post<ResultPostDetail>(`/post/${id}`)
 }
 
-export interface QueryPostEdit extends QueryPostAdd {
-  id: number
-}
-
-export function postEdit(data: QueryPostEdit) {
-  return request.post('/post/edit', data)
-}
-
 export class PostServer {
-  create<T extends QueryPostAdd>(data: T) {
-    return request.put('/post/add', data)
+  detail(id: number) {
+    return request.post<PostEntity>(`/post/${id}`)
   }
 
-  save<T extends QueryPostEdit>(data: T) {
-    return request.post('/post/edit', data)
+  save<T extends QueryPostDTO>(data: T) {
+    return request.put('/post/save', data)
   }
 
   del(id: number) {

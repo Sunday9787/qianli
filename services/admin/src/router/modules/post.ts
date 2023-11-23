@@ -24,7 +24,7 @@ export const postRoute: RouteRecordRaw = {
     {
       path: 'action',
       meta: { title: '文章管理' },
-      props: route => ({ id: Number(route.query.id), type: route.query.type }),
+      props: route => ({ id: Number(route.query.id) || 0, type: route.query.type }),
       component: () => import('@/views/post/action/index.vue')
     }
   ]

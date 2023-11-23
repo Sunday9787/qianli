@@ -88,7 +88,7 @@ const columns = createTableColumns({
 })
 
 async function query() {
-  table.data = await category.select()
+  table.data = await CategoryEntity.select()
   table.loading = false
 }
 query()
