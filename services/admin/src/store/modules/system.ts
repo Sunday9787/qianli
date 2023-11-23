@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import { emitter } from '@/utils/eventBus'
+import { globalChannel } from '@/utils/constant'
 
 interface State {
   sidebar: {
@@ -32,9 +34,18 @@ export const useSystemModule = defineStore('systemModule', {
     },
     CHANGE_THEME(mode: ThemeMode) {
       this.theme.mode = mode
+      emitter.emit(globalChannel.systemThemeChange)
     },
     TOGGLE_THEME() {
       this.theme.mode = this.theme.mode === 'light' ? 'dark' : 'light'
+    }
+  },
+  persist: {
+    paths: ['sidebar', 'theme'],
+    afterRestore() {
+      requestAnimationFrame(function () {
+        emitter.emit(globalChannel.systemThemeChange)
+      })
     }
   }
 })
