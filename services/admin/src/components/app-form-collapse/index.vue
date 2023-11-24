@@ -115,7 +115,7 @@ export default {
 </script>
 
 <style lang="less">
-@width: 180px;
+@width: 190px;
 
 .app-form-collapse {
   position: relative;
@@ -135,6 +135,7 @@ export default {
   right: 0;
   @apply flex;
   @apply items-start;
+  column-gap: 5px;
   width: @width;
   height: 100%;
 }

@@ -1,5 +1,5 @@
 import { instanceToPlain } from 'class-transformer'
-type ExcludeAbstractEntityMethod =
+type ExcludeEntityAttribute =
   | 'toJSON'
   | 'save'
   | 'server'
@@ -9,9 +9,12 @@ type ExcludeAbstractEntityMethod =
   | 'select'
   | 'init'
   | 'upload'
+  | 'process'
+export type EntityQuery<T, Attr = unknown> = Omit<T, ExcludeEntityAttribute & Attr>
+export type EntityJSON<T> = Omit<T, ExcludeEntityAttribute>
 
 export abstract class AbstractEntity {
-  protected sourceValue: Omit<this, ExcludeAbstractEntityMethod> = Object.create(null)
+  protected sourceValue: EntityJSON<this> = Object.create(null)
 
   public init() {
     this.sourceValue = this.toJSON()
@@ -26,6 +29,6 @@ export abstract class AbstractEntity {
   }
 
   public toJSON() {
-    return instanceToPlain(this, { excludeExtraneousValues: true }) as Omit<this, ExcludeAbstractEntityMethod>
+    return instanceToPlain(this, { excludeExtraneousValues: true }) as EntityJSON<this>
   }
 }
