@@ -5,10 +5,10 @@ import { JobModule } from '@/job/job.module'
 import { ContactController } from './contact.controller'
 import { ContactService } from './contact.service'
 import { ContactEntity } from './contact.entity'
-import { ContactFeedbackEntity } from './contact.feedback.entity'
+import { FeedbackModule } from './feedback/feedback.module'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ContactEntity, ContactFeedbackEntity]), JobModule],
+  imports: [TypeOrmModule.forFeature([ContactEntity]), FeedbackModule, JobModule],
   controllers: [ContactController],
   providers: [ContactService]
 })

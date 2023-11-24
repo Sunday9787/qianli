@@ -1,12 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Inject, Injectable } from '@nestjs/common'
 import { LayoutService } from '@/layout/layout.service'
 import { JobService } from '@/job/job.service'
 import { ContactEntity } from './contact.entity'
-import { ContactFeedbackEntity } from './contact.feedback.entity'
 import { ContactDTO, ContactEditDTO } from './contact.dto'
-import { ContactFeedbackDTO } from './contact.feedback.dto'
 
 @Injectable()
 export class ContactService {
@@ -16,9 +14,7 @@ export class ContactService {
     @Inject(JobService)
     private readonly jobService: JobService,
     @InjectRepository(ContactEntity)
-    private readonly contactRepository: Repository<ContactEntity>,
-    @InjectRepository(ContactFeedbackEntity)
-    private readonly contactFeedbackRepository: Repository<ContactFeedbackEntity>
+    private readonly contactRepository: Repository<ContactEntity>
   ) {}
 
   add(body: ContactDTO[]) {
@@ -31,10 +27,6 @@ export class ContactService {
 
   del(id: number) {
     return this.contactRepository.delete(id)
-  }
-
-  feedback(body: ContactFeedbackDTO) {
-    return this.contactFeedbackRepository.save(body)
   }
 
   async data() {

@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Post, Put, Render,
 import { CacheInterceptor } from '@nestjs/cache-manager'
 import { ContactService } from './contact.service'
 import { ContactDTO, ContactEditDTO } from './contact.dto'
-import { ContactFeedbackDTO } from './contact.feedback.dto'
 
 @Controller('contact')
 export class ContactController {
@@ -31,11 +30,5 @@ export class ContactController {
   @Delete('del/:id')
   del(id: number) {
     return this.contactService.del(id)
-  }
-
-  @HttpCode(HttpStatus.OK)
-  @Put('feedback')
-  feedback(@Body() body: ContactFeedbackDTO) {
-    return this.contactService.feedback(body)
   }
 }

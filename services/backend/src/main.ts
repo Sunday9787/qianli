@@ -11,7 +11,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
   app.useGlobalInterceptors(new TransformInterceptor())
   app.useGlobalFilters(new HttpExceptionFilter())
-  app.useStaticAssets(path.join(projectRoot, 'public'))
+  app.useStaticAssets(path.join(projectRoot, 'public'), { maxAge: '30d' })
   app.setBaseViewsDir(path.join(projectRoot, 'services/frontend/src/view'))
   app.setViewEngine('pug')
   app.setGlobalPrefix('api', {
@@ -28,7 +28,7 @@ async function bootstrap() {
   })
   app.enableCors({
     origin: '*',
-    maxAge: 1000 * 60 * 60,
+    maxAge: 1 * 60 * 60 * 1000,
     exposedHeaders: ['Content-Disposition'],
     methods: ['PUT', 'POST', 'GET', 'DELETE', 'OPTIONS', 'HEAD'],
     allowedHeaders: [

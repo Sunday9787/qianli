@@ -17,7 +17,7 @@ import { CommonModule } from './common/common.module'
 import { LayoutEntity } from './layout/layout.entity'
 import { DepartmentEntity } from './common/department/department.entity'
 import { CategoryEntity } from './common/category/category.entity'
-import { ContactFeedbackEntity } from './contact/contact.feedback.entity'
+import { FeedbackEntity } from './contact/feedback/feedback.entity'
 import { ContactEntity } from './contact/contact.entity'
 import { AboutEntity } from './about/about.entity'
 import { PostEntity } from './post/post.entity'
@@ -54,7 +54,7 @@ import { UploadModule } from './upload/upload.module'
         DepartmentEntity,
         AboutEntity,
         ContactEntity,
-        ContactFeedbackEntity,
+        FeedbackEntity,
         ProductEntity,
         ProductFeatureEntity,
         ProductScenarioEntity,
