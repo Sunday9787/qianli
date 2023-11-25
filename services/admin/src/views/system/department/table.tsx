@@ -1,13 +1,13 @@
 import { NButton, type DataTableColumns, NSpace } from 'naive-ui'
-import type { DepartmentEntity } from './entity'
+import type { DepartmentEntityJSON } from '@/service/common.entity'
 
 interface ColumnAction {
-  edit(row: DepartmentEntity): void
-  del(row: DepartmentEntity, rowIndex: number): void
+  edit(row: DepartmentEntityJSON): void
+  del(row: DepartmentEntityJSON, rowIndex: number): void
 }
 
 export function createTableColumns(action: ColumnAction) {
-  const columns: DataTableColumns<DepartmentEntity> = [
+  const columns: DataTableColumns<DepartmentEntityJSON> = [
     {
       title: 'No',
       width: 60,

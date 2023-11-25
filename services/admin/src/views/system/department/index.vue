@@ -23,8 +23,8 @@ n-modal(v-model:show="modal.visible" transform-origin="center" @after-leave="dep
 
 <script lang="ts" setup>
 import type { FormInst } from 'naive-ui'
+import { DepartmentEntity, type DepartmentEntityJSON } from '@/service/common.entity'
 import { useModal } from '@/hooks/useModal'
-import { DepartmentEntity } from './entity'
 import { createTableColumns } from './table'
 
 defineOptions({ name: 'QianliSystemDepartment' })
@@ -51,7 +51,7 @@ const modal = useModal({
   }
 })
 
-const table = reactive<Page.Table<DepartmentEntity>>({
+const table = reactive<Page.Table<DepartmentEntityJSON>>({
   data: [],
   loading: true
 })
@@ -65,7 +65,7 @@ const columns = createTableColumns({
       positiveText: '确认',
       negativeText: '取消',
       async onPositiveClick() {
-        await row.del()
+        await DepartmentEntity.del(row.id)
         table.data.splice(rowIndex, 1)
         message.success('删除成功')
       }

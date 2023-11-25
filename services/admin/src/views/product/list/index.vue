@@ -2,7 +2,7 @@
 app-view
   app-card
     app-form-collapse
-      n-form.app-form(:model="form" :show-feedback="false" label-placement="left" :label-width="80")
+      n-form.app-form(:model="form" :show-feedback="false" label-placement="left" :label-width="80" @keyup.enter="search()")
         n-form-item(label="产品标题" path="title")
           n-input(v-model:value="form.title" clearable)
         n-form-item(label="产品名称" path="name")
@@ -39,24 +39,20 @@ app-view
 </template>
 
 <script lang="ts" setup>
-import { productList, type QueryProductList } from '@/api/product'
+import { ProductEntity } from '@/service/product.entity'
 import { useCacheModule } from '@/store/modules/cache'
 import { usePage } from '@/hooks/usePage'
 import { createTableColumns } from './table'
 
 defineOptions({ name: 'QianliProductIndex' })
 
+const message = useMessage()
+const dialog = useDialog()
 const cacheModule = useCacheModule()
-const form = reactive<QueryProductList>({
-  title: '',
-  name: '',
-  category_id: void 0,
-  created_start: void 0,
-  created_end: void 0
-})
+const form = reactive(ProductEntity.from())
 
 const { table, pagination, search, mapper, reset } = usePage({
-  request: productList,
+  request: ProductEntity.select,
   timeFieldMap: {
     createdDate: ['created_start', 'created_end']
   },
@@ -67,8 +63,19 @@ const columns = createTableColumns({
   edit(row) {
     console.log('edit', row)
   },
-  del(row) {
-    console.log('del', row)
+  del(row, rowIndex) {
+    dialog.warning({
+      title: '提示',
+      transformOrigin: 'center',
+      content: `确认删除【${row.title}】 产品？`,
+      positiveText: '确认',
+      negativeText: '取消',
+      async onPositiveClick() {
+        await ProductEntity.del(row.id)
+        table.data.splice(rowIndex, 1)
+        message.success('删除成功')
+      }
+    })
   }
 })
 </script>

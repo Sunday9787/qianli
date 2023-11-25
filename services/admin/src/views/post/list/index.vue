@@ -2,7 +2,7 @@
 app-view
   app-card
     app-form-collapse
-      n-form.app-form(:model="form" :show-feedback="false" label-placement="left" :label-width="80")
+      n-form.app-form(:model="form" :show-feedback="false" label-placement="left" :label-width="80" @keyup.enter="search()")
         n-form-item(label="文章标题" path="title")
           n-input(v-model:value="form.title" clearable)
         n-form-item(label="文章分类" path="category_id")
@@ -39,22 +39,19 @@ app-view
 </template>
 
 <script lang="ts" setup>
-import { type QueryPostList, postList } from '@/api/post'
-import { usePage } from '@/hooks/usePage'
+import { PostEntity } from '@/service/post.entity'
 import { useCacheModule } from '@/store/modules/cache'
+import { usePage } from '@/hooks/usePage'
 import { createTableColumns } from './table'
 
 defineOptions({ name: 'QianliProductIndex' })
 
+const message = useMessage()
+const dialog = useDialog()
 const cacheModule = useCacheModule()
-const form = reactive<QueryPostList>({
-  category_id: void 0,
-  created_start: void 0,
-  created_end: void 0,
-  title: ''
-})
+const form = reactive(PostEntity.form())
 const { table, pagination, search, mapper, reset } = usePage({
-  request: postList,
+  request: PostEntity.select,
   timeFieldMap: {
     createdDate: ['created_start', 'created_end']
   },
@@ -62,11 +59,19 @@ const { table, pagination, search, mapper, reset } = usePage({
 })
 
 const columns = createTableColumns({
-  edit(row) {
-    console.log('edit', row)
-  },
-  del(row) {
-    console.log('del', row)
+  del(row, rowIndex) {
+    dialog.warning({
+      title: '提示',
+      transformOrigin: 'center',
+      content: `确认删除【${row.title}】 文章？`,
+      positiveText: '确认',
+      negativeText: '取消',
+      async onPositiveClick() {
+        await PostEntity.del(row.id)
+        table.data.splice(rowIndex, 1)
+        message.success('删除成功')
+      }
+    })
   }
 })
 </script>

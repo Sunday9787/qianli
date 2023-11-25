@@ -1,9 +1,9 @@
 import { plainToInstance } from 'class-transformer'
-import { PostEntity } from '@/views/post/entity'
+import { PostEntity } from '@/service/post.entity'
 
 export type PropsType = 'edit' | 'add' | 'detail'
 
-export interface ActionProps {
+interface ActionProps {
   id: number
   type: PropsType
 }

@@ -2,7 +2,7 @@
 app-view
   app-card
     app-form-collapse
-      n-form.app-form(:model="form" :show-feedback="false" label-placement="left" :label-width="80")
+      n-form.app-form(:model="form" :show-feedback="false" label-placement="left" :label-width="80" @keyup.enter="search()")
         n-form-item(label="用户名" path="username")
           n-input(v-model:value="form.username" clearable)
         n-form-item(label="用户邮箱" path="email")
@@ -31,21 +31,15 @@ app-view
 </template>
 
 <script lang="ts" setup>
-import { userList, type QueryUserList } from '@/api/user'
 import { usePage } from '@/hooks/usePage'
 import { createTableColumns } from './table'
+import { UserEntity } from '@/service/user.entity'
 
 defineOptions({ name: 'QianliUserIndex' })
 
-const form = reactive<QueryUserList>({
-  username: '',
-  email: '',
-  created_start: void 0,
-  created_end: void 0
-})
-
+const form = reactive(UserEntity.form())
 const { table, pagination, search, mapper, reset } = usePage({
-  request: userList,
+  request: UserEntity.select,
   timeFieldMap: {
     createdDate: ['created_start', 'created_end']
   },

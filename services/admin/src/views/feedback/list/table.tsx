@@ -1,13 +1,12 @@
-import type { EntityJSON } from '@/class/abstractDTO'
-import { FeedbackEntity } from '@/views/feedback/entity'
 import { NButton, type DataTableColumns, NSpace, NTag } from 'naive-ui'
+import { FeedbackEntity, type FeedbackEntityJSON } from '@/service/feedback.entity'
 
 interface ColumnAction {
-  process(row: EntityJSON<FeedbackEntity>): void
+  process(row: FeedbackEntityJSON): void
 }
 
 export function createTableColumns(action: ColumnAction) {
-  const columns: DataTableColumns<EntityJSON<FeedbackEntity>> = [
+  const columns: DataTableColumns<FeedbackEntityJSON> = [
     {
       title: 'No',
       width: 60,
@@ -23,6 +22,7 @@ export function createTableColumns(action: ColumnAction) {
     {
       title: '状态',
       key: 'status',
+      width: 150,
       render(row) {
         const map = FeedbackEntity.statusMap.get(row.status)!
         return <NTag type={map.type}>{map.label}</NTag>

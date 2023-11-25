@@ -1,13 +1,13 @@
+import type { FeedbackQueryEntity, FeedbackEntityJSON } from './feedback.entity'
+import type { EntityQuery } from '@/class/abstractEntity'
 import { AbstractService } from '@/class/abstractService'
-import type { EntityQuery } from '@/class/abstractDTO'
-import type { FeedbackQueryEntity, FeedbackEntity } from '@/views/feedback/entity'
 import { request } from '@/utils/request'
 
 export class FeedbackService extends AbstractService {
   readonly baseURL = '/contact'
 
   select(data: EntityQuery<FeedbackQueryEntity & AppRequest.List>) {
-    return request.post<AppResponse.List<FeedbackEntity>>(this.baseURL + '/feedback/list', data)
+    return request.post<AppResponse.List<FeedbackEntityJSON>>(this.baseURL + '/feedback/list', data)
   }
 
   process(id: number) {

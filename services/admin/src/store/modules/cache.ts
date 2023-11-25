@@ -1,8 +1,9 @@
+import type { DeepReadonly } from 'vue'
 import { defineStore } from 'pinia'
-import { categoryList, type ResultCategoryList } from '@/api/common'
+import { CategoryEntity, type CategoryEntityJSON } from '@/service/common.entity'
 
 export interface State {
-  categoryList: ResultCategoryList[]
+  categoryList: ReadonlyArray<DeepReadonly<CategoryEntityJSON>>
 }
 
 export const useCacheModule = defineStore('cacheModule', {
@@ -20,7 +21,7 @@ export const useCacheModule = defineStore('cacheModule', {
       this.queryCategoryList()
     },
     async queryCategoryList() {
-      const response = await categoryList()
+      const response = await CategoryEntity.select()
       this.categoryList = response
     }
   }

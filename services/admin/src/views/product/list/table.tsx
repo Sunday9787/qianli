@@ -1,14 +1,14 @@
 import { NButton, type DataTableColumns, NSpace } from 'naive-ui'
-import type { ResultProductList } from '@/api/product'
+import type { ProductEntityJSON } from '@/service/product.entity'
 import { formatDate } from '@/utils'
 
 interface ColumnAction {
-  edit(row: ResultProductList): void
-  del(row: ResultProductList): void
+  edit(row: ProductEntityJSON): void
+  del(row: ProductEntityJSON, rowIndex: number): void
 }
 
 export function createTableColumns(action: ColumnAction) {
-  const columns: DataTableColumns<ResultProductList> = [
+  const columns: DataTableColumns<ProductEntityJSON> = [
     {
       title: 'No',
       width: 60,
@@ -38,13 +38,13 @@ export function createTableColumns(action: ColumnAction) {
       title: '操作',
       key: 'operation',
       width: 200,
-      render(row: ResultProductList) {
+      render(row, rowIndex) {
         return (
           <NSpace>
             <NButton size='small' onClick={() => action.edit(row)}>
               编辑
             </NButton>
-            <NButton size='small' onClick={() => action.del(row)}>
+            <NButton size='small' onClick={() => action.del(row, rowIndex)}>
               删除
             </NButton>
           </NSpace>

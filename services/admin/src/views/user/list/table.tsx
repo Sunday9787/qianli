@@ -1,14 +1,14 @@
 import { NButton, type DataTableColumns, NSpace } from 'naive-ui'
-import type { ResultUserList } from '@/api/user'
+import type { UserEntityJSON } from '@/service/user.entity'
 import { formatDate } from '@/utils'
 
 interface ColumnAction {
-  edit(row: ResultUserList): void
-  del(row: ResultUserList): void
+  edit(row: UserEntityJSON): void
+  del(row: UserEntityJSON): void
 }
 
 export function createTableColumns(action: ColumnAction) {
-  const columns: DataTableColumns<ResultUserList> = [
+  const columns: DataTableColumns<UserEntityJSON> = [
     {
       title: 'No',
       width: 60,
@@ -40,7 +40,7 @@ export function createTableColumns(action: ColumnAction) {
       title: '操作',
       key: 'operation',
       width: 200,
-      render(row: ResultUserList) {
+      render(row) {
         return (
           <NSpace>
             <NButton size='small' onClick={() => action.edit(row)}>

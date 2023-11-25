@@ -1,25 +1,21 @@
+import { UserAuthEntity, UserAuthEntityResult } from '@/service/user.entity'
 import { defineStore } from 'pinia'
-import { UserDTO, userService, UserResponseDTO } from '@/api/user'
 
 export const useUserModule = defineStore('userModule', {
   state() {
-    return {
-      email: '',
-      username: '',
-      avatar: '',
-      token: ''
-    } as UserResponseDTO
+    return UserAuthEntity.toJSON(new UserAuthEntityResult())
   },
   actions: {
-    async logIn(data: UserDTO) {
-      const response = await userService.logIn(data)
+    async logIn(user: UserAuthEntity) {
+      const response = await user.logIn()
+      this.id = response.id
       this.token = response.token
       this.email = response.email
       this.username = response.username
       this.avatar = response.avatar
     },
     async logOut() {
-      await userService.logOut()
+      await UserAuthEntity.logOut()
       this.$reset()
     }
   },

@@ -17,27 +17,24 @@
 <script lang="ts" setup>
 import type { FormInst } from 'naive-ui'
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
-import { UserDTO } from '@/api/user'
+import { UserAuthEntity, type UserAuthEntityJSON } from '@/service/user.entity'
 import { useUserModule } from '@/store/modules/user'
 
-defineOptions({
-  name: 'QianliLogin'
-})
+defineOptions({ name: 'QianliLogin' })
 
-const form = ref(new UserDTO())
-const formRef = ref<FormInst>()
 const router = useRouter()
 const userModule = useUserModule()
+const formRef = ref<FormInst>()
+const form = reactive(new UserAuthEntity()) as UserAuthEntity
 
-const formRule: FormRule<UserDTO> = {
+const formRule: FormRule<UserAuthEntityJSON> = {
   email: { required: true, message: '请输入邮箱' },
   password: { required: true, message: '请输入密码' }
 }
 
 async function login() {
   await formRef.value?.validate()
-  await userModule.logIn(form.value)
+  await userModule.logIn(form)
   router.replace('/dashboard')
 }
 </script>

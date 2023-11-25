@@ -5,16 +5,22 @@ type ExcludeEntityAttribute =
   | 'server'
   | 'create'
   | 'reset'
-  | 'del'
-  | 'select'
   | 'init'
+  | 'detail'
   | 'upload'
   | 'process'
+  | 'logIn'
+  | 'logOut'
+  | 'sourceValue'
 export type EntityQuery<T, Attr = unknown> = Omit<T, ExcludeEntityAttribute & Attr>
 export type EntityJSON<T> = Omit<T, ExcludeEntityAttribute>
 
 export abstract class AbstractEntity {
   protected sourceValue: EntityJSON<this> = Object.create(null)
+
+  public static toJSON<T extends object>(context: T) {
+    return instanceToPlain(context, { excludeExtraneousValues: true }) as EntityJSON<T>
+  }
 
   public init() {
     this.sourceValue = this.toJSON()
@@ -29,6 +35,6 @@ export abstract class AbstractEntity {
   }
 
   public toJSON() {
-    return instanceToPlain(this, { excludeExtraneousValues: true }) as EntityJSON<this>
+    return AbstractEntity.toJSON(this)
   }
 }

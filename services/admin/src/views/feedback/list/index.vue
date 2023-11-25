@@ -29,13 +29,13 @@ app-view
 
 <script lang="ts" setup>
 import { usePage } from '@/hooks/usePage'
-import { FeedbackEntity } from '@/views/feedback/entity'
+import { FeedbackEntity } from '@/service/feedback.entity'
 import { createTableColumns } from './table'
 
 defineOptions({ name: 'QianliFeedback' })
 
 const message = useMessage()
-const form = reactive(FeedbackEntity.form)
+const form = reactive(FeedbackEntity.form())
 const { table, pagination, search, reset } = usePage({ request: FeedbackEntity.select, form })
 const columns = createTableColumns({
   async process(row) {

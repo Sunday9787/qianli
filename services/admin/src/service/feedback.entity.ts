@@ -1,6 +1,6 @@
-import { Expose, instanceToPlain } from 'class-transformer'
-import { AbstractEntity, type EntityQuery } from '@/class/abstractDTO'
-import { FeedbackService } from '@/api/feedback'
+import { Expose } from 'class-transformer'
+import { AbstractEntity, type EntityJSON, type EntityQuery } from '@/class/abstractEntity'
+import { FeedbackService } from './feedback.service'
 
 export class FeedbackQueryEntity {
   name!: string
@@ -9,18 +9,22 @@ export class FeedbackQueryEntity {
   message!: string
 }
 
+export type FeedbackEntityJSON = EntityJSON<FeedbackEntity>
+
 export class FeedbackEntity extends AbstractEntity {
   private static readonly service = new FeedbackService()
 
   public static statusMap = new Map<
-    number,
+    FeedbackEntity['status'],
     { type: 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning'; label: string }
   >([
     [0, { type: 'warning', label: '未处理' }],
     [1, { type: 'success', label: '已处理' }]
   ])
 
-  public static form = instanceToPlain(new FeedbackQueryEntity()) as FeedbackQueryEntity
+  public static form() {
+    return new FeedbackQueryEntity()
+  }
 
   public static select(data: EntityQuery<FeedbackQueryEntity & AppRequest.List>) {
     return FeedbackEntity.service.select(data)

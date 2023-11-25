@@ -2,12 +2,11 @@ import { RouterLink } from 'vue-router'
 import { NButton, type DataTableColumns, type DataTableColumn, NSpace } from 'naive-ui'
 import AppTableWidget from '@/components/app-table-widget/index.vue'
 import type { TableWidgetItem } from '@/components/app-table-widget/index.vue'
-import type { ResultPostList } from '@/api/post'
+import type { PostEntityJSON } from '@/service/post.entity'
 import { formatDate } from '@/utils'
 
 interface ColumnAction {
-  edit(row: ResultPostList): void
-  del(row: ResultPostList): void
+  del(row: PostEntityJSON, rowIndex: number): void
 }
 
 export function createTableColumns(action: ColumnAction) {
@@ -19,7 +18,7 @@ export function createTableColumns(action: ColumnAction) {
     { label: '更新日期', key: 'updated', enable: true }
   ])
 
-  const columnsMap: DataTableColumns<ResultPostList> = [
+  const columnsMap: DataTableColumns<PostEntityJSON> = [
     {
       title: 'No',
       width: 60,
@@ -33,7 +32,7 @@ export function createTableColumns(action: ColumnAction) {
       title: '发布日期',
       key: 'date',
       width: 250,
-      render(row: ResultPostList) {
+      render(row) {
         return formatDate(row.date)
       }
     },
@@ -55,13 +54,13 @@ export function createTableColumns(action: ColumnAction) {
     }
   ]
 
-  const operationColumn: DataTableColumn<ResultPostList> = {
+  const operationColumn: DataTableColumn<PostEntityJSON> = {
     title() {
       return <AppTableWidget text='操作' data={columnHead} storageKey='post_table_column_config' />
     },
     width: 200,
     key: 'operation',
-    render(row: ResultPostList) {
+    render(row, rowIndex) {
       return (
         <NSpace>
           <RouterLink to={`/post/detail/${row.id}`}>
@@ -74,7 +73,7 @@ export function createTableColumns(action: ColumnAction) {
               编辑
             </NButton>
           </RouterLink>
-          <NButton size='small' type='warning' onClick={() => action.del(row)}>
+          <NButton size='small' type='warning' onClick={() => action.del(row, rowIndex)}>
             删除
           </NButton>
         </NSpace>

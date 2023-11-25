@@ -1,5 +1,5 @@
 import type { UploadAdapter, FileLoader } from '@ckeditor/ckeditor5-upload'
-import { uploadPostFile } from '@/api/common'
+import { uploadPostFile } from '@/service/common.service'
 
 export class UploadPostAdapter implements UploadAdapter {
   constructor(private readonly loader: FileLoader) {}
