@@ -28,11 +28,13 @@ n-modal(v-model:show="modal.visible" transform-origin="center" @after-leave="cat
 <script lang="ts" setup>
 import type { FormInst } from 'naive-ui'
 import { CategoryEntity, type CategoryEntityJSON } from '@/service/common.entity'
+import { useCacheModule } from '@/store/modules/cache'
 import { useModal } from '@/hooks/useModal'
 import { createTableColumns } from './table'
 
 defineOptions({ name: 'QianliSystemCategory' })
 
+const cacheModule = useCacheModule()
 const category = shallowReactive(new CategoryEntity())
 
 const formRef = ref<FormInst>()
@@ -58,8 +60,10 @@ const modal = useModal({
 })
 
 const table = reactive<Page.Table<CategoryEntityJSON>>({
-  data: [],
-  loading: true
+  get data() {
+    return cacheModule.categoryList
+  },
+  loading: false
 })
 
 const columns = createTableColumns({
@@ -78,17 +82,15 @@ const columns = createTableColumns({
     })
   },
   edit(row) {
+    category.copy(row)
     modal.mode = 'update'
     modal.action('action:visible')
-
-    category.id = row.id
-    category.type = row.type
-    category.category_name = row.category_name
   }
 })
 
 async function query() {
-  table.data = await CategoryEntity.select()
+  table.loading = true
+  await cacheModule.cacheCategory()
   table.loading = false
 }
 query()

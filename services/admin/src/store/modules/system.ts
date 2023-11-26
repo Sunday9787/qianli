@@ -38,6 +38,7 @@ export const useSystemModule = defineStore('systemModule', {
     },
     TOGGLE_THEME() {
       this.theme.mode = this.theme.mode === 'light' ? 'dark' : 'light'
+      emitter.emit(globalChannel.systemThemeChange)
     }
   },
   persist: {

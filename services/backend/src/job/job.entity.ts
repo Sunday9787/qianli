@@ -1,8 +1,17 @@
+import { AbstractEntity } from '@/class/abstract.entity'
 import { DepartmentEntity } from '@/common/department/department.entity'
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  UpdateDateColumn,
+  CreateDateColumn,
+  PrimaryGeneratedColumn
+} from 'typeorm'
 
 @Entity('qianli_job')
-export class JobEntity {
+export class JobEntity extends AbstractEntity {
   @PrimaryGeneratedColumn()
   id: number
 
@@ -11,6 +20,9 @@ export class JobEntity {
 
   @Column({ type: 'integer', comment: '招聘人数' })
   num: number
+
+  @Column({ type: 'integer', default: 0, comment: '职位状态 0未发布 1已发布' })
+  status: 0 | 1
 
   @Column({ type: 'integer', comment: '招聘部门' })
   department_id: number
@@ -27,4 +39,10 @@ export class JobEntity {
   @ManyToOne(() => DepartmentEntity, department => department.job)
   @JoinColumn({ name: 'department_id' })
   department: DepartmentEntity
+
+  @UpdateDateColumn({ comment: '职位更新时间' })
+  created: Date
+
+  @CreateDateColumn({ comment: '职位创建时间' })
+  updated: Date
 }

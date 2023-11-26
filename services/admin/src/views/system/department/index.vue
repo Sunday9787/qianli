@@ -24,11 +24,13 @@ n-modal(v-model:show="modal.visible" transform-origin="center" @after-leave="dep
 <script lang="ts" setup>
 import type { FormInst } from 'naive-ui'
 import { DepartmentEntity, type DepartmentEntityJSON } from '@/service/common.entity'
+import { useCacheModule } from '@/store/modules/cache'
 import { useModal } from '@/hooks/useModal'
 import { createTableColumns } from './table'
 
 defineOptions({ name: 'QianliSystemDepartment' })
 
+const cacheModule = useCacheModule()
 const department = shallowReactive(new DepartmentEntity())
 
 const formRef = ref<FormInst>()
@@ -52,8 +54,10 @@ const modal = useModal({
 })
 
 const table = reactive<Page.Table<DepartmentEntityJSON>>({
-  data: [],
-  loading: true
+  get data() {
+    return cacheModule.departmentList
+  },
+  loading: false
 })
 
 const columns = createTableColumns({
@@ -72,17 +76,15 @@ const columns = createTableColumns({
     })
   },
   edit(row) {
+    department.copy(row)
     modal.mode = 'update'
-    department.id = row.id
-    department.department_name = row.department_name
-
     modal.action('action:visible')
   }
 })
 
 async function query() {
-  table.data = await DepartmentEntity.select()
+  table.loading = true
+  await cacheModule.cacheDepartment()
   table.loading = false
 }
-query()
 </script>

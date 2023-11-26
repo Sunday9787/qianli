@@ -11,6 +11,7 @@ type ExcludeEntityAttribute =
   | 'process'
   | 'logIn'
   | 'logOut'
+  | 'copy'
   | 'sourceValue'
 export type EntityQuery<T, Attr = unknown> = Omit<T, ExcludeEntityAttribute & Attr>
 export type EntityJSON<T> = Omit<T, ExcludeEntityAttribute>

@@ -35,6 +35,12 @@ export class CategoryEntity extends AbstractEntity {
   save() {
     return CategoryEntity.service.save(this.toJSON())
   }
+
+  copy(data: CategoryEntityJSON) {
+    this.id = data.id
+    this.category_name = data.category_name
+    this.type = data.type
+  }
 }
 
 export type DepartmentEntityJSON = EntityJSON<DepartmentEntity>
@@ -60,5 +66,10 @@ export class DepartmentEntity extends AbstractEntity {
 
   save() {
     return DepartmentEntity.service.save(this.toJSON())
+  }
+
+  copy(data: DepartmentEntityJSON) {
+    this.id = data.id
+    this.department_name = data.department_name
   }
 }

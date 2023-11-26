@@ -1,21 +1,37 @@
-import { Body, Controller, Delete, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  UseGuards,
+  UsePipes,
+  ValidationPipe
+} from '@nestjs/common'
 import { JobService } from './job.service'
-import { JobDTO, JobEditDTO } from './job.dto'
+import { JobDTO, JobQueryDTO } from './job.dto'
+import { AuthGuard } from '@/auth/auth.guard'
 
+@UsePipes(ValidationPipe)
+@UseGuards(AuthGuard)
 @Controller('job')
 export class JobController {
   constructor(private readonly jobService: JobService) {}
 
   @HttpCode(HttpStatus.OK)
-  @Put('add')
-  add(@Body() body: JobDTO) {
-    return this.jobService.add(body)
+  @Post('list')
+  list(@Body() body: JobQueryDTO) {
+    return this.jobService.all(body)
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('edit/:id')
-  edit(@Body() body: JobEditDTO) {
-    return this.jobService.edit(body)
+  @Put('save')
+  edit(@Body() body: JobDTO) {
+    return this.jobService.save(body)
   }
 
   @HttpCode(HttpStatus.OK)

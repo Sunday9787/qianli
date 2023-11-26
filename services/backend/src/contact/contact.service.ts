@@ -32,7 +32,7 @@ export class ContactService {
   async data() {
     const [layout, jobs, contact] = await Promise.all([
       this.layoutService.layout(),
-      this.jobService.all(),
+      this.jobService.list(),
       this.contactRepository.find()
     ])
 

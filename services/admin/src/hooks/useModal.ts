@@ -6,7 +6,7 @@ interface Options {
 
 type Type = 'action:visible' | 'action:hidden' | 'action:submit'
 
-type Mode = 'update' | 'create'
+type Mode = 'update' | 'create' | 'view'
 
 enum ActionType {
   open = 'action:visible',
@@ -20,6 +20,9 @@ export function useModal(options: Options) {
   const modal = shallowReactive({
     visible: false,
     mode: 'create' as Mode,
+    get disabled() {
+      return modal.mode === 'view'
+    },
     action,
     get title() {
       return (modal.mode === 'create' ? '添加' : '编辑') + options.label

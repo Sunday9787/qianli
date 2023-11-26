@@ -6,6 +6,7 @@ import { postRoute } from './modules/post'
 import { productRoute } from './modules/product'
 import { systemRoute } from './modules/system'
 import { feedbackRoute } from './modules/feedback'
+import { jobRoute } from './modules/job'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +22,7 @@ const router = createRouter({
     productRoute,
     feedbackRoute,
     userRoute,
+    jobRoute,
     systemRoute,
     { path: '/403', name: 'Qianli403', meta: { hidden: true }, props: { status: 403 }, component: ErrorView },
     { path: '/404', name: 'Qianli404', meta: { hidden: true }, props: { status: 404 }, component: ErrorView },

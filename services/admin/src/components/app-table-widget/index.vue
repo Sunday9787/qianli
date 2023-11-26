@@ -140,7 +140,7 @@ function updateConfig() {
   &__text {
     width: 100px;
     margin-right: 30px;
-    @include ellipsis;
+    @apply line-clamp-1;
   }
 }
 
