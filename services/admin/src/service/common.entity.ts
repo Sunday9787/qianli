@@ -1,10 +1,11 @@
+import type { EntityMethod, EntityJSON } from '@/class/abstractEntity'
+import { AbstractEntity } from '@/class/abstractEntity'
 import { Expose } from 'class-transformer'
-import { AbstractEntity, type EntityJSON } from '@/class/abstractEntity'
 import { CategoryService, DepartmentService } from './common.service'
 
 export type CategoryEntityJSON = EntityJSON<CategoryEntity>
 
-export class CategoryEntity extends AbstractEntity {
+export class CategoryEntity extends AbstractEntity implements EntityMethod {
   private static readonly service = new CategoryService()
 
   public static typeMap = new Map<
@@ -45,7 +46,7 @@ export class CategoryEntity extends AbstractEntity {
 
 export type DepartmentEntityJSON = EntityJSON<DepartmentEntity>
 
-export class DepartmentEntity extends AbstractEntity {
+export class DepartmentEntity extends AbstractEntity implements EntityMethod {
   private static readonly service = new DepartmentService()
 
   static select() {

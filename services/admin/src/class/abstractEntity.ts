@@ -1,20 +1,24 @@
 import { instanceToPlain } from 'class-transformer'
-type ExcludeEntityAttribute =
-  | 'toJSON'
-  | 'save'
-  | 'server'
-  | 'create'
-  | 'reset'
-  | 'init'
-  | 'detail'
-  | 'upload'
-  | 'process'
-  | 'logIn'
-  | 'logOut'
-  | 'copy'
-  | 'sourceValue'
+
+type ObjectKey<T> = keyof T extends `${infer U}` ? U : string
+type AbstractEntityMethodKey = ObjectKey<AbstractEntity> | 'sourceValue'
+type EntityMethodKey = ObjectKey<EntityMethod>
+type ExcludeEntityAttribute = EntityMethodKey | AbstractEntityMethodKey
 export type EntityQuery<T, Attr = unknown> = Omit<T, ExcludeEntityAttribute & Attr>
 export type EntityJSON<T> = Omit<T, ExcludeEntityAttribute>
+
+export interface EntityMethod {
+  /** 添加/更新当前实例 */
+  save?(): Promise<null>
+  /** 获取实例详情 */
+  detail?(): unknown
+  upload?(...args: unknown[]): unknown
+  process?(): unknown
+  logIn?(): unknown
+  logOut?(): unknown
+  /** 复制 数据到 当前实例 */
+  copy?(data: unknown): unknown
+}
 
 export abstract class AbstractEntity {
   protected sourceValue: EntityJSON<this> = Object.create(null)

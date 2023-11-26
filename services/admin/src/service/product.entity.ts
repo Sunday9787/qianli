@@ -1,4 +1,5 @@
-import { AbstractEntity, type EntityJSON, type EntityQuery } from '@/class/abstractEntity'
+import type { EntityMethod, EntityJSON, EntityQuery } from '@/class/abstractEntity'
+import { AbstractEntity } from '@/class/abstractEntity'
 import { Expose } from 'class-transformer'
 import { ProductService } from './product.service'
 
@@ -15,7 +16,7 @@ export class ProductQueryEntity {
 
 export type ProductEntityJSON = EntityJSON<ProductEntity>
 
-export class ProductEntity extends AbstractEntity {
+export class ProductEntity extends AbstractEntity implements EntityMethod {
   private static service = new ProductService()
 
   public static from() {

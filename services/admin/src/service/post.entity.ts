@@ -1,6 +1,7 @@
-import { Expose } from 'class-transformer'
+import type { EntityMethod, EntityJSON, EntityQuery } from '@/class/abstractEntity'
 import type { UploadCustomRequestOptions } from 'naive-ui'
-import { AbstractEntity, type EntityJSON, type EntityQuery } from '@/class/abstractEntity'
+import { Expose } from 'class-transformer'
+import { AbstractEntity } from '@/class/abstractEntity'
 import { uploadPostFile } from './common.service'
 import { PostServer } from './post.service'
 
@@ -13,7 +14,7 @@ export class PostQueryEntity {
   created_end?: number
 }
 
-export class PostEntity extends AbstractEntity {
+export class PostEntity extends AbstractEntity implements EntityMethod {
   private static readonly service = new PostServer()
 
   public static form() {
