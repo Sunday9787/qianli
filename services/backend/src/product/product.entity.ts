@@ -36,7 +36,7 @@ export class ProductEntity {
   name: string
 
   @Column({ type: 'varchar', length: 2000, nullable: false, comment: '产品介绍' })
-  detail: string
+  desc: string
 
   @Column({ type: 'varchar', length: 255, nullable: true, comment: '产品视频' })
   media: string | null

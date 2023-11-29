@@ -1,14 +1,14 @@
+import { Repository } from 'typeorm'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Inject, Injectable } from '@nestjs/common'
-import { Repository } from 'typeorm'
 import { LayoutService } from '@/layout/layout.service'
-import { ProductEntity } from '../product.entity'
-import { ProductBaseEditDTO } from './detail.dto'
+import { ProductEntity } from '@/product/product.entity'
 import { ProductFeatureDTO } from './detail.feature.dto'
 import { ProductScenarioDTO } from './detail.scenario.dto'
 import { ProductSpecDTO } from './detail.spec.dto'
+import { ProductBaseDTO } from './detail.dto'
 
-class RenderDetailDTO extends ProductBaseEditDTO {
+class RenderDetailDTO extends ProductBaseDTO {
   img: string[]
   category_name: string
   feature: ProductFeatureDTO[] | null
@@ -22,7 +22,7 @@ function buildRenderDetailDTO(data: ProductEntity) {
   dto.name = data.name
   dto.category_id = data.category_id
   dto.category_name = data.category.category_name
-  dto.detail = data.detail
+  dto.desc = data.desc
   dto.media = data.media
   dto.img = data.img.map(img => img.path)
   dto.scenario = data.scenario

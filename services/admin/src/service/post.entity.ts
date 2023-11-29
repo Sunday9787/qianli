@@ -1,4 +1,4 @@
-import type { EntityMethod, EntityJSON, EntityQuery } from '@/class/abstractEntity'
+import type { AbstractEntityMethod, EntityJSON, EntityQuery, AbstractEntityDoUpload } from '@/class/abstractEntity'
 import type { UploadCustomRequestOptions } from 'naive-ui'
 import { Expose } from 'class-transformer'
 import { AbstractEntity } from '@/class/abstractEntity'
@@ -14,7 +14,7 @@ export class PostQueryEntity {
   created_end?: number
 }
 
-export class PostEntity extends AbstractEntity implements EntityMethod {
+export class PostEntity extends AbstractEntity implements AbstractEntityMethod {
   private static readonly service = new PostServer()
 
   public static form() {
@@ -54,22 +54,7 @@ export class PostEntity extends AbstractEntity implements EntityMethod {
     return PostEntity.service.detail(this.id)
   }
 
-  async upload(option: UploadCustomRequestOptions) {
-    const data = new FormData()
-    data.append('file', option.file.file!)
-
-    try {
-      const response = await uploadPostFile(data, {
-        onUploadProgress({ progress }) {
-          option.onProgress({ percent: Math.ceil(progress!) })
-        }
-      })
-
-      option.file.url = response.ossUrl
-
-      option.onFinish()
-    } catch {
-      option.onError()
-    }
+  upload(option: UploadCustomRequestOptions) {
+    PostEntity.doUpload(option, uploadPostFile as AbstractEntityDoUpload)
   }
 }

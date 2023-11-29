@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
+import path from 'node:path/posix'
 import dayjs from 'dayjs'
-import path from 'path'
 import fs from 'fs'
 
 const host = 'http://localhost:3000'
-const projectRoot = path.resolve(process.cwd(), '..', '..')
+const projectRoot = path.resolve(process.cwd(), '..', '..', '..')
 
 @Injectable()
 export class UploadService {
@@ -12,7 +12,7 @@ export class UploadService {
 
   private readonly publicPath = '/upload'
 
-  public uploadImage(type: 'post', file: Express.Multer.File) {
+  public uploadImage(type: 'post' | 'product', file: Express.Multer.File) {
     const date = new Date()
 
     const month = date.getMonth() + 1

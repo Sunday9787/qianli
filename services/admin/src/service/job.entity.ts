@@ -1,4 +1,4 @@
-import type { EntityMethod, EntityJSON, EntityQuery } from '@/class/abstractEntity'
+import type { AbstractEntityMethod, EntityJSON, EntityQuery } from '@/class/abstractEntity'
 import { AbstractEntity } from '@/class/abstractEntity'
 import { Expose } from 'class-transformer'
 import { JobService } from './job.service'
@@ -14,7 +14,7 @@ export class JobQueryEntity {
 
 export type JobEntityJSON = EntityJSON<JobEntity>
 
-export class JobEntity extends AbstractEntity implements EntityMethod {
+export class JobEntity extends AbstractEntity implements AbstractEntityMethod {
   private static service = new JobService()
 
   public static statusMap = new Map<

@@ -62,3 +62,12 @@ declare namespace Page {
     limit: number
   }
 }
+
+declare namespace Utils {
+  type ActionType = 'edit' | 'add' | 'detail'
+
+  interface ActionProps {
+    id: number
+    type: ActionType
+  }
+}

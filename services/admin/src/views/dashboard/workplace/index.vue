@@ -1,9 +1,9 @@
 <template lang="pug">
 app-view
   app-card
-    h1 dashboard
+    h1 workplace
 </template>
 
 <script lang="ts" setup>
-defineOptions({ name: 'QianliDashboard' })
+defineOptions({ name: 'QianliDashboardWorkplace' })
 </script>

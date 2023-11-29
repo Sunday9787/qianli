@@ -1,5 +1,11 @@
 <template>
-  <n-config-provider :locale="zhTW" :theme="theme" :theme-overrides="themeOverride" style="height: inherit">
+  <n-config-provider
+    :breakpoints="{ sm: 640, m: 768, lg: 1024, xl: 1280, xxl: 1536 }"
+    :locale="zhTW"
+    :theme="theme"
+    :theme-overrides="themeOverride"
+    style="height: inherit"
+  >
     <n-dialog-provider>
       <n-message-provider>
         <RouterView />

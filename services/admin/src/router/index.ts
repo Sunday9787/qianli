@@ -11,6 +11,7 @@ import { jobRoute } from './modules/job'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    { path: '/', name: 'QianliRoot', meta: { hidden: true }, redirect: '/dashboard/workplace' },
     {
       path: '/login',
       name: 'QianliLogin',

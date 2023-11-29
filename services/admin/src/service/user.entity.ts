@@ -1,4 +1,4 @@
-import type { EntityMethod, EntityJSON, EntityQuery } from '@/class/abstractEntity'
+import type { AbstractEntityMethod, EntityJSON, EntityQuery } from '@/class/abstractEntity'
 import { AbstractEntity } from '@/class/abstractEntity'
 import { Expose } from 'class-transformer'
 import { UserService } from './user.service'
@@ -14,7 +14,7 @@ export class UserAuthEntityResult {
   @Expose() avatar!: string
 }
 
-export class UserAuthEntity extends AbstractEntity implements EntityMethod {
+export class UserAuthEntity extends AbstractEntity implements AbstractEntityMethod {
   private static service = new UserService()
 
   public static logOut() {

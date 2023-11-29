@@ -17,6 +17,15 @@ export function uploadPostFile(data: FormData, config?: AxiosRequestConfig) {
   })
 }
 
+export function uploadProductFile(data: FormData, config?: AxiosRequestConfig) {
+  return request.post<ResultUploadPostFile>('/upload/product/image', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    ...config
+  })
+}
+
 class CommonService extends AbstractService {
   readonly baseURL = '/common'
 }

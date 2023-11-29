@@ -1,9 +1,9 @@
-import { NButton, type DataTableColumns, NSpace } from 'naive-ui'
 import type { ProductEntityJSON } from '@/service/product.entity'
+import { NButton, type DataTableColumns, NSpace } from 'naive-ui'
+import { RouterLink } from 'vue-router'
 import { formatDate } from '@/utils'
 
 interface ColumnAction {
-  edit(row: ProductEntityJSON): void
   del(row: ProductEntityJSON, rowIndex: number): void
 }
 
@@ -41,10 +41,17 @@ export function createTableColumns(action: ColumnAction) {
       render(row, rowIndex) {
         return (
           <NSpace>
-            <NButton size='small' onClick={() => action.edit(row)}>
-              编辑
-            </NButton>
-            <NButton size='small' onClick={() => action.del(row, rowIndex)}>
+            <RouterLink to={`/product/detail/${row.id}`}>
+              <NButton type='primary' size='small'>
+                查看
+              </NButton>
+            </RouterLink>
+            <RouterLink to={`/product/action?type=edit&id=${row.id}`}>
+              <NButton type='info' size='small'>
+                编辑
+              </NButton>
+            </RouterLink>
+            <NButton type='warning' size='small' onClick={() => action.del(row, rowIndex)}>
               删除
             </NButton>
           </NSpace>

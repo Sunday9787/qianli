@@ -1,4 +1,4 @@
-import type { PostEntity, PostEntityJSON, PostQueryEntity } from './post.entity'
+import type { PostEntityJSON, PostQueryEntity } from './post.entity'
 import type { EntityQuery } from '@/class/abstractEntity'
 import { AbstractService } from '@/class/abstractService'
 import { request } from '@/utils/request'
@@ -18,7 +18,7 @@ export class PostServer extends AbstractService {
   }
 
   detail(id: number) {
-    return request.post<PostEntity>(this.baseURL + `/${id}`)
+    return request.post<PostEntityJSON>(this.baseURL + `/${id}`)
   }
 
   save(data: PostEntityJSON) {

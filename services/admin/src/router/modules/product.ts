@@ -14,6 +14,18 @@ export const productRoute: RouteRecordRaw = {
       name: 'QianliProductList',
       meta: { activeMenu: '/product' },
       component: () => import('@/views/product/list/index.vue')
+    },
+    {
+      path: 'detail/:id(\\d+)',
+      name: 'QianliProductDetail',
+      props: route => ({ id: Number(route.params.id) }),
+      component: () => import('@/views/product/detail/index.vue')
+    },
+    {
+      path: 'action',
+      name: 'QianliProductAction',
+      props: route => ({ id: Number(route.query.id), type: route.query.type }),
+      component: () => import('@/views/product/action/index.vue')
     }
   ]
 }

@@ -26,6 +26,8 @@ app-view
     app-table-container
       template(#action)
         n-space(justify="end" :wrap-item="false")
+          router-link(to='/product/action')
+            n-button(type="primary") 添加
           n-button(type="primary") 导出
 
       n-data-table(
@@ -60,9 +62,6 @@ const { table, pagination, search, mapper, reset } = usePage({
 })
 
 const columns = createTableColumns({
-  edit(row) {
-    console.log('edit', row)
-  },
   del(row, rowIndex) {
     dialog.warning({
       title: '提示',

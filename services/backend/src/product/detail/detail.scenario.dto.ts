@@ -1,9 +1,6 @@
 export class ProductScenarioDTO {
+  id: number
   text: string
   img: string
   icon: string
-}
-
-export class ProductScenarioEditDTO extends ProductScenarioDTO {
-  id: number
 }

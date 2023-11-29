@@ -1,4 +1,4 @@
-import type { ProductEntity, ProductEntityJSON, ProductQueryEntity } from './product.entity'
+import type { ProductEntityJSON, ProductQueryEntity } from './product.entity'
 import type { EntityQuery } from '@/class/abstractEntity'
 import { AbstractService } from '@/class/abstractService'
 import { request } from '@/utils/request'
@@ -11,7 +11,7 @@ export class ProductService extends AbstractService {
   }
 
   save(data: ProductEntityJSON) {
-    return request.post(this.baseURL + '/save', data)
+    return request.put(this.baseURL + '/save', data)
   }
 
   del(id: number) {
@@ -19,6 +19,6 @@ export class ProductService extends AbstractService {
   }
 
   detail(id: number) {
-    return request.post<ProductEntity>(this.baseURL + `/${id}`)
+    return request.post<ProductEntityJSON>(this.baseURL + `/${id}`)
   }
 }

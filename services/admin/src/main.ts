@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import Components from './components'
 import 'virtual:svg-icons-register'
+import 'reflect-metadata'
 
 import App from './App.vue'
 import router from './router'

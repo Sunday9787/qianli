@@ -15,8 +15,20 @@ export class UploadController {
       }
     })
   )
-  upload(@UploadedFile() file: Express.Multer.File) {
-    console.log(file)
+  uploadPost(@UploadedFile() file: Express.Multer.File) {
     return this.uploadService.uploadImage('post', file)
+  }
+
+  @HttpCode(200)
+  @Post('product/image')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      limits: {
+        fileSize: 10 * 1024 * 1024
+      }
+    })
+  )
+  uploadProduct(@UploadedFile() file: Express.Multer.File) {
+    return this.uploadService.uploadImage('product', file)
   }
 }

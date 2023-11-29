@@ -18,8 +18,7 @@ import {
 import { CacheInterceptor } from '@nestjs/cache-manager'
 import { AuthGuard } from '@/auth/auth.guard'
 import { ProductService } from './product.service'
-import { ProductAddDTO, ProductEditDTO, ProductQueryListDTO } from './product.dto'
-import { ProductFileDTO } from './detail/detail.file.dto'
+import { ProductDTO, ProductQueryListDTO } from './product.dto'
 
 @UsePipes(ValidationPipe)
 @Controller('product')
@@ -34,24 +33,11 @@ export class ProductController {
 
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)
-  @Put('add')
-  add(@Body() body: ProductAddDTO) {
+  @Put('save')
+  add(@Body() body: ProductDTO) {
     const { img, spec, scenario, feature, ...base } = body
 
-    const file = img.map(function (path) {
-      const result = new ProductFileDTO()
-      result.path = path
-      return result
-    })
-
-    return this.productService.add(base, feature, scenario, spec, file)
-  }
-
-  @HttpCode(HttpStatus.OK)
-  @UseGuards(AuthGuard)
-  @Post('edit')
-  edit(@Body() body: ProductEditDTO) {
-    return this.productService.edit(body)
+    return this.productService.save(base, feature, scenario, spec, img)
   }
 
   @HttpCode(HttpStatus.OK)
@@ -67,5 +53,12 @@ export class ProductController {
   @Post('list')
   list(@Body() body: ProductQueryListDTO) {
     return this.productService.all(body)
+  }
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
+  @UseInterceptors(CacheInterceptor)
+  @Post(':id')
+  detail(@Param('id', new ParseIntPipe()) id: number) {
+    return this.productService.detail(id)
   }
 }

@@ -1,7 +1,13 @@
-import type { EntityMethod, EntityJSON, EntityQuery } from '@/class/abstractEntity'
+import type { AbstractEntityMethod, EntityJSON, EntityQuery, AbstractEntityDoUpload } from '@/class/abstractEntity'
+import type { UploadCustomRequestOptions } from 'naive-ui'
+import { ProductScenarioEntity } from './product.scenario.entity'
+import { ProductFeatureEntity } from './product.feature.entity'
+import { ProductSpecEntity } from './product.spec.entity'
+import { ProductImgEntity } from './product.img.entity'
 import { AbstractEntity } from '@/class/abstractEntity'
-import { Expose } from 'class-transformer'
+import { Expose, Type } from 'class-transformer'
 import { ProductService } from './product.service'
+import { uploadProductFile } from './common.service'
 
 export class ProductQueryEntity {
   /**产品标题 */
@@ -16,8 +22,26 @@ export class ProductQueryEntity {
 
 export type ProductEntityJSON = EntityJSON<ProductEntity>
 
-export class ProductEntity extends AbstractEntity implements EntityMethod {
+export class ProductEntity extends AbstractEntity implements AbstractEntityMethod {
   private static service = new ProductService()
+
+  public static feature = {
+    create(id: number) {
+      return new ProductFeatureEntity(id)
+    }
+  }
+
+  public static spec = {
+    create(id: number) {
+      return new ProductSpecEntity(id)
+    }
+  }
+
+  public static scenario = {
+    create(id: number) {
+      return new ProductScenarioEntity(id)
+    }
+  }
 
   public static from() {
     return new ProductQueryEntity()
@@ -31,13 +55,34 @@ export class ProductEntity extends AbstractEntity implements EntityMethod {
     return ProductEntity.service.del(id)
   }
 
+  public static detail(id: number) {
+    return ProductEntity.service.detail(id)
+  }
+
   @Expose() id: number
   @Expose() title!: string
   @Expose() name!: string
   @Expose() category_id!: number
-  @Expose() category_name!: string
-  updated!: string
-  created!: string
+  @Expose() desc!: string
+
+  @Expose()
+  @Type(() => ProductImgEntity)
+  img: ProductImgEntity[] = []
+
+  @Expose()
+  @Type(() => ProductFeatureEntity)
+  feature: ProductFeatureEntity[] = []
+
+  @Expose()
+  @Type(() => ProductScenarioEntity)
+  scenario: ProductScenarioEntity[] = []
+
+  @Expose()
+  @Type(() => ProductSpecEntity)
+  spec: ProductSpecEntity[] = []
+
+  readonly updated!: string
+  readonly created!: string
 
   constructor(id = 0) {
     super()
@@ -45,7 +90,15 @@ export class ProductEntity extends AbstractEntity implements EntityMethod {
     this.init()
   }
 
+  detail() {
+    return ProductEntity.service.detail(this.id)
+  }
+
   save() {
     return ProductEntity.service.save(this.toJSON())
+  }
+
+  upload(option: UploadCustomRequestOptions) {
+    ProductEntity.doUpload(option, uploadProductFile as AbstractEntityDoUpload)
   }
 }

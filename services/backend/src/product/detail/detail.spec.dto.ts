@@ -1,8 +1,5 @@
 export class ProductSpecDTO {
+  id: number
   label: string
   value: string
-}
-
-export class ProductSpecEditDTO extends ProductSpecDTO {
-  id: number
 }

@@ -25,8 +25,7 @@ CREATE TABLE `qianli_product_file` (
   `id` int NOT NULL AUTO_INCREMENT,
   `path` varchar(500) NOT NULL,
   `product_id` int NOT NULL COMMENT '产品',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `IDX_a75b193a6c40e7e323428159e7` (`path`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------

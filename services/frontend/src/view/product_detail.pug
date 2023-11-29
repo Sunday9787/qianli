@@ -20,7 +20,7 @@ block content
             h2.product-detail-part(qianli-animate='animate-fade-in') 产品功能
 
             ol.product-detail-parts(qianli-animate='animate-fade-in')
-              - var details = detail.detail.split(/\r|\n/)
+              - var details = detail.desc.split(/\r|\n/)
               - details.pop()
               for item of details
                 li.product-detail__item

@@ -4,7 +4,7 @@ import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm'
 import { LayoutService } from '@/layout/layout.service'
 import { QianliQuery } from '@/class/query'
 import { ProductEntity } from './product.entity'
-import { ProductEditDTO, ProductQueryListDTO, ProductResultListDTO } from './product.dto'
+import { ProductDTO, ProductQueryListDTO, ProductResultListDTO } from './product.dto'
 import { ProductFeatureEntity } from './detail/detail.feature.entity'
 import { ProductScenarioEntity } from './detail/detail.scenario.entity'
 import { ProductSpecEntity } from './detail/detail.spec.entity'
@@ -42,6 +42,20 @@ function buildRenderDTO(data: CategoryEntity[]) {
   })
 }
 
+function buildProductDTO(entity: ProductEntity) {
+  const dto = new ProductDTO()
+  dto.id = entity.id
+  dto.title = entity.title
+  dto.name = entity.name
+  dto.category_id = entity.category_id
+  dto.desc = entity.desc
+  dto.img = entity.img
+  dto.feature = entity.feature
+  dto.scenario = entity.scenario
+  dto.spec = entity.spec
+  return dto
+}
+
 function buildRenderProductDTO(data: ProductEntity) {
   const dto = new RenderProductDTO()
   dto.id = data.id
@@ -77,6 +91,7 @@ export class ProductService {
   all(query: ProductQueryListDTO) {
     const qianliQuery = new QianliQuery(query, function (entity: ProductEntity) {
       const dto = new ProductResultListDTO()
+      dto.id = entity.id
       dto.created = entity.created
       dto.updated = entity.updated
       dto.category_id = entity.category_id
@@ -106,7 +121,7 @@ export class ProductService {
       })
   }
 
-  add(
+  save(
     productBase: ProductBaseDTO,
     productFeature: ProductFeatureDTO[] | null,
     productScenario: ProductScenarioDTO[] | null,
@@ -162,12 +177,23 @@ export class ProductService {
     })
   }
 
-  edit(body: ProductEditDTO) {
-    return this.productRepository.update({ id: body.id }, body)
-  }
-
   del(id: number) {
     return this.productRepository.delete(id)
+  }
+
+  detail(id: number) {
+    return this.productRepository
+      .findOne({
+        where: { id },
+        relations: {
+          category: true,
+          img: true,
+          feature: true,
+          scenario: true,
+          spec: true
+        }
+      })
+      .then(buildProductDTO)
   }
 
   async data() {

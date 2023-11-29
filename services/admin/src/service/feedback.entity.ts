@@ -1,4 +1,4 @@
-import type { EntityMethod, EntityJSON, EntityQuery } from '@/class/abstractEntity'
+import type { AbstractEntityMethod, EntityJSON, EntityQuery } from '@/class/abstractEntity'
 import { AbstractEntity } from '@/class/abstractEntity'
 import { Expose } from 'class-transformer'
 import { FeedbackService } from './feedback.service'
@@ -12,7 +12,7 @@ export class FeedbackQueryEntity {
 
 export type FeedbackEntityJSON = EntityJSON<FeedbackEntity>
 
-export class FeedbackEntity extends AbstractEntity implements EntityMethod {
+export class FeedbackEntity extends AbstractEntity implements AbstractEntityMethod {
   private static readonly service = new FeedbackService()
 
   public static statusMap = new Map<

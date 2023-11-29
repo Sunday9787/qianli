@@ -21,7 +21,7 @@ main.h-full
           :max="1"
           :accept="ACCEPT.picture"
           v-model:file-list="covers"
-          :custom-request="(option) => post.upload(option)"
+          :custom-request="post.upload"
           list-type="image-card") 点击上传
       n-form-item(path="content")
         template(#label)
@@ -43,7 +43,7 @@ import type { EditorConfig } from '@ckeditor/ckeditor5-core'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { useCacheModule } from '@/store/modules/cache'
 import { UploadPostAdapter } from './uploadAdapter'
-import { usePost, type PropsType } from '@/views/post/hooks'
+import { usePost } from '@/views/post/hooks'
 import { ACCEPT } from '@/utils/constant'
 import { watchOnce } from '@vueuse/core'
 
@@ -54,7 +54,7 @@ export default defineComponent({
   },
   props: {
     id: { type: Number as PropType<number>, required: true },
-    type: { type: String as PropType<PropsType>, required: true }
+    type: { type: String as PropType<Utils.ActionType>, required: true }
   },
   beforeRouteEnter(to, _from, next) {
     if (to.query.type === 'add') return next()

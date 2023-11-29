@@ -28,7 +28,7 @@ CREATE TABLE `qianli_product` (
   `category_id` int NOT NULL COMMENT '产品分类',
   `title` varchar(255) NOT NULL COMMENT '产品标题',
   `name` varchar(255) NOT NULL COMMENT '产品名称',
-  `detail` varchar(2000) NOT NULL COMMENT '产品介绍',
+  `desc` varchar(2000) NOT NULL COMMENT '产品介绍',
   `media` varchar(255) DEFAULT NULL COMMENT '产品视频',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
