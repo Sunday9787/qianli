@@ -8,18 +8,17 @@ import {
   ParseIntPipe,
   Post,
   Put,
-  UseGuards,
   UseInterceptors,
   UsePipes
 } from '@nestjs/common'
 import { CacheInterceptor } from '@nestjs/cache-manager'
 import { UserService } from './user.service'
-import { UserAddDTO, UserDTO, UserEditDTO, UserForgetDTO, UserQueryDTO } from './user.dto'
+import { UserDTO, UserForgetDTO, UserQueryDTO } from './user.dto'
 import { JwtDTO } from '@/auth/auth.jwt.dto'
 import { User } from './user.decorator'
 import { ValidationPipe } from '@/pipe/validation.pipe'
-import { AuthGuard } from '@/auth/auth.guard'
 import { AuthToken } from '@/auth/auth.decorator'
+import { AuthDTO } from '@/auth/auth.dto'
 
 @UsePipes(ValidationPipe)
 @Controller('user')
@@ -27,20 +26,12 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @HttpCode(HttpStatus.OK)
-  @Put('add')
-  add(@Body() body: UserAddDTO) {
-    return this.userService.add(body)
+  @Put('save')
+  save(@Body() body: UserDTO) {
+    return this.userService.save(body)
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AuthGuard)
-  @Post('edit')
-  edit(@Body() body: UserEditDTO) {
-    console.log(body)
-  }
-
-  @HttpCode(HttpStatus.OK)
-  @UseGuards(AuthGuard)
   @UseInterceptors(CacheInterceptor)
   @Post('list')
   list(@Body() body: UserQueryDTO) {
@@ -48,22 +39,20 @@ export class UserController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AuthGuard)
   @Post('forget')
   forget(@Body() body: UserForgetDTO) {
     return this.userService.forget(body)
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AuthGuard)
-  @Delete('del')
+  @Delete('del/:id')
   del(@Param('id', new ParseIntPipe()) id: number) {
-    console.log(id)
+    return this.userService.del(id)
   }
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  login(@Body() body: UserDTO) {
+  login(@Body() body: AuthDTO) {
     return this.userService.login(body)
   }
 

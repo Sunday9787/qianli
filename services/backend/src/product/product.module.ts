@@ -1,5 +1,6 @@
+import { type MiddlewareConsumer, Module, type NestModule, RequestMethod } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { Module } from '@nestjs/common'
+import { AuthGuard } from '@/auth/auth.guard'
 
 import { ProductController } from './product.controller'
 import { ProductService } from './product.service'
@@ -27,4 +28,8 @@ import { ProductFileEntity } from './detail/detail.file.entity'
   controllers: [ProductController],
   providers: [ProductService]
 })
-export class ProductModule {}
+export class ProductModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthGuard).exclude({ path: '/product', method: RequestMethod.GET })
+  }
+}

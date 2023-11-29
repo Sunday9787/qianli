@@ -8,12 +8,15 @@ import {
   Param,
   ParseIntPipe,
   Put,
-  UseInterceptors
+  UseInterceptors,
+  UseGuards
 } from '@nestjs/common'
 import { CacheInterceptor } from '@nestjs/cache-manager'
 import { DepartmentService } from './department.service'
 import { DepartmentDTO } from './department.dto'
+import { AuthGuard } from '@/auth/auth.guard'
 
+@UseGuards(AuthGuard)
 @Controller('common/department')
 export class DepartmentController {
   constructor(private departmentService: DepartmentService) {}

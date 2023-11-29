@@ -1,23 +1,13 @@
 import { HttpException, HttpStatus, Inject, Injectable, Logger } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository, Like, Between } from 'typeorm'
-import * as jwt from 'jsonwebtoken'
 import md5 from 'md5'
-import { TOKEN_SECRET } from '@/config'
-import { UserEntity } from './user.entity'
-
-import {
-  UserAddDTO,
-  UserDTO,
-  UserEditDTO,
-  UserForgetDTO,
-  UserLoginResponseDTO,
-  UserQueryDTO,
-  UserResponseDTO
-} from './user.dto'
-import { JwtDTO } from '@/auth/auth.jwt.dto'
-import { QianliQuery } from '@/class/query'
 import { AuthService } from '@/auth/auth.service'
+import { UserDTO, UserForgetDTO, UserLoginResponseDTO, UserQueryDTO, UserResponseDTO } from './user.dto'
+import { JwtDTO } from '@/auth/auth.jwt.dto'
+import { AuthDTO } from '@/auth/auth.dto'
+import { QianliQuery } from '@/class/query'
+import { UserEntity } from './user.entity'
 
 @Injectable()
 export class UserService {
@@ -26,23 +16,7 @@ export class UserService {
     @Inject(AuthService) private readonly authService: AuthService
   ) {}
 
-  generateJWT(user: UserEntity) {
-    const today = new Date()
-    const exp = new Date(today)
-    exp.setHours(today.getHours() + 1)
-
-    const dto: JwtDTO = {
-      id: user.id,
-      email: user.email,
-      username: user.username,
-      password: user.password,
-      exp: exp.getTime()
-    }
-
-    return jwt.sign(dto, TOKEN_SECRET)
-  }
-
-  async login(body: UserDTO): Promise<UserLoginResponseDTO> {
+  async login(body: AuthDTO): Promise<UserLoginResponseDTO> {
     const user = await this.userRepository.findOne({
       where: {
         email: body.email,
@@ -59,7 +33,7 @@ export class UserService {
     dto.email = user.email
     dto.username = user.username
     dto.avatar = user.avatar
-    dto.token = this.generateJWT(user)
+    dto.token = this.authService.generateJWT(user)
 
     await this.authService.setToken(dto)
 
@@ -72,23 +46,17 @@ export class UserService {
     await this.authService.removeToken(user)
   }
 
-  async add(body: UserAddDTO) {
-    const user = await this.userRepository.findOne({ where: { email: body.email } })
+  async save(body: UserDTO) {
+    if (body.id === 0) {
+      const user = await this.userRepository.findOne({ where: { email: body.email } })
 
-    if (user) {
-      throw new HttpException({ message: '已存在相同用户' }, HttpStatus.BAD_REQUEST)
+      if (user) {
+        throw new HttpException({ message: '已存在相同用户' }, HttpStatus.BAD_REQUEST)
+      }
     }
 
-    const userEntity = new UserEntity()
-    userEntity.avatar = body.avatar
-    userEntity.email = body.email
-    userEntity.username = body.username
-    userEntity.password = md5(body.password)
-    await this.userRepository.save(userEntity)
-  }
-
-  async edit(body: UserEditDTO) {
-    await this.userRepository.update({ id: body.id }, body)
+    body.password = md5(body.password)
+    await this.userRepository.save(body)
   }
 
   async forget(body: UserForgetDTO) {

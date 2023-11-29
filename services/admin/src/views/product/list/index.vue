@@ -30,8 +30,7 @@ app-view
             n-button(type="primary") 添加
           n-button(type="primary") 导出
 
-      n-data-table(
-        style="height: 100%;"
+      n-data-table.h-full(
         flex-height
         remote
         :pagination="pagination"

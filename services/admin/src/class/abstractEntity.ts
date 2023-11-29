@@ -18,7 +18,7 @@ export interface AbstractEntityMethod {
   logIn?(): unknown
   logOut?(): unknown
   /** 复制 数据到 当前实例 */
-  copy?(data: unknown): unknown
+  copy?(data: unknown): void
   upload?(option: UploadCustomRequestOptions): void
 }
 

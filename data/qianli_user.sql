@@ -37,7 +37,7 @@ CREATE TABLE `qianli_user` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `qianli_user` VALUES (1, '809537981@qq.com' , '至尊宝', '2545dd85aa094efa6ca333dd63b571d0', 'https://qianli-1256180570.cos.ap-nanjing.myqcloud.com/avatar.jpg', '2023-11-07 13:54:04.926523', '2023-11-07 13:54:04.926523');
-INSERT INTO `qianli_user` VALUES (2, 'daishixiang70@163.com' , 'admin', 'b733603a5ac458195ec13a2d264e487f', 'https://qianli-1256180570.cos.ap-nanjing.myqcloud.com/admin_avatar.jpg', '2023-11-07 13:54:16.425956', '2023-11-07 13:54:16.425956');
+INSERT INTO `qianli_user` VALUES (2, 'daishixiang70@163.com' , 'admin', 'fcea920f7412b5da7be0cf42b8c93759', 'https://qianli-1256180570.cos.ap-nanjing.myqcloud.com/admin_avatar.jpg', '2023-11-07 13:54:16.425956', '2023-11-07 13:54:16.425956');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

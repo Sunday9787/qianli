@@ -1,6 +1,8 @@
-import type { AbstractEntityMethod, EntityJSON, EntityQuery } from '@/class/abstractEntity'
-import { AbstractEntity } from '@/class/abstractEntity'
+import type { AbstractEntityMethod, EntityJSON, EntityQuery, AbstractEntityDoUpload } from '@/class/abstractEntity'
+import type { UploadCustomRequestOptions } from 'naive-ui'
 import { Expose } from 'class-transformer'
+import { AbstractEntity } from '@/class/abstractEntity'
+import { uploadProductFile } from './common.service'
 import { UserService } from './user.service'
 
 export type UserEntityJSON = EntityJSON<UserEntity>
@@ -41,8 +43,12 @@ export class UserQueryEntity {
   created_end?: number
 }
 
-export class UserEntity extends AbstractEntity {
+export class UserEntity extends AbstractEntity implements AbstractEntityMethod {
   private static service = new UserService()
+
+  public static del(id: number) {
+    return UserEntity.service.del(id)
+  }
 
   public static form() {
     return new UserQueryEntity()
@@ -64,5 +70,21 @@ export class UserEntity extends AbstractEntity {
     super()
     this.id = id
     this.init()
+  }
+
+  copy(data: UserEntityJSON) {
+    this.id = data.id
+    this.email = data.email
+    this.username = data.username
+    this.avatar = data.avatar
+    this.password = data.password
+  }
+
+  save() {
+    return UserEntity.service.save(this.toJSON())
+  }
+
+  upload(option: UploadCustomRequestOptions) {
+    UserEntity.doUpload(option, uploadProductFile as AbstractEntityDoUpload)
   }
 }

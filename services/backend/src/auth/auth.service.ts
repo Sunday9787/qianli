@@ -4,6 +4,7 @@ import { RedisService } from '@/redis/redis.service'
 import { UserLoginResponseDTO } from '@/user/user.dto'
 import { JwtDTO } from './auth.jwt.dto'
 import { TOKEN_SECRET } from '@/config'
+import { UserEntity } from '@/user/user.entity'
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,22 @@ export class AuthService {
   }
 
   constructor(@Inject(RedisService) private readonly redisService: RedisService) {}
+
+  generateJWT(user: UserEntity) {
+    const today = new Date()
+    const exp = new Date(today)
+    exp.setHours(today.getHours() + 1)
+
+    const dto: JwtDTO = {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      password: user.password,
+      exp: exp.getTime()
+    }
+
+    return jwt.sign(dto, TOKEN_SECRET)
+  }
 
   async setToken(dto: UserLoginResponseDTO) {
     await this.redisService.cacheManager.set(

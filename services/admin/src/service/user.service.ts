@@ -6,8 +6,16 @@ import { request } from '@/utils/request'
 export class UserService extends AbstractService {
   readonly baseURL = '/user'
 
+  del(id: number) {
+    return request.delete(this.baseURL + `/del/${id}`)
+  }
+
   select(data: EntityQuery<UserQueryEntity> & AppRequest.List) {
     return request.post<AppResponse.List<UserEntityJSON>>(this.baseURL + '/list', data)
+  }
+
+  save(data: UserEntityJSON) {
+    return request.put(this.baseURL + '/save', data)
   }
 
   logIn(data: UserAuthEntityJSON) {

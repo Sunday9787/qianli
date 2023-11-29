@@ -2,6 +2,7 @@ interface Options {
   label: string
   submit(): void | Promise<void>
   open?(): void | Promise<void>
+  close?(): void | Promise<void>
 }
 
 type Type = 'action:visible' | 'action:hidden' | 'action:submit'
@@ -44,6 +45,7 @@ export function useModal(options: Options) {
         setTimeout(function () {
           modal.mode = 'create'
         }, 0)
+        options.close?.apply(null)
         break
       case ActionType.submit:
         await options.submit()

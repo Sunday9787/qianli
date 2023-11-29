@@ -10,13 +10,11 @@ import {
   Post,
   Put,
   Render,
-  UseGuards,
   UseInterceptors,
   UsePipes,
   ValidationPipe
 } from '@nestjs/common'
 import { CacheInterceptor } from '@nestjs/cache-manager'
-import { AuthGuard } from '@/auth/auth.guard'
 import { ProductService } from './product.service'
 import { ProductDTO, ProductQueryListDTO } from './product.dto'
 
@@ -32,7 +30,6 @@ export class ProductController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AuthGuard)
   @Put('save')
   add(@Body() body: ProductDTO) {
     const { img, spec, scenario, feature, ...base } = body
@@ -41,21 +38,18 @@ export class ProductController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AuthGuard)
   @Delete('del/:id')
   del(@Param(new ParseIntPipe()) id: number) {
     return this.productService.del(id)
   }
 
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AuthGuard)
   @UseInterceptors(CacheInterceptor)
   @Post('list')
   list(@Body() body: ProductQueryListDTO) {
     return this.productService.all(body)
   }
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AuthGuard)
   @UseInterceptors(CacheInterceptor)
   @Post(':id')
   detail(@Param('id', new ParseIntPipe()) id: number) {
