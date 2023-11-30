@@ -12,7 +12,7 @@ export const systemRoute: RouteRecordRaw = {
     {
       path: 'index',
       name: 'QianliSystemIndex',
-      meta: { activeMenu: '/system' },
+      meta: { activeMenu: '/system', title: '配置列表' },
       component: () => import('@/views/system/index.vue')
     }
   ]

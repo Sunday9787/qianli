@@ -5,6 +5,16 @@ n-layout-header.layout-header(bordered)
       MenuOpenFilled(v-if="systemModule.sidebar.collapse")
       MenuFilled(v-else)
 
+  n-breadcrumb
+    transition-group(name="breadcrumb")
+      n-breadcrumb-item(
+        v-for="item of route.matched"
+        :key="item.name"
+        :href="route.matched.at(-1) === item ? 'javascript:;': item.path")
+        n-icon(:size="22" v-if="item.meta.icon")
+          component(:is="item.meta.icon")
+        | {{ item.meta.title }}
+
   .flex-1
 
   n-space(:wrap="false" :wrap-item="false")
@@ -26,6 +36,7 @@ n-layout-header.layout-header(bordered)
 </template>
 
 <script lang="ts" setup>
+import type { DropdownOption } from 'naive-ui'
 import {
   MenuFilled,
   MenuOpenFilled,
@@ -37,14 +48,14 @@ import {
 import { useSystemModule } from '@/store/modules/system'
 import { useUserModule } from '@/store/modules/user'
 import { useFullscreen } from '@vueuse/core'
-import { useRouter } from 'vue-router'
-import type { DropdownOption } from 'naive-ui'
+import { useRouter, useRoute } from 'vue-router'
 
 type DropdownMenuKey = 'logout'
 
 defineOptions({ name: 'QianliLayoutHeader' })
 
 const router = useRouter()
+const route = useRoute()
 const systemModule = useSystemModule()
 const userModule = useUserModule()
 const { isFullscreen, toggle } = useFullscreen()
@@ -65,6 +76,7 @@ async function selectItem(key: DropdownMenuKey) {
 .layout-header {
   display: flex;
   height: 60px;
+  align-items: center;
 }
 
 .layout-item {

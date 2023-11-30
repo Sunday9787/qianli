@@ -6,7 +6,7 @@ import 'nprogress/nprogress.css'
 
 const whiteList: ReadonlyArray<string> = ['/login']
 
-router.beforeEach(function (to, form, next) {
+router.beforeEach(function (to, _form, next) {
   NProgress.start()
   const userModule = useUserModule(store)
 
@@ -19,7 +19,7 @@ router.beforeEach(function (to, form, next) {
   } else if (whiteList.indexOf(to.path) > -1) {
     next()
   } else {
-    next('/login')
+    next({ path: '/login', query: { redirect: _form.fullPath } })
   }
 })
 

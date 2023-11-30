@@ -2,7 +2,7 @@
 .login-container
   h1.login-title Login
 
-  n-form.login-form(ref="formRef" label-placement="left" :model="form" :rules="formRule" :label-width="80")
+  n-form.login-form(ref="formRef" label-placement="left" :model="form" :rules="formRule" :label-width="80" @keyup.enter="login()")
     n-form-item(label="邮箱" path="email")
       n-input(v-model:value="form.email" placeholder="请输入邮箱")
 
@@ -20,7 +20,12 @@ import { useRouter } from 'vue-router'
 import { UserAuthEntity, type UserAuthEntityJSON } from '@/service/user.entity'
 import { useUserModule } from '@/store/modules/user'
 
+interface Props {
+  redirect?: string
+}
+
 defineOptions({ name: 'QianliLogin' })
+const props = defineProps<Props>()
 
 const router = useRouter()
 const userModule = useUserModule()
@@ -35,6 +40,12 @@ const formRule: FormRule<UserAuthEntityJSON> = {
 async function login() {
   await formRef.value?.validate()
   await userModule.logIn(form)
+
+  if (props.redirect) {
+    router.replace(props.redirect)
+    return
+  }
+
   router.replace('/dashboard')
 }
 </script>

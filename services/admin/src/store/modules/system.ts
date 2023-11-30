@@ -10,6 +10,8 @@ interface State {
   theme: {
     mode: ThemeMode
   }
+
+  loading: boolean
 }
 
 export type ThemeMode = 'light' | 'dark'
@@ -17,6 +19,7 @@ export type ThemeMode = 'light' | 'dark'
 export const useSystemModule = defineStore('systemModule', {
   state() {
     return {
+      loading: false,
       sidebar: {
         collapse: false
       },

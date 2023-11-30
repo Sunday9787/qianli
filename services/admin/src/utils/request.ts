@@ -48,7 +48,7 @@ AxiosInstance.interceptors.response.use(
       // ! TOKEN 失效退出登录
       if (response.data.code === HttpStatusCode.Unauthorized) {
         userModule.$reset()
-        router.replace('/login')
+        router.replace({ path: '/login', query: { redirect: router.currentRoute.value.fullPath } })
       }
 
       return Promise.reject(response)

@@ -12,7 +12,7 @@ export const postRoute: RouteRecordRaw = {
     {
       path: 'list',
       name: 'QianliPostList',
-      meta: { activeMenu: '/post' },
+      meta: { activeMenu: '/post', title: '文章列表' },
       component: () => import('@/views/post/list/index.vue')
     },
     {
@@ -23,7 +23,7 @@ export const postRoute: RouteRecordRaw = {
     },
     {
       path: 'action',
-      meta: { title: '文章管理' },
+      meta: { title: '文章编辑' },
       props: route => ({ id: Number(route.query.id) || 0, type: route.query.type }),
       component: () => import('@/views/post/action/index.vue')
     }

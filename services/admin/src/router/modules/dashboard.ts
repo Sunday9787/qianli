@@ -12,7 +12,7 @@ export const dashboardRoute: RouteRecordRaw = {
     {
       path: 'workplace',
       name: 'QianliDashboardWorkplace',
-      meta: { activeMenu: '/' },
+      meta: { activeMenu: '/', title: 'Workplace' },
       component: () => import('@/views/dashboard/workplace/index.vue')
     }
   ]

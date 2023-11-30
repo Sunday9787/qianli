@@ -14,6 +14,7 @@ withDefaults(defineProps<Props>(), { direction: 'vertical' })
 
 <style lang="less">
 .app-view {
+  position: relative;
   display: flex;
   height: 100%;
 
