@@ -10,7 +10,6 @@
   "jsx": "preserve",
   "lib": ["ES2020", "DOM", "DOM.Iterable"],
   "compilerOptions": {
-    "composite": true,
     "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
