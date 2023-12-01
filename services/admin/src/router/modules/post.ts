@@ -17,12 +17,14 @@ export const postRoute: RouteRecordRaw = {
     },
     {
       path: 'detail/:id(\\d+)',
+      name: 'QianliPostDetail',
       meta: { title: '文章详情' },
       props: route => ({ id: Number(route.params.id) }),
       component: () => import('@/views/post/detail/index.vue')
     },
     {
       path: 'action',
+      name: 'QianliPostAction',
       meta: { title: '文章编辑' },
       props: route => ({ id: Number(route.query.id) || 0, type: route.query.type }),
       component: () => import('@/views/post/action/index.vue')

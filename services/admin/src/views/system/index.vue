@@ -1,27 +1,41 @@
 <template lang="pug">
 app-view(direction='horizontal' class="gap-x-5")
   app-card
-    n-menu(:options="menus" v-model:value="currentTab" :indent="18")
+    n-menu(:options="menus" v-model:value="currentTab" :indent="18" @select="select")
 
   .flex-1
     component(:is="currentTab")
 </template>
 
 <script lang="ts" setup>
-import { type MenuOption } from 'naive-ui'
+import type { MenuOption } from 'naive-ui'
+import { useRouter } from 'vue-router'
+
+interface Props {
+  id: MenuKey
+}
+
+type MenuKey = 'category' | 'department'
 
 defineOptions({
   name: 'QianliSystem',
   components: {
-    QianliSystemDepartment: defineAsyncComponent(() => import('./department/index.vue')),
-    QianliSystemCategory: defineAsyncComponent(() => import('./category/index.vue'))
+    department: defineAsyncComponent(() => import('./department/index.vue')),
+    category: defineAsyncComponent(() => import('./category/index.vue'))
   }
 })
 
+const props = withDefaults(defineProps<Props>(), { id: 'category' })
+const router = useRouter()
+
 const menus: MenuOption[] = [
-  { label: '分类配置', key: 'QianliSystemCategory' },
-  { label: '部门配置', key: 'QianliSystemDepartment' }
+  { label: '分类配置', key: 'category' },
+  { label: '部门配置', key: 'department' }
 ]
 
-const currentTab = ref('QianliSystemCategory')
+const currentTab = ref(props.id)
+
+function select(key: MenuKey) {
+  router.replace({ query: { id: key } })
+}
 </script>
