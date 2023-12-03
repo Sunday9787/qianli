@@ -1,7 +1,7 @@
 <template lang="pug">
 app-view(direction='horizontal' class="gap-x-5")
   app-card
-    n-menu(:options="menus" v-model:value="currentTab" :indent="18" @select="select")
+    n-menu(:options="menus" v-model:value="currentTab" :indent="18" @update:value="select")
 
   .flex-1
     component(:is="currentTab")

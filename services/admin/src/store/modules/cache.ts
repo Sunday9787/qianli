@@ -7,6 +7,7 @@ import {
 } from '@/service/common.entity'
 
 export interface State {
+  loading: boolean
   categoryList: CategoryEntityJSON[]
   departmentList: DepartmentEntityJSON[]
 }
@@ -14,6 +15,7 @@ export interface State {
 export const useCacheModule = defineStore('cacheModule', {
   state() {
     return {
+      loading: false,
       categoryList: [],
       departmentList: []
     } as State
@@ -25,9 +27,14 @@ export const useCacheModule = defineStore('cacheModule', {
     departmentMap: state => new Map(state.departmentList.map(item => [item.id, item]))
   },
   actions: {
-    cache() {
-      this.cacheCategory()
-      this.cacheDepartment()
+    async cache() {
+      this.loading = true
+
+      try {
+        await Promise.all([this.cacheCategory(), this.cacheDepartment()])
+      } finally {
+        this.loading = false
+      }
     },
     async cacheCategory() {
       const response = await CategoryEntity.select()

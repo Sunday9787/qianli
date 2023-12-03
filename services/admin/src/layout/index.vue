@@ -5,75 +5,42 @@ n-layout(has-sider style="height: inherit")
   n-layout
     LayoutHeader
 
-    .layout-tags-view
-      n-scrollbar(x-scrollable)
-        .tags-view
-          n-tag(
-            v-for="tag of tagViews"
-            :type="currentTag === tag ? 'primary': 'default'"
-            :key="tag.name"
-            size="large"
-            style="cursor: pointer;"
-            @click="$router.push(tag.path)"
-            @contextmenu.prevent="(e) => tagHandleContextMenu(e, tag)")
-            n-icon(:size="16")
-              component(:is="tag.icon")
-            | {{ tag.title }}
-
-      n-dropdown(
-        trigger="manual"
-        placement="bottom-start"
-        :x="tagContextMenu.x"
-        :y="tagContextMenu.y"
-        :show="tagContextMenu.show"
-        :options="tagDropdownOptions"
-        :on-clickoutside="tagDropDownOnClickoutside"
-        @select="tagSelectHandle")
+    LayoutTagsView
 
     n-layout-content(:style="layoutStyle" :scrollbar-props="{contentClass: 'layout-content'}" :native-scrollbar="false")
       router-view
+
+n-affix.layout-affix(@click="drawerShow = true")
+  n-button(type="primary")
+    n-icon(:size="25")
+      DisplaySettingsFilled
+
+n-drawer(v-model:show="drawerShow")
+  n-drawer-content(title="系统配置")
+    n-space(justify="space-between" align="center")
+      label 缓存
+      n-button(size="small" type='info' :loading="cacheModule.loading" @click="refresh()") 刷新缓存
 </template>
 
 <script lang="ts" setup>
 import type { CSSProperties } from 'vue'
-import { useRoute } from 'vue-router'
+import { useCacheModule } from '@/store/modules/cache'
+import { DisplaySettingsFilled } from '@vicons/material'
+import LayoutTagsView from './layout-tags-view.vue'
 import LayoutHeader from './layout-header.vue'
 import LayoutSider from './layout-sider'
-import { useTagView, TagView } from './hooks/useTagViews'
 
 defineOptions({ name: 'QianliLayout' })
 
-const route = useRoute()
-const {
-  tagViews,
-  tagViewsMap,
-  tagContextMenu,
-  tagDropdownOptions,
-  currentTag,
-  tagHandleContextMenu,
-  tagDropDownOnClickoutside,
-  tagSelectHandle
-} = useTagView()
+const cacheModule = useCacheModule()
+const drawerShow = ref(false)
+const message = useMessage()
 const layoutStyle: CSSProperties = { height: 'calc(100% - 46px - 60px)' }
 
-watch(
-  route,
-  function (value) {
-    if (!tagViewsMap.value.has(value.name as string)) {
-      tagViews.value.push(
-        markRaw(
-          TagView.create({
-            title: value.meta.title!,
-            icon: value.meta.icon!,
-            name: value.name as string,
-            path: value.fullPath
-          })
-        )
-      )
-    }
-  },
-  { immediate: true }
-)
+async function refresh() {
+  await cacheModule.cache()
+  message.success('刷新成功')
+}
 </script>
 
 <style lang="less">
@@ -83,15 +50,10 @@ watch(
   background-color: var(--color-background);
 }
 
-.layout-tags-view {
-  @apply relative;
-  height: 46px;
-  padding: 6px 10px;
-}
-
-.tags-view {
-  @apply flex;
-  @apply flex-nowrap;
-  column-gap: 5px;
+.layout-affix {
+  position: fixed;
+  z-index: 99;
+  right: 20px;
+  top: 50%;
 }
 </style>
