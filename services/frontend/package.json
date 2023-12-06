@@ -5,17 +5,15 @@
   "keywords": [],
   "author": "",
   "scripts": {
-    "build:pro": "webpack --config ./build/webpack.config.js --env NODE_ENV=production APP_ENV=pro",
-    "build:dev": "webpack --config ./build/webpack.config.js --env NODE_ENV=production APP_ENV=dev",
-    "build:test": "webpack --config ./build/webpack.config.js --env NODE_ENV=production APP_ENV=test",
-    "start:dev": "webpack --config ./build/webpack.config.js --env NODE_ENV=development APP_ENV=dev"
+    "build:pro": "webpack --config ./build/webpack.config.js --env NODE_ENV=PRO APP_ENV=PRO",
+    "build:dev": "webpack --config ./build/webpack.config.js --env NODE_ENV=PRO APP_ENV=DEV",
+    "build:test": "webpack --config ./build/webpack.config.js --env NODE_ENV=PRO APP_ENV=TEST",
+    "start:dev": "webpack --config ./build/webpack.config.js --env NODE_ENV=DEV APP_ENV=DEV"
   },
   "dependencies": {
     "@sunday9787/log": "^1.0.2",
     "core-js": "^3.33.0",
-    "gulp": "^4.0.2",
     "jquery": "1.11.0",
-    "lax.js": "^2.0.3",
     "requirejs": "^2.3.6",
     "swiper": "4.5.0"
   },

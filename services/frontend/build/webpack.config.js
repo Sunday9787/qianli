@@ -9,7 +9,7 @@ const { APP_ENV_MAP } = require('./env')
 
 /** @type {import('webpack-cli').CallableOption} */
 module.exports = function (env) {
-  commonConfig.devtool = env.APP_ENV === APP_ENV_MAP.dev ? 'source-map' : false
+  commonConfig.devtool = env.APP_ENV === APP_ENV_MAP.DEV ? 'source-map' : false
   commonConfig.plugins.push(
     new webpack.DefinePlugin({
       'process.env': JSON.stringify({
@@ -22,9 +22,9 @@ module.exports = function (env) {
   )
 
   switch (env.NODE_ENV) {
-    case 'production':
-      return merge(commonConfig, prodConfig)
+    case 'PRO':
+      return merge(prodConfig, commonConfig)
     default:
-      return merge(commonConfig, devConfig)
+      return merge(devConfig, commonConfig)
   }
 }
