@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import path from 'node:path/posix'
+import fs from 'node:fs'
 import dayjs from 'dayjs'
-import fs from 'fs'
 
 const host = 'http://localhost:3000'
 const projectRoot = path.resolve(process.cwd(), '..', '..', '..')

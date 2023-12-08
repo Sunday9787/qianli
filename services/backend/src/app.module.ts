@@ -1,6 +1,7 @@
-import { Module } from '@nestjs/common'
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigModule } from '@nestjs/config'
+import { SessionMiddleware } from './middleware/session'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 
@@ -78,4 +79,8 @@ import { UploadModule } from './upload/upload.module'
   controllers: [AppController],
   providers: [AppService]
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(SessionMiddleware).forRoutes({ path: '*', method: RequestMethod.GET })
+  }
+}
