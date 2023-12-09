@@ -25,6 +25,7 @@ export class UserAuthEntity extends AbstractEntity implements AbstractEntityMeth
 
   @Expose() password!: string
   @Expose() email!: string
+  @Expose() code!: string
 
   constructor() {
     super()

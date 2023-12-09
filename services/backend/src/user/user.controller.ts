@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -8,6 +9,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Req,
   UseInterceptors,
   UsePipes
 } from '@nestjs/common'
@@ -19,6 +21,7 @@ import { User } from './user.decorator'
 import { ValidationPipe } from '@/pipe/validation.pipe'
 import { AuthToken } from '@/auth/auth.decorator'
 import { AuthDTO } from '@/auth/auth.dto'
+import type { Request } from 'express'
 
 @UsePipes(ValidationPipe)
 @Controller('user')
@@ -52,8 +55,13 @@ export class UserController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  login(@Body() body: AuthDTO) {
-    return this.userService.login(body)
+  login(@Req() req: Request, @Body() body: AuthDTO) {
+    console.log(body.code, req.session.code)
+    if (body.code.toLocaleLowerCase() === req.session.code.toLocaleLowerCase()) {
+      return this.userService.login(body)
+    }
+
+    throw new BadRequestException('验证码错误')
   }
 
   @HttpCode(HttpStatus.OK)

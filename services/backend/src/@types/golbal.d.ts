@@ -10,6 +10,7 @@ declare global {
 
 declare module 'express-session' {
   interface SessionData {
+    code: string
     uuid: `${string}-${string}-${string}-${string}`
   }
 }

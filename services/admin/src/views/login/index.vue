@@ -9,6 +9,16 @@
     n-form-item(label="密码" path="password")
       n-input(type="password" v-model:value="form.password" placeholder="请输入密码")
 
+    n-form-item(label="验证码" path="code")
+      n-input-group
+        n-input.flex-1(v-model:value="form.code" placeholder="请输入验证码")
+        n-image(
+          :src="code"
+          :preview-disabled="true"
+          object-fit="cover"
+          style="width: 100px;"
+          @click="resetCode()")
+
     n-form-item
       .flex.flex-1.justify-center
         n-button(type="primary" @click="login()") 登录
@@ -19,6 +29,7 @@ import type { FormInst } from 'naive-ui'
 import { useRouter } from 'vue-router'
 import { UserAuthEntity, type UserAuthEntityJSON } from '@/service/user.entity'
 import { useUserModule } from '@/store/modules/user'
+import { useAuthCode } from './hooks/useAuthCode'
 
 interface Props {
   redirect?: string
@@ -27,6 +38,7 @@ interface Props {
 defineOptions({ name: 'QianliLogin' })
 const props = defineProps<Props>()
 
+const { code, resetCode } = useAuthCode()
 const router = useRouter()
 const userModule = useUserModule()
 const formRef = ref<FormInst>()
@@ -34,6 +46,7 @@ const form = reactive(new UserAuthEntity()) as UserAuthEntity
 
 const formRule: FormRule<UserAuthEntityJSON> = {
   email: { required: true, message: '请输入邮箱' },
+  code: { required: true, message: '请输入验证码' },
   password: { required: true, message: '请输入密码' }
 }
 

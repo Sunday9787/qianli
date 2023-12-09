@@ -8,7 +8,8 @@ const AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
   headers: {
     'Content-type': 'application/json'
-  }
+  },
+  withCredentials: true
 })
 
 AxiosInstance.interceptors.request.use(
