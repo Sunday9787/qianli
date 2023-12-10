@@ -1,10 +1,24 @@
-import { Controller, Post, UseInterceptors, UploadedFile, HttpCode } from '@nestjs/common'
+import {
+  Controller,
+  Post,
+  Body,
+  UseInterceptors,
+  ValidationPipe,
+  UploadedFile,
+  HttpCode,
+  UsePipes
+} from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { UploadService } from './upload.service'
+import { UploadFileService } from './upload.file.service'
+import { UploadFileChunkDTO } from './upload.dto'
 
 @Controller('upload')
 export class UploadController {
-  constructor(private readonly uploadService: UploadService) {}
+  constructor(
+    private readonly uploadService: UploadService,
+    private readonly uploadFileService: UploadFileService
+  ) {}
 
   @HttpCode(200)
   @Post('post/image')
@@ -30,5 +44,19 @@ export class UploadController {
   )
   uploadProduct(@UploadedFile() file: Express.Multer.File) {
     return this.uploadService.uploadImage('product', file)
+  }
+
+  @HttpCode(200)
+  @Post('file')
+  @UsePipes(ValidationPipe)
+  @UseInterceptors(
+    FileInterceptor('chunk', {
+      limits: {
+        fileSize: 10 * 1024 ** 2
+      }
+    })
+  )
+  uploadFile(@UploadedFile() file: Express.Multer.File, @Body() data: UploadFileChunkDTO) {
+    return this.uploadFileService.uploadFile(file, data)
   }
 }

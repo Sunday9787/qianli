@@ -66,8 +66,8 @@ section(class="lg:w-5/6 xl:w-3/5 2xl:w-5/6 md:w-11/12 sm:w-full")
 
 <script lang="ts" setup>
 import type { Ref } from 'vue'
-import { vElementHover } from '@vueuse/components'
 import type { FormInst, UploadFileInfo } from 'naive-ui'
+import { vElementHover } from '@vueuse/components'
 import { ProductEntity } from '@/service/product.entity'
 import { ProductImgEntity } from '@/service/product.img.entity'
 import { ACCEPT } from '@/utils/constant'
@@ -162,6 +162,9 @@ function validate() {
 function save() {
   product.value.img = coversProduct.value.map(function (item) {
     const img = new ProductImgEntity(product.value.id)
+    const id = Number(item.id)
+
+    img.id = Number.isNaN(id) ? 0 : id
     img.path = item.url!
     return img
   })
@@ -177,7 +180,7 @@ function save() {
       img: [img]
     } = coversScenarioMap[item.fileId]
     item.icon = icon.url!
-    item.icon = img.url!
+    item.img = img.url!
   }
 }
 

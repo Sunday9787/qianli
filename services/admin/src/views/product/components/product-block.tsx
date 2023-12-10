@@ -24,33 +24,49 @@ export const ProductBaseBlock = defineComponent({
   },
   render() {
     return (
-      <NSpace vertical>
-        <NH2>基本信息</NH2>
-        <NTable>
-          <colgroup>
-            <col width='12%' />
-            <col width='12%' />
-            <col width='12%' />
-            <col />
-          </colgroup>
-          <thead>
-            <tr>
-              <th>产品标题</th>
-              <th>产品名称</th>
-              <th>产品分类</th>
-              <th>产品描述</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{this.data.title}</td>
-              <td>{this.data.name}</td>
-              <td>{this.category?.category_name}</td>
-              <td>{this.data.desc}</td>
-            </tr>
-          </tbody>
-        </NTable>
-      </NSpace>
+      <>
+        <NSpace vertical>
+          <NH2>基本信息</NH2>
+          <NTable>
+            <colgroup>
+              <col width='12%' />
+              <col width='12%' />
+              <col width='12%' />
+              <col />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>产品标题</th>
+                <th>产品名称</th>
+                <th>产品分类</th>
+                <th>产品描述</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{this.data.title}</td>
+                <td>{this.data.name}</td>
+                <td>{this.category?.category_name}</td>
+                <td>{this.data.desc}</td>
+              </tr>
+            </tbody>
+          </NTable>
+        </NSpace>
+
+        <NSpace vertical>
+          <NH2>产品视频</NH2>
+          <video
+            controls
+            playsinline
+            width={800}
+            height={600}
+            src={this.data.media}
+            preload='auto'
+            crossorigin='anonymous'
+            draggable='false'
+          />
+        </NSpace>
+      </>
     )
   }
 })

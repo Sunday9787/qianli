@@ -39,6 +39,8 @@ function specDel(index: number) {
   product.value.spec.splice(index, 1)
 }
 
+function init() {}
+
 function validate() {
   if (!formRef.value) {
     throw new Error('未找到 form')
@@ -52,4 +54,6 @@ function save() {
     return item.label && item.value
   })
 }
+
+init()
 </script>

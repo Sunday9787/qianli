@@ -64,8 +64,13 @@ const current = computed<ComponentType>({
 async function nextStep() {
   nextStepLoading.value = true
 
+  if (!stepInst.value) {
+    throw new Error('stepInst 未找到')
+  }
+
   try {
-    await stepInst.value?.validate()
+    await stepInst.value.validate()
+    stepInst.value.save()
     step.value += 1
   } finally {
     nextStepLoading.value = false
@@ -77,7 +82,11 @@ function prevStep() {
 }
 
 async function save() {
-  stepInst.value?.save()
+  if (!stepInst.value) {
+    throw new Error('stepInst 未找到')
+  }
+
+  stepInst.value.save()
   await product.value.save()
   router.back()
 }

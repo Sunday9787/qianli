@@ -4,7 +4,7 @@ import fs from 'node:fs'
 import dayjs from 'dayjs'
 
 const host = 'http://localhost:3000'
-const projectRoot = path.resolve(process.cwd(), '..', '..', '..')
+const projectRoot = path.resolve(process.cwd(), path.resolve('..', '..'))
 
 @Injectable()
 export class UploadService {

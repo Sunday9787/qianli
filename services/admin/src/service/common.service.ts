@@ -1,15 +1,15 @@
-import type { CategoryEntityJSON, DepartmentEntityJSON } from './common.entity'
+import type { CategoryEntityJSON, DepartmentEntityJSON, UploadFileChunk } from './common.entity'
 import type { AxiosRequestConfig } from 'axios'
 import { AbstractService } from '@/class/abstractService'
 import { request } from '@/utils/request'
 
-export interface ResultUploadPostFile {
+export interface ResultUploadFile {
   uploaded: number
   ossUrl: string
 }
 
 export function uploadPostFile(data: FormData, config?: AxiosRequestConfig) {
-  return request.post<ResultUploadPostFile>('/upload/post/image', data, {
+  return request.post<ResultUploadFile>('/upload/post/image', data, {
     headers: {
       'Content-Type': 'multipart/form-data'
     },
@@ -17,8 +17,8 @@ export function uploadPostFile(data: FormData, config?: AxiosRequestConfig) {
   })
 }
 
-export function uploadProductFile(data: FormData, config?: AxiosRequestConfig) {
-  return request.post<ResultUploadPostFile>('/upload/product/image', data, {
+export function uploadProductImage(data: FormData, config?: AxiosRequestConfig) {
+  return request.post<ResultUploadFile>('/upload/product/image', data, {
     headers: {
       'Content-Type': 'multipart/form-data'
     },
@@ -51,5 +51,22 @@ export class DepartmentService extends CommonService {
   }
   del(id: number) {
     return request.delete(this.baseURL + `/department/del/${id}`)
+  }
+}
+
+export interface ResultChunkFileProcess {
+  process: number
+}
+
+export type UploadFileChunkFile = ResultChunkFileProcess | ResultUploadFile
+
+export class UploadFileChunkService {
+  upload(data: UploadFileChunk.FileChunk) {
+    return request.post<UploadFileChunkFile>('/upload/file', data, {
+      timeout: 60 * 1000,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
   }
 }

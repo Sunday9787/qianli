@@ -105,6 +105,9 @@ importers:
       axios:
         specifier: ^1.6.0
         version: 1.6.0
+      js-md5:
+        specifier: ^0.8.3
+        version: 0.8.3
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -139,6 +142,9 @@ importers:
       '@tsconfig/node18':
         specifier: ^18.2.2
         version: 18.2.2
+      '@types/js-md5':
+        specifier: ^0.7.2
+        version: 0.7.2
       '@types/lodash-es':
         specifier: ^4.17.11
         version: 4.17.11
@@ -3100,6 +3106,10 @@ packages:
     resolution: {integrity: sha512-6RXU9Xzpc6vxNrS6FPPapN1SxSHgQ336WC6Jj/N8q30OiaBZ00l1GBgeP7usjVZPivSkGUfL1z/WW6TX989M+w==}
     dependencies:
       '@types/sizzle': 2.3.4
+    dev: true
+
+  /@types/js-md5@0.7.2:
+    resolution: {integrity: sha512-IwcFIov1JbiEToo3DgrVEwkMUR1BVlVyLjk245AzGHyyOlyddDFIeSIZO+WlhTortOa4P1PdCS8cDrTl7RW1HA==}
     dev: true
 
   /@types/js-yaml@4.0.8:
@@ -7688,6 +7698,10 @@ packages:
   /js-base64@2.6.4:
     resolution: {integrity: sha512-pZe//GGmwJndub7ZghVHz7vjb2LgC1m8B07Au3eYqeqv9emhESByMXxaEgkUkEqJe87oBbSniGYoQNIBklc7IQ==}
     dev: true
+
+  /js-md5@0.8.3:
+    resolution: {integrity: sha512-qR0HB5uP6wCuRMrWPTrkMaev7MJZwJuuw4fnwAzRgP4J4/F8RwtodOKpGp4XpqsLBFzzgqIO42efFAyz2Et6KQ==}
+    dev: false
 
   /js-stringify@1.0.2:
     resolution: {integrity: sha512-rtS5ATOo2Q5k1G+DADISilDA6lv79zIiwFd6CcjuIxGKLFm5C+RLImRscVap9k55i+MOZwgliw+NejvkLuGD5g==}

@@ -1,5 +1,6 @@
 import type { AbstractEntityMethod, EntityJSON, EntityQuery, AbstractEntityDoUpload } from '@/class/abstractEntity'
 import type { UploadCustomRequestOptions } from 'naive-ui'
+import { UploadFileChunk } from '@/service/common.entity'
 import { ProductScenarioEntity } from './product.scenario.entity'
 import { ProductFeatureEntity } from './product.feature.entity'
 import { ProductSpecEntity } from './product.spec.entity'
@@ -7,7 +8,7 @@ import { ProductImgEntity } from './product.img.entity'
 import { AbstractEntity } from '@/class/abstractEntity'
 import { Expose, Type } from 'class-transformer'
 import { ProductService } from './product.service'
-import { uploadProductFile } from './common.service'
+import { uploadProductImage } from './common.service'
 
 export class ProductQueryEntity {
   /**产品标题 */
@@ -64,6 +65,7 @@ export class ProductEntity extends AbstractEntity implements AbstractEntityMetho
   @Expose() name!: string
   @Expose() category_id!: number
   @Expose() desc!: string
+  @Expose() media?: string
 
   @Expose()
   @Type(() => ProductImgEntity)
@@ -99,6 +101,11 @@ export class ProductEntity extends AbstractEntity implements AbstractEntityMetho
   }
 
   upload(option: UploadCustomRequestOptions) {
-    ProductEntity.doUpload(option, uploadProductFile as AbstractEntityDoUpload)
+    ProductEntity.doUpload(option, uploadProductImage as AbstractEntityDoUpload)
+  }
+
+  async uploadFile(options: UploadCustomRequestOptions) {
+    const chunks = await UploadFileChunk.createChunk(options.file.file!)
+    UploadFileChunk.uploadQueue(chunks, options)
   }
 }

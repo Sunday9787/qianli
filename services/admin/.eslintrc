@@ -25,6 +25,7 @@
   },
   "rules": {
     "vue/multi-word-component-names": ["error", { "ignores": ["index"] }],
-    "@typescript-eslint/no-this-alias": ["error", { "allowedNames": ["self"] }]
+    "@typescript-eslint/no-this-alias": ["error", { "allowedNames": ["self"] }],
+    "@typescript-eslint/no-namespace": "off"
   }
 }

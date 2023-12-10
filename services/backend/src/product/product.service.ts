@@ -48,6 +48,7 @@ function buildProductDTO(entity: ProductEntity) {
   dto.title = entity.title
   dto.name = entity.name
   dto.category_id = entity.category_id
+  dto.media = entity.media
   dto.desc = entity.desc
   dto.img = entity.img
   dto.feature = entity.feature

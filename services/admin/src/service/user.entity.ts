@@ -2,7 +2,7 @@ import type { AbstractEntityMethod, EntityJSON, EntityQuery, AbstractEntityDoUpl
 import type { UploadCustomRequestOptions } from 'naive-ui'
 import { Expose } from 'class-transformer'
 import { AbstractEntity } from '@/class/abstractEntity'
-import { uploadProductFile } from './common.service'
+import { uploadProductImage } from './common.service'
 import { UserService } from './user.service'
 
 export type UserEntityJSON = EntityJSON<UserEntity>
@@ -86,6 +86,6 @@ export class UserEntity extends AbstractEntity implements AbstractEntityMethod {
   }
 
   upload(option: UploadCustomRequestOptions) {
-    UserEntity.doUpload(option, uploadProductFile as AbstractEntityDoUpload)
+    UserEntity.doUpload(option, uploadProductImage as AbstractEntityDoUpload)
   }
 }
