@@ -27,16 +27,20 @@ export type AbstractEntityDoUpload = <T extends { ossUrl: string }>(
   config?: AxiosRequestConfig
 ) => Promise<T>
 
+const valueWeakMap = new WeakMap<AbstractEntity, EntityJSON<AbstractEntity>>()
+
 export abstract class AbstractEntity {
-  protected sourceValue: EntityJSON<this> = Object.create(null)
+  public static async wrapper<T>(context: ClassConstructor<T>, Result: Promise<AppResponse.List<T>>) {
+    const response = await Result
+    response.list = AbstractEntity.toInstance(context, response.list)
+    return response
+  }
 
   public static toJSON<T extends object>(context: T) {
     return instanceToPlain(context, { excludeExtraneousValues: true }) as EntityJSON<T>
   }
 
-  public static toInstance<T extends object, C>(cls: ClassConstructor<C>, data: T) {
-    return plainToInstance(cls, data)
-  }
+  public static toInstance = plainToInstance
 
   public static async doUpload(option: UploadCustomRequestOptions, request: AbstractEntityDoUpload) {
     const data = new FormData()
@@ -58,11 +62,15 @@ export abstract class AbstractEntity {
   }
 
   public init() {
-    this.sourceValue = this.toJSON()
+    console.log(valueWeakMap)
+    valueWeakMap.set(this, this.toJSON())
   }
 
   public reset() {
-    for (const [key, value] of Object.entries(this.sourceValue)) {
+    const context = toRaw(this)
+    const data = valueWeakMap.get(context)!
+    for (const [key, value] of Object.entries(data)) {
+      console.log(key, value)
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       this[key] = value

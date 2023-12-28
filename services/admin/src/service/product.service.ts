@@ -1,4 +1,5 @@
-import type { ProductEntityJSON, ProductQueryEntity } from './product.entity'
+import type { ProductItemEntity, ProductQueryEntity } from './product.item.entity'
+import type { ProductEntityJSON } from './product.entity'
 import type { EntityQuery } from '@/class/abstractEntity'
 import { AbstractService } from '@/class/abstractService'
 import { request } from '@/utils/request'
@@ -7,7 +8,7 @@ export class ProductService extends AbstractService {
   readonly baseURL = '/product'
 
   select(data: EntityQuery<ProductQueryEntity & AppRequest.List>) {
-    return request.post<AppResponse.List<ProductEntityJSON>>(this.baseURL + '/list', data)
+    return request.post<AppResponse.List<ProductItemEntity>>(this.baseURL + '/list', data)
   }
 
   save(data: ProductEntityJSON) {

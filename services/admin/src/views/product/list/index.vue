@@ -40,7 +40,7 @@ app-view
 </template>
 
 <script lang="ts" setup>
-import { ProductEntity } from '@/service/product.entity'
+import { ProductItemEntity } from '@/service/product.item.entity'
 import { useCacheModule } from '@/store/modules/cache'
 import { usePage } from '@/hooks/usePage'
 import { createTableColumns } from './table'
@@ -50,10 +50,10 @@ defineOptions({ name: 'QianliProductIndex' })
 const message = useMessage()
 const dialog = useDialog()
 const cacheModule = useCacheModule()
-const form = reactive(ProductEntity.from())
+const form = reactive(ProductItemEntity.from())
 
 const { table, pagination, search, mapper, reset } = usePage({
-  request: ProductEntity.select,
+  request: ProductItemEntity.select,
   timeFieldMap: {
     createdDate: ['created_start', 'created_end']
   },
@@ -69,7 +69,7 @@ const columns = createTableColumns({
       positiveText: '确认',
       negativeText: '取消',
       async onPositiveClick() {
-        await ProductEntity.del(row.id)
+        await ProductItemEntity.del(row.id)
         table.data.splice(rowIndex, 1)
         message.success('删除成功')
       }

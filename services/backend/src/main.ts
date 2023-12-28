@@ -6,6 +6,7 @@ import type { Response } from 'express'
 import { TransformInterceptor } from './interceptor/transform.interceptor'
 import { HttpExceptionFilter } from './filters/http-exception'
 import { AppModule } from './app.module'
+import { Logger } from '@nestjs/common'
 
 const projectRoot = path.join(process.cwd(), '..', '..')
 
@@ -65,6 +66,7 @@ async function bootstrap() {
   })
 
   await app.listen(3000)
+  Logger.log('http://localhost:3000', 'Server Start At')
 }
 
 bootstrap()

@@ -1,4 +1,5 @@
 import type { PostEntityJSON, PostQueryEntity } from './post.entity'
+import type { PostItemEntity } from './post.item.entity'
 import type { EntityQuery } from '@/class/abstractEntity'
 import { AbstractService } from '@/class/abstractService'
 import { request } from '@/utils/request'
@@ -14,7 +15,7 @@ export class PostServer extends AbstractService {
   baseURL = '/post'
 
   select(data: EntityQuery<PostQueryEntity & AppRequest.List>) {
-    return request.post<AppResponse.List<PostEntityJSON>>(this.baseURL + '/list', data)
+    return request.post<AppResponse.List<PostItemEntity>>(this.baseURL + '/list', data)
   }
 
   detail(id: number) {

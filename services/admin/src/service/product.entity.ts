@@ -1,25 +1,15 @@
-import type { AbstractEntityMethod, EntityJSON, EntityQuery, AbstractEntityDoUpload } from '@/class/abstractEntity'
+import type { AbstractEntityMethod, EntityJSON, AbstractEntityDoUpload } from '@/class/abstractEntity'
 import type { UploadCustomRequestOptions } from 'naive-ui'
+import { Expose, Type, Transform } from 'class-transformer'
+import { AbstractEntity } from '@/class/abstractEntity'
 import { UploadFileChunk } from '@/service/common.entity'
 import { ProductScenarioEntity } from './product.scenario.entity'
 import { ProductFeatureEntity } from './product.feature.entity'
 import { ProductSpecEntity } from './product.spec.entity'
 import { ProductImgEntity } from './product.img.entity'
-import { AbstractEntity } from '@/class/abstractEntity'
-import { Expose, Type } from 'class-transformer'
 import { ProductService } from './product.service'
 import { uploadProductImage } from './common.service'
-
-export class ProductQueryEntity {
-  /**产品标题 */
-  title?: string
-  /** 产品名称 */
-  name?: string
-  /** 产品分类 */
-  category_id?: number
-  created_start?: number
-  created_end?: number
-}
+import { formatDate } from '@/utils'
 
 export type ProductEntityJSON = EntityJSON<ProductEntity>
 
@@ -42,18 +32,6 @@ export class ProductEntity extends AbstractEntity implements AbstractEntityMetho
     create(id: number) {
       return new ProductScenarioEntity(id)
     }
-  }
-
-  public static from() {
-    return new ProductQueryEntity()
-  }
-
-  public static select(data: EntityQuery<ProductQueryEntity & AppRequest.List>) {
-    return ProductEntity.service.select(data)
-  }
-
-  public static del(id: number) {
-    return ProductEntity.service.del(id)
   }
 
   public static detail(id: number) {
@@ -83,7 +61,10 @@ export class ProductEntity extends AbstractEntity implements AbstractEntityMetho
   @Type(() => ProductSpecEntity)
   spec: ProductSpecEntity[] = []
 
+  @Transform(val => formatDate(val.value))
   readonly updated!: string
+
+  @Transform(val => formatDate(val.value))
   readonly created!: string
 
   constructor(id = 0) {

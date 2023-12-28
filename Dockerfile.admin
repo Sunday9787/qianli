@@ -1,0 +1,8 @@
+FROM node:18.16.1-slim as base
+WORKDIR /home
+COPY [.npmrc, ./dist, ./pnpm-lock.yaml, ./pnpm-workspace.yaml] ./app/
+COPY [./services/backend/package.json] ./app/dist/
+RUN curl -fsSL https://get.pnpm.io/install.sh | sh -
+RUN cd ./dist/ & pnpm i
+RUN cd /home & pnpm start:prod
+EXPOSE 3000

@@ -39,7 +39,7 @@ app-view
 </template>
 
 <script lang="ts" setup>
-import { PostEntity } from '@/service/post.entity'
+import { PostItemEntity } from '@/service/post.item.entity'
 import { useCacheModule } from '@/store/modules/cache'
 import { usePage } from '@/hooks/usePage'
 import { createTableColumns } from './table'
@@ -49,9 +49,9 @@ defineOptions({ name: 'QianliProductIndex' })
 const message = useMessage()
 const dialog = useDialog()
 const cacheModule = useCacheModule()
-const form = reactive(PostEntity.form())
+const form = reactive(PostItemEntity.form())
 const { table, pagination, search, mapper, reset } = usePage({
-  request: PostEntity.select,
+  request: PostItemEntity.select,
   timeFieldMap: {
     createdDate: ['created_start', 'created_end']
   },
@@ -67,7 +67,7 @@ const columns = createTableColumns({
       positiveText: '确认',
       negativeText: '取消',
       async onPositiveClick() {
-        await PostEntity.del(row.id)
+        await PostItemEntity.del(row.id)
         table.data.splice(rowIndex, 1)
         message.success('删除成功')
       }
