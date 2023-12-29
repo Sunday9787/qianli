@@ -3,7 +3,7 @@ import type { UploadCustomRequestOptions } from 'naive-ui'
 import { instanceToPlain, plainToInstance, type ClassConstructor } from 'class-transformer'
 
 type ObjectKey<T> = keyof T extends `${infer U}` ? U : string
-type AbstractEntityMethodKey = ObjectKey<AbstractEntity> | 'sourceValue'
+type AbstractEntityMethodKey = ObjectKey<AbstractEntity>
 type EntityMethodKey = ObjectKey<AbstractEntityMethod>
 type ExcludeEntityAttribute = EntityMethodKey | AbstractEntityMethodKey
 export type EntityQuery<T, Attr = unknown> = Omit<T, ExcludeEntityAttribute & Attr>
@@ -27,15 +27,19 @@ export type AbstractEntityDoUpload = <T extends { ossUrl: string }>(
   config?: AxiosRequestConfig
 ) => Promise<T>
 
+const valueWeakMap = new WeakMap<AbstractEntity, EntityJSON<AbstractEntity>>()
+
 export abstract class AbstractEntity {
-  protected sourceValue: EntityJSON<this> = Object.create(null)
+  public static toInstance = plainToInstance
+
+  public static async wrapper<T>(context: ClassConstructor<T>, Result: Promise<AppResponse.List<T>>) {
+    const response = await Result
+    response.list = AbstractEntity.toInstance(context, response.list)
+    return response
+  }
 
   public static toJSON<T extends object>(context: T) {
     return instanceToPlain(context, { excludeExtraneousValues: true }) as EntityJSON<T>
-  }
-
-  public static toInstance<T extends object, C>(cls: ClassConstructor<C>, data: T) {
-    return plainToInstance(cls, data)
   }
 
   public static async doUpload(option: UploadCustomRequestOptions, request: AbstractEntityDoUpload) {
@@ -57,15 +61,19 @@ export abstract class AbstractEntity {
     }
   }
 
+  constructor() {
+    this.init()
+  }
+
   public init() {
-    this.sourceValue = this.toJSON()
+    valueWeakMap.set(this, this.toJSON())
   }
 
   public reset() {
-    for (const [key, value] of Object.entries(this.sourceValue)) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      this[key] = value
+    const context = toRaw(this)
+    const data = valueWeakMap.get(context)!
+    for (const [key, value] of Object.entries(data)) {
+      ;(this as Record<string, unknown>)[key] = value
     }
   }
 

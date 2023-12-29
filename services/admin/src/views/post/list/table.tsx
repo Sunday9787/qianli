@@ -1,12 +1,10 @@
 import { RouterLink } from 'vue-router'
 import { NButton, type DataTableColumns, type DataTableColumn, NSpace } from 'naive-ui'
-import AppTableWidget from '@/components/app-table-widget/index.vue'
-import type { TableWidgetItem } from '@/components/app-table-widget/index.vue'
-import type { PostEntityJSON } from '@/service/post.entity'
-import { formatDate } from '@/utils'
+import AppTableWidget, { type TableWidgetItem } from '@/components/app-table-widget/index.vue'
+import type { PostItemEntity } from '@/service/post.item.entity'
 
 interface ColumnAction {
-  del(row: PostEntityJSON, rowIndex: number): void
+  del(row: PostItemEntity, rowIndex: number): void
 }
 
 export function createTableColumns(action: ColumnAction) {
@@ -18,7 +16,7 @@ export function createTableColumns(action: ColumnAction) {
     { label: '更新日期', key: 'updated', enable: true }
   ])
 
-  const columnsMap: DataTableColumns<PostEntityJSON> = [
+  const columnsMap: DataTableColumns<PostItemEntity> = [
     {
       title: 'No',
       width: 60,
@@ -31,30 +29,21 @@ export function createTableColumns(action: ColumnAction) {
     {
       title: '发布日期',
       key: 'date',
-      width: 250,
-      render(row) {
-        return formatDate(row.date)
-      }
+      width: 250
     },
     {
       title: '创建日期',
       key: 'created',
-      width: 250,
-      render(row) {
-        return formatDate(row.created)
-      }
+      width: 250
     },
     {
       title: '更新日期',
       key: 'updated',
-      width: 250,
-      render(row) {
-        return formatDate(row.updated)
-      }
+      width: 250
     }
   ]
 
-  const operationColumn: DataTableColumn<PostEntityJSON> = {
+  const operationColumn: DataTableColumn<PostItemEntity> = {
     title() {
       return <AppTableWidget text='操作' data={columnHead} storageKey='post_table_column_config' />
     },

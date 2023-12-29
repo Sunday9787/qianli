@@ -27,11 +27,6 @@ export class UserAuthEntity extends AbstractEntity implements AbstractEntityMeth
   @Expose() email!: string
   @Expose() code!: string
 
-  constructor() {
-    super()
-    this.init()
-  }
-
   logIn() {
     return UserAuthEntity.service.logIn(this.toJSON())
   }
@@ -70,7 +65,6 @@ export class UserEntity extends AbstractEntity implements AbstractEntityMethod {
   constructor(id = 0) {
     super()
     this.id = id
-    this.init()
   }
 
   copy(data: UserEntityJSON) {

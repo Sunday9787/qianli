@@ -48,6 +48,8 @@ function buildRenderPostDetailDTO(entity: PostEntity) {
   dto.updated = entity.updated
   dto.category_name = entity.category.category_name
   dto.category_id = entity.category_id
+  dto.created = entity.created
+  dto.updated = entity.updated
   dto.date = dayjs(entity.date).format('YYYY-MM-DD')
   dto.pv = entity.pv
   dto.title = entity.title
@@ -114,7 +116,7 @@ export class PostService {
           title: query.title ? Like(`%${query.title}%`) : null,
           category_id: query.category_id ? query.category_id : null
         },
-        select: ['category', 'category_id', 'date', 'desc', 'id', 'title', 'img'],
+        select: ['category', 'category_id', 'date', 'desc', 'id', 'title', 'img', 'created', 'updated'],
         relations: { category: true },
         ...qianliQuery.option
       })

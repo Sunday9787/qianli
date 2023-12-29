@@ -33,11 +33,6 @@ export class CategoryEntity extends AbstractEntity implements AbstractEntityMeth
     return CategoryEntity.service.del(id)
   }
 
-  constructor() {
-    super()
-    this.init()
-  }
-
   @Expose() id = 0
   @Expose() category_name!: string
   @Expose() type!: 'product' | 'post'
@@ -68,11 +63,6 @@ export class DepartmentEntity extends AbstractEntity implements AbstractEntityMe
 
   @Expose() id = 0
   @Expose() department_name!: string
-
-  constructor() {
-    super()
-    this.init()
-  }
 
   save() {
     return DepartmentEntity.service.save(this.toJSON())

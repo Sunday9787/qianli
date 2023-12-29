@@ -1,5 +1,6 @@
 import path from 'node:path'
 import session from 'express-session'
+import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import type { NestExpressApplication } from '@nestjs/platform-express'
 import type { Response } from 'express'
@@ -65,6 +66,7 @@ async function bootstrap() {
   })
 
   await app.listen(3000)
+  Logger.log('http://localhost:3000', 'ServerStartAt')
 }
 
 bootstrap()

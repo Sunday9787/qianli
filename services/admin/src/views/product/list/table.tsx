@@ -1,14 +1,13 @@
-import type { ProductEntityJSON } from '@/service/product.entity'
+import type { ProductItemEntity } from '@/service/product.item.entity'
 import { NButton, type DataTableColumns, NSpace } from 'naive-ui'
 import { RouterLink } from 'vue-router'
-import { formatDate } from '@/utils'
 
 interface ColumnAction {
-  del(row: ProductEntityJSON, rowIndex: number): void
+  del(row: ProductItemEntity, rowIndex: number): void
 }
 
 export function createTableColumns(action: ColumnAction) {
-  const columns: DataTableColumns<ProductEntityJSON> = [
+  const columns: DataTableColumns<ProductItemEntity> = [
     {
       title: 'No',
       width: 60,
@@ -20,20 +19,8 @@ export function createTableColumns(action: ColumnAction) {
     { title: '产品分类', key: 'category_name' },
     { title: '产品标题', key: 'title' },
     { title: '产品名称', key: 'name' },
-    {
-      title: '创建日期',
-      key: 'created',
-      render(row) {
-        return formatDate(row.created)
-      }
-    },
-    {
-      title: '更新日期',
-      key: 'updated',
-      render(row) {
-        return formatDate(row.updated)
-      }
-    },
+    { title: '创建日期', key: 'created' },
+    { title: '更新日期', key: 'updated' },
     {
       title: '操作',
       key: 'operation',

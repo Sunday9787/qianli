@@ -66,7 +66,6 @@ export class JobEntity extends AbstractEntity implements AbstractEntityMethod {
   constructor(id = 0) {
     super()
     this.id = id
-    this.init()
   }
 
   save() {

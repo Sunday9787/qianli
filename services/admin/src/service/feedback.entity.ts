@@ -45,7 +45,6 @@ export class FeedbackEntity extends AbstractEntity implements AbstractEntityMeth
   constructor(id = 0) {
     super()
     this.id = id
-    this.init()
   }
 
   process() {
