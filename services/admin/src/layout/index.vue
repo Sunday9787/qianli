@@ -7,7 +7,7 @@ n-layout(has-sider style="height: inherit")
 
     LayoutTagsView
 
-    n-layout-content(:style="layoutStyle" :scrollbar-props="{contentClass: 'layout-content'}" :native-scrollbar="false")
+    n-layout-content(:style="layoutStyle" contentClass="layout-content" :native-scrollbar="false")
       router-view
 
 n-affix.layout-affix(@click="drawerShow = true")

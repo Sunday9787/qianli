@@ -8,8 +8,8 @@ import $ from 'jquery'
     if (isMove) return
 
     const e = event.originalEvent as WheelEvent
-    const top = $(window).scrollTop(),
-      height = $(window).height(),
+    const top = $(window).scrollTop()!,
+      height = $(window).height()!,
       isScroll = -e.deltaY
 
     if (isScroll < 0 && top < height) {

@@ -5,7 +5,7 @@ $(window).on('scroll', function () {
   /**
    * 页面滚动距离
    */
-  const top = $(window).scrollTop()
+  const top = $(window).scrollTop()!
 
   if (top >= 10) {
     if (!$('.qianli-header-ghost').hasClass('pin')) {
