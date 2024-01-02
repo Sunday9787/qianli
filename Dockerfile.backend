@@ -1,0 +1,13 @@
+FROM node:18.16.1 as base
+WORKDIR /home
+ENV PNPM_HOME="/root/.local/share/pnpm"
+ENV PATH="${PATH}:${PNPM_HOME}"
+
+COPY .npmrc ./pnpm-lock.yaml ./package.json ./pnpm-workspace.yaml /home/app/
+COPY ./dist ./services/backend/package.json ./services/backend/.env /home/app/services/backend/
+RUN curl -fsSL https://get.pnpm.io/install.sh | bash -
+RUN cd /home/app/services/backend/ && pnpm install --prod
+COPY ./services/frontend/src/view /home/app/services/frontend/src/view/
+COPY ./public /home/app/public
+CMD cd /home/app/services/backend/ && pnpm start:prod
+EXPOSE 3000

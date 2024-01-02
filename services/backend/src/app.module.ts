@@ -1,6 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { ConfigModule } from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 import { SessionMiddleware } from './middleware/session'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -36,32 +36,40 @@ import { UploadModule } from './upload/upload.module'
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
+      envFilePath: ['.env.local', '.env']
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'qianli',
-      password: '123123',
-      database: 'qianli',
-      // synchronize: true,
-      entities: [
-        LayoutEntity,
-        UserEntity,
-        PostEntity,
-        CategoryEntity,
-        JobEntity,
-        DepartmentEntity,
-        AboutEntity,
-        ContactEntity,
-        FeedbackEntity,
-        ProductEntity,
-        ProductFeatureEntity,
-        ProductScenarioEntity,
-        ProductSpecEntity,
-        ProductFileEntity
-      ]
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory(configService: ConfigService) {
+        console.log(configService.get('DATA_BASE_HOST'))
+        return {
+          type: 'mysql',
+          host: configService.get('DATA_BASE_HOST'),
+          port: configService.get('DATA_BASE_PORT'),
+          username: configService.get('DATA_BASE_USERNAME'),
+          password: configService.get('DATA_BASE_PASSWORD'),
+          database: configService.get('DATA_BASE_DATABASE'),
+          // synchronize: true,
+          entities: [
+            LayoutEntity,
+            UserEntity,
+            PostEntity,
+            CategoryEntity,
+            JobEntity,
+            DepartmentEntity,
+            AboutEntity,
+            ContactEntity,
+            FeedbackEntity,
+            ProductEntity,
+            ProductFeatureEntity,
+            ProductScenarioEntity,
+            ProductSpecEntity,
+            ProductFileEntity
+          ]
+        }
+      },
+      inject: [ConfigService]
     }),
     RedisModule,
     LayoutModule,

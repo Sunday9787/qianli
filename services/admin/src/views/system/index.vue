@@ -20,8 +20,10 @@ type MenuKey = 'category' | 'department'
 defineOptions({
   name: 'QianliSystem',
   components: {
-    department: defineAsyncComponent(() => import('./department/index.vue')),
-    category: defineAsyncComponent(() => import('./category/index.vue'))
+    department: defineAsyncComponent(
+      () => import(/* webpackChunkName: "QianliSystemDepartment" */ './department/index.vue')
+    ),
+    category: defineAsyncComponent(() => import(/* webpackChunkName: "QianliSystemCategory" */ './category/index.vue'))
   }
 })
 

@@ -13,7 +13,7 @@ export const userRoute: RouteRecordRaw = {
       path: 'list',
       name: 'QianliUserList',
       meta: { activeMenu: '/user', title: '用户列表' },
-      component: () => import('@/views/user/list/index.vue')
+      component: () => import(/* webpackChunkName: "user_list" */ '@/views/user/list/index.vue')
     }
   ]
 }

@@ -1,5 +1,6 @@
 version: '20.0'
 
+name: qianli_local
 services:
   db:
     container_name: database

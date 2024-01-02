@@ -1,0 +1,68 @@
+version: '20.0'
+
+name: qianli_dev
+services:
+  gateway:
+    container_name: qianli_gateway
+    build:
+      context: .
+      dockerfile: Dockerfile.gateway
+    image: qianli_gateway:latest
+    depends_on:
+      - backend
+      - admin
+    networks:
+      - qianli
+    ports:
+      - 80:80
+
+  backend:
+    container_name: qianli_backend
+    build:
+      context: .
+      dockerfile: ./Dockerfile.backend
+    image: qianli_backend:latest
+    environment:
+      - NODE_ENV=production
+    restart: always
+    depends_on:
+      - db
+      - cache
+    networks:
+      - qianli
+
+  admin:
+    container_name: qianli_admin
+    build:
+      context: .
+      dockerfile: ./Dockerfile.admin
+    image: qianli_admin:latest
+    restart: always
+    networks:
+      - qianli
+
+  db:
+    container_name: qianli_database
+    image: mysql:latest
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    restart: always
+    networks:
+      - qianli
+    environment:
+      MYSQL_DATABASE: qianli
+      MYSQL_USER: qianli
+      MYSQL_PASSWORD: 123123
+      MYSQL_ROOT_PASSWORD: 123123
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
+
+  cache:
+    container_name: qianli_redis
+    image: redis:alpine3.18
+    restart: always
+    networks:
+      - qianli
+
+networks:
+  qianli:
+    driver: bridge

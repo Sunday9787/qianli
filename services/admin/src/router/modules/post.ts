@@ -13,21 +13,21 @@ export const postRoute: RouteRecordRaw = {
       path: 'list',
       name: 'QianliPostList',
       meta: { activeMenu: '/post', title: '文章列表' },
-      component: () => import('@/views/post/list/index.vue')
+      component: () => import(/* webpackChunkName: "post_list" */ '@/views/post/list/index.vue')
     },
     {
       path: 'detail/:id(\\d+)',
       name: 'QianliPostDetail',
       meta: { title: '文章详情' },
       props: route => ({ id: Number(route.params.id) }),
-      component: () => import('@/views/post/detail/index.vue')
+      component: () => import(/* webpackChunkName: "post_detail" */ '@/views/post/detail/index.vue')
     },
     {
       path: 'action',
       name: 'QianliPostAction',
       meta: { title: '文章编辑' },
       props: route => ({ id: Number(route.query.id) || 0, type: route.query.type }),
-      component: () => import('@/views/post/action/index.vue')
+      component: () => import(/* webpackChunkName: "post_action" */ '@/views/post/action/index.vue')
     }
   ]
 }

@@ -17,7 +17,7 @@ const router = createRouter({
       name: 'QianliLogin',
       meta: { hidden: true, title: '登录' },
       props: route => ({ redirect: route.query.redirect }),
-      component: () => import('@/views/login/index.vue')
+      component: () => import(/* webpackChunkName: "login" */ '@/views/login/index.vue')
     },
     dashboardRoute,
     postRoute,

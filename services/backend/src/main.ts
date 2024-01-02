@@ -45,7 +45,7 @@ async function bootstrap() {
     ]
   })
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: ['localhost:5173', '*.qianli.com'],
     credentials: true,
     maxAge: 1 * 60 * 60 * 1000,
     exposedHeaders: ['Content-Disposition'],
@@ -66,6 +66,7 @@ async function bootstrap() {
   })
 
   await app.listen(3000)
+  console.log('NODE_ENV', process.env.NODE_ENV)
   Logger.log('http://localhost:3000', 'ServerStartAt')
 }
 

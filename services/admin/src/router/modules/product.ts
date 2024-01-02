@@ -13,21 +13,21 @@ export const productRoute: RouteRecordRaw = {
       path: 'list',
       name: 'QianliProductList',
       meta: { activeMenu: '/product', title: '产品列表' },
-      component: () => import('@/views/product/list/index.vue')
+      component: () => import(/* webpackChunkName: "product_list" */ '@/views/product/list/index.vue')
     },
     {
       path: 'detail/:id(\\d+)',
       name: 'QianliProductDetail',
       meta: { title: '产品详情' },
       props: route => ({ id: Number(route.params.id) }),
-      component: () => import('@/views/product/detail/index.vue')
+      component: () => import(/* webpackChunkName: "product_detail" */ '@/views/product/detail/index.vue')
     },
     {
       path: 'action',
       name: 'QianliProductAction',
       meta: { title: '产品编辑' },
       props: route => ({ id: Number(route.query.id), type: route.query.type }),
-      component: () => import('@/views/product/action/index.vue')
+      component: () => import(/* webpackChunkName: "product_action" */ '@/views/product/action/index.vue')
     }
   ]
 }
