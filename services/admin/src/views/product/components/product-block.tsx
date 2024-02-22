@@ -6,6 +6,7 @@ import type { ProductEntity } from '@/service/product.entity'
 import type { PropType } from 'vue'
 import { NGrid, NCard, NImage, NGridItem, NTable, NSpace, NH2, NH4 } from 'naive-ui'
 import { useCacheModule } from '@/store/modules/cache'
+import { resourceURL } from '@/utils'
 
 type BlockType = 'img' | 'feature' | 'scenario' | 'spec'
 
@@ -60,7 +61,7 @@ export const ProductBaseBlock = defineComponent({
             playsinline
             width={800}
             height={600}
-            src={this.data.media}
+            src={resourceURL(this.data.media)}
             preload='auto'
             crossorigin='anonymous'
             draggable='false'
@@ -80,7 +81,7 @@ function renderBlockImg(img: ProductImgEntity[]) {
           {img.map(function (item) {
             return (
               <NGridItem>
-                <NImage src={item.path} objectFit='cover' />
+                <NImage src={resourceURL(item.path)} objectFit='cover' />
               </NGridItem>
             )
           })}
@@ -107,7 +108,7 @@ function renderFeature(data: ProductFeatureEntity[]) {
                   <p>{item.desc}</p>
 
                   <NH4>图片</NH4>
-                  <NImage src={item.img} objectFit='cover' />
+                  <NImage src={resourceURL(item.img)} objectFit='cover' />
                 </NCard>
               </NGridItem>
             )
@@ -132,10 +133,10 @@ function renderScenario(data: ProductScenarioEntity[]) {
                   <p>{item.text}</p>
 
                   <NH4>图标</NH4>
-                  <NImage src={item.icon} objectFit='cover' />
+                  <NImage src={resourceURL(item.icon)} objectFit='cover' />
 
                   <NH4>图片</NH4>
-                  <NImage src={item.img} objectFit='cover' />
+                  <NImage src={resourceURL(item.img)} objectFit='cover' />
                 </NCard>
               </NGridItem>
             )

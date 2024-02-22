@@ -5,7 +5,7 @@ import { useUserModule } from '@/store/modules/user'
 
 const AxiosInstance = axios.create({
   timeout: 5000,
-  baseURL: import.meta.env.VITE_APP_BASE_API,
+  baseURL: import.meta.env.VITE_APP_BASE_API + '/api',
   headers: {
     'Content-type': 'application/json'
   },

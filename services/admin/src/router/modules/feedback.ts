@@ -13,7 +13,7 @@ export const feedbackRoute: RouteRecordRaw = {
       path: 'list',
       name: 'QianliFeedbackList',
       meta: { activeMenu: '/feedback', title: '反馈列表' },
-      component: () => import('@/views/feedback/list/index.vue')
+      component: () => import(/* webpackChunkName: "feedback_list" */ '@/views/feedback/list/index.vue')
     }
   ]
 }

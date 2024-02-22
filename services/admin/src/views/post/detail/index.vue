@@ -7,7 +7,7 @@ app-view
       span 浏览次数 {{ detail.pv }}
     n-hr
     .flex-1.overflow-hidden
-      article.post-content.h-full.overflow-y-auto(v-html="detail.content")
+      article.post-content.h-full.overflow-y-auto(v-html="content")
 </template>
 
 <script lang="ts" setup>
@@ -28,4 +28,10 @@ defineOptions({
 
 const props = defineProps<Props>()
 const detail = usePost({ type: 'detail', id: props.id })
+
+const content = computed(function () {
+  if (detail.value.content) {
+    return detail.value.content.replace(/(\/upload)/g, import.meta.env.VITE_APP_RESOURCE_DOMAIN + '$1')
+  }
+})
 </script>

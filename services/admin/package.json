@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "start:dev": "vite --mode=development",
+    "build:dev": "vite build --mode=development",
+    "build:pro": "vite build --mode=production",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",

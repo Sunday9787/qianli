@@ -1,10 +1,10 @@
+import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 import path from 'path/posix'
-
-import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vuePugPlugin from 'vue-pug-plugin'
+import { manualChunksPlugin } from 'vite-plugin-webpackchunkname'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -56,11 +56,37 @@ export default defineConfig(function (env) {
         iconDirs: [path.join(process.cwd(), 'src/icons')],
         // 指定symbolId格式
         symbolId: 'icon-[dir]-[name]'
-      })
+      }),
+      manualChunksPlugin(),
+      splitVendorChunkPlugin()
     ],
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))
+      }
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          assetFileNames: assetInfo => {
+            if (!assetInfo.name) return 'index'
+
+            const info = assetInfo.name.split('.')
+            let extType = info[info.length - 1]
+
+            if (/\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/i.test(assetInfo.name)) {
+              extType = 'media'
+            } else if (/\.(png|jpe?g|gif|svg)(\?.*)?$/.test(assetInfo.name)) {
+              extType = 'img'
+            } else if (/\.(woff2?|eot|ttf|otf)(\?.*)?$/i.test(assetInfo.name)) {
+              extType = 'fonts'
+            }
+
+            return `static/${extType}/[name]-[hash][extname]`
+          },
+          chunkFileNames: 'static/js/[name].[hash].js',
+          entryFileNames: 'static/js/[name].[hash].js'
+        }
       }
     }
   }

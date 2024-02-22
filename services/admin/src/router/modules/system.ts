@@ -14,7 +14,7 @@ export const systemRoute: RouteRecordRaw = {
       name: 'QianliSystemIndex',
       meta: { activeMenu: '/system', title: '配置列表' },
       props: route => ({ id: route.query.id }),
-      component: () => import('@/views/system/index.vue')
+      component: () => import(/* webpackChunkName: "system_index" */ '@/views/system/index.vue')
     }
   ]
 }

@@ -13,7 +13,7 @@ export const jobRoute: RouteRecordRaw = {
       path: 'list',
       name: 'QianliJobList',
       meta: { activeMenu: '/job', title: '招聘列表' },
-      component: () => import('@/views/job/list/index.vue')
+      component: () => import(/* webpackChunkName: "job_list" */ '@/views/job/list/index.vue')
     }
   ]
 }

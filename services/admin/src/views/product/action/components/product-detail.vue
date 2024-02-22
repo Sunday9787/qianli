@@ -71,6 +71,7 @@ import { vElementHover } from '@vueuse/components'
 import { ProductEntity } from '@/service/product.entity'
 import { ProductImgEntity } from '@/service/product.img.entity'
 import { ACCEPT } from '@/utils/constant'
+import { resourceURL, urlResource } from '@/utils'
 
 defineOptions({ name: 'ProductDetail' })
 defineExpose({ validate, save })
@@ -99,7 +100,7 @@ function scenarioAdd(id: number) {
 function init() {
   for (const item of product.value.img) {
     coversProduct.value.push({
-      url: item.path,
+      url: resourceURL(item.path),
       id: String(item.id),
       name: item.path,
       status: 'finished'
@@ -109,7 +110,7 @@ function init() {
   for (const item of product.value.feature) {
     coversFeatureMap[item.fileId] = [
       {
-        url: item.img,
+        url: resourceURL(item.img),
         id: String(item.id),
         name: item.img,
         status: 'finished'
@@ -121,7 +122,7 @@ function init() {
     coversScenarioMap[item.fileId] = {
       img: [
         {
-          url: item.img,
+          url: resourceURL(item.img),
           id: String(item.id),
           name: item.img,
           status: 'finished'
@@ -129,7 +130,7 @@ function init() {
       ],
       icon: [
         {
-          url: item.icon,
+          url: resourceURL(item.icon),
           id: String(item.id),
           name: item.icon,
           status: 'finished'
@@ -165,13 +166,13 @@ function save() {
     const id = Number(item.id)
 
     img.id = Number.isNaN(id) ? 0 : id
-    img.path = item.url!
+    img.path = urlResource(item.url!)
     return img
   })
 
   for (const item of product.value.feature) {
     const [img] = coversFeatureMap[item.fileId]
-    item.img = img.url!
+    item.img = urlResource(img.url!)
   }
 
   for (const item of product.value.scenario) {
@@ -179,8 +180,8 @@ function save() {
       icon: [icon],
       img: [img]
     } = coversScenarioMap[item.fileId]
-    item.icon = icon.url!
-    item.img = img.url!
+    item.icon = urlResource(icon.url!)
+    item.img = urlResource(img.url!)
   }
 }
 

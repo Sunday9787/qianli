@@ -1,6 +1,7 @@
 import type { AxiosRequestConfig } from 'axios'
 import type { UploadCustomRequestOptions } from 'naive-ui'
 import { instanceToPlain, plainToInstance, type ClassConstructor } from 'class-transformer'
+import { resourceURL } from '@/utils'
 
 type ObjectKey<T> = keyof T extends `${infer U}` ? U : string
 type AbstractEntityMethodKey = ObjectKey<AbstractEntity>
@@ -53,7 +54,7 @@ export abstract class AbstractEntity {
         }
       })
 
-      option.file.url = response.ossUrl
+      option.file.url = resourceURL(response.ossUrl)!
 
       option.onFinish()
     } catch {
