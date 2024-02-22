@@ -1,8 +1,3 @@
-const NODE_ENV_MAP = {
-  DEV: 'development',
-  PRO: 'production'
-}
-
 const APP_ENV_MAP = {
   DEV: 'DEV',
   PRO: 'PRO',
@@ -10,6 +5,5 @@ const APP_ENV_MAP = {
 }
 
 module.exports = {
-  NODE_ENV_MAP,
   APP_ENV_MAP
 }

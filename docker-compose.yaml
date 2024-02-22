@@ -1,5 +1,6 @@
 version: '20.0'
 
+name: qianli_local
 services:
   db:
     container_name: database
@@ -26,6 +27,18 @@ services:
       - qianli
     ports:
       - 6379:6379
+
+  resource:
+    container_name: resource
+    image: nginx:stable
+    restart: always
+    volumes:
+      - ./public:/etc/nginx/html/
+      - ./nginx.resource.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 5712:80
+    networks:
+      - qianli
 
 networks:
   qianli:

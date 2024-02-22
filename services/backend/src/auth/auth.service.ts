@@ -3,8 +3,9 @@ import { Injectable, Inject } from '@nestjs/common'
 import { RedisService } from '@/redis/redis.service'
 import { UserLoginResponseDTO } from '@/user/user.dto'
 import { JwtDTO } from './auth.jwt.dto'
-import { TOKEN_SECRET } from '@/config'
 import { UserEntity } from '@/user/user.entity'
+import { ConfigService } from '@nestjs/config'
+import type { Config } from '@/config'
 
 @Injectable()
 export class AuthService {
@@ -18,7 +19,10 @@ export class AuthService {
     return 'token:' + user.email
   }
 
-  constructor(@Inject(RedisService) private readonly redisService: RedisService) {}
+  constructor(
+    @Inject(RedisService) private readonly redisService: RedisService,
+    @Inject(ConfigService) private readonly configService: ConfigService<Config>
+  ) {}
 
   generateJWT(user: UserEntity) {
     const today = new Date()
@@ -33,7 +37,7 @@ export class AuthService {
       exp: exp.getTime()
     }
 
-    return jwt.sign(dto, TOKEN_SECRET)
+    return jwt.sign(dto, this.configService.get('GLOBAL.TOKEN_SECRET', { infer: true }))
   }
 
   async setToken(dto: UserLoginResponseDTO) {
@@ -49,7 +53,7 @@ export class AuthService {
   }
 
   async validateToken(token: string): Promise<null | JwtDTO> {
-    const decoded = jwt.verify(token, TOKEN_SECRET) as JwtDTO
+    const decoded = jwt.verify(token, this.configService.get('GLOBAL.TOKEN_SECRET', { infer: true })) as JwtDTO
 
     if (decoded) {
       const result = await this.redisService.cacheManager.get(AuthService.generateTokenKey(decoded))

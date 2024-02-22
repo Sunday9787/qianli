@@ -5,10 +5,10 @@
   "keywords": [],
   "author": "",
   "scripts": {
-    "build:pro": "webpack --config ./build/webpack.config.js --env NODE_ENV=PRO APP_ENV=PRO",
-    "build:dev": "webpack --config ./build/webpack.config.js --env NODE_ENV=PRO APP_ENV=DEV",
-    "build:test": "webpack --config ./build/webpack.config.js --env NODE_ENV=PRO APP_ENV=TEST",
-    "start:dev": "webpack --config ./build/webpack.config.js --env NODE_ENV=DEV APP_ENV=DEV"
+    "build:pro": "cross-env NODE_ENV=production webpack --config ./build/webpack.config.js --env APP_ENV=PRO",
+    "build:dev": "cross-env NODE_ENV=production webpack --config ./build/webpack.config.js --env APP_ENV=DEV",
+    "build:test": "cross-env NODE_ENV=production webpack --config ./build/webpack.config.js --env APP_ENV=TEST",
+    "start:dev": "cross-env NODE_ENV=develop webpack --config ./build/webpack.config.js --env APP_ENV=DEV"
   },
   "dependencies": {
     "@sunday9787/log": "^1.0.2",
@@ -33,9 +33,11 @@
     "cache-loader": "^4.1.0",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.8.1",
     "mini-css-extract-plugin": "^2.7.6",
     "postcss-loader": "^7.3.4",
+    "postcss-url": "^10.1.3",
     "stylelint-plugin-stylus": "^1.0.0",
     "stylus": "^0.62.0",
     "stylus-loader": "^7.1.3",

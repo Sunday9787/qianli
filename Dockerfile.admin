@@ -1,0 +1,4 @@
+FROM nginx:stable as base
+COPY ./services/admin/dist /etc/nginx/html/
+COPY ./nginx.admin.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80

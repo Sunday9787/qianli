@@ -57,33 +57,33 @@ spa项目写多了 都感觉要忘了传统不分离项目怎么写？
 ## 安装
 
 ```bash
-$ pnpm i
+pnpm i
 ```
 
 ## 启动
 
 ```bash
 # development
-$ pnpm run start
+pnpm run start
 
 # watch mode
-$ pnpm run start:dev
+pnpm run start:dev
 
 # production mode
-$ pnpm run start:prod
+pnpm run start:prod
 ```
 
 ## 测试
 
 ```bash
 # unit tests
-$ pnpm run test
+pnpm run test
 
 # e2e tests
-$ pnpm run test:e2e
+pnpm run test:e2e
 
 # test coverage
-$ pnpm run test:cov
+pnpm run test:cov
 ```
 
 ## License

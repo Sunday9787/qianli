@@ -6,7 +6,6 @@ import { UploadFileChunkDTO } from './upload.dto'
 import { fileName } from 'backend/tools'
 import * as tools from './upload.tools'
 
-const host = 'http://localhost:3000'
 const projectRoot = path.resolve(process.cwd(), path.resolve('..', '..'))
 
 @Injectable()
@@ -108,7 +107,7 @@ export class UploadFileService {
       await this.mergeChunk(chunk, filePath, writeStream)
 
       return {
-        ossUrl: host + path.join(this.publicPath, file.originalname)
+        ossUrl: path.join(this.publicPath, file.originalname)
       }
     }
 

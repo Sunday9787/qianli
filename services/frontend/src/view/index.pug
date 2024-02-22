@@ -12,7 +12,7 @@ block content
           .swiper-slide
             .product-slide
               if item.media === 'picture'
-                img.product-slide__media(src=`${item.url}`)
+                img.product-slide__media(src=`${layout.domain.resource}${item.url}`)
                 .product-slide-inner
                   p.product-slide__model(qianli-animate='animate-fade-in') #{item.model}
                   h2.product-slide__title(qianli-animate='animate-fade-in') #{item.title}
@@ -25,24 +25,24 @@ block content
                   playsinline
                   type="video/mp4"
                   draggable="false"
-                  src=`${item.url}`) 当前浏览器不支持 video直接播放
+                  src=`${layout.domain.resource}${item.url}`) 当前浏览器不支持 video直接播放
 
       .product-swiper-pagination
         .swiper-pagination
         .product-pagination-group
           a.product-pagination__button.prev(href="javascript:;")
-            img(src="//localhost:3000/image/arrow_left.png")
+            img(src=`${layout.domain.resource}/image/arrow_left.png`)
             | PREV
           a.product-pagination__button.next(href="javascript:;")
             | NEXT
-            img(src="//localhost:3000/image/arrow_right.png")
+            img(src=`${layout.domain.resource}/image/arrow_right.png`)
 
       .product-pagination-step
         div.product-pagination-step-fraction
           span.product-pagination-step-current 01
           span.product-pagination-step-total 0#{productBanner.length}
         i.product-pagination-step-line scroll
-        img(src="//localhost:3000/image/mouse.png")
+        img(src=`${layout.domain.resource}/image/mouse.png`)
 
   //- 解决方案
   section#solve-container
@@ -54,7 +54,7 @@ block content
       .swiper-wrapper
         each item, index in solveBanner
           .swiper-slide
-            img(src=`${item.url}` style="height: 100%; width: 100%")
+            img(src=`${layout.domain.resource}${item.url}` style="height: 100%; width: 100%")
 
             .solve-desc
               h4.solve-desc-title(qianli-animate='animate-fade-in') #{item.title}
@@ -62,7 +62,7 @@ block content
 
               a.solve-desc-more(href="javascript:;" qianli-animate='animate-fade-in') #{item.more}
                 span.solve-desc-more__icon
-                  img(src="//localhost:3000/image/more.png")
+                  img(src=`${layout.domain.resource}/image/more.png`)
 
     #solve-item
       .swiper-container
@@ -73,12 +73,12 @@ block content
                 div
                   h4.solve-item-slide__title #{item.title}
                   i.solve-item-slide__desc #{item.translate}
-                img.solve-item-slide__icon(src=`${item.icon}`)
+                img.solve-item-slide__icon(src=`${layout.domain.resource}${item.icon}`)
 
       a.solve-item-button.prev(href="javascript:;")
-        img(src="//localhost:3000/image/case_l.png")
+        img(src=`${layout.domain.resource}/image/case_l.png`)
       a.solve-item-button.next(href="javascript:;")
-        img(src="//localhost:3000/image/case_r.png")
+        img(src=`${layout.domain.resource}/image/case_r.png`)
 
   //- 产品中心
   section#product-center
@@ -110,13 +110,13 @@ block content
                       +qianli-ghost-button('VIEW MORE')(href=`/product/detail?id=${item.id}` mode="dark" qianli-animate='animate-fade-in')
 
                     .product-center-side__legend
-                      img(src=`${item.img[0]}`)
+                      img(src=`${layout.domain.resource}${item.img[0]}`)
 
             .product-center-navigation
               a.product-center-navigation__button.prev(href="javascript:;")
-                img(src="//localhost:3000/image/pro_l.png")
+                img(src=`${layout.domain.resource}/image/pro_l.png`)
               a.product-center-navigation__button.next(href="javascript:;")
-                img(src="//localhost:3000/image/pro_r.png")
+                img(src=`${layout.domain.resource}/image/pro_r.png`)
 
         .product-center-sub
           .swiper-container
@@ -125,7 +125,7 @@ block content
                 .swiper-slide
                   .product-center-side.sub
                     .product-center-side__legend
-                      img(src=`${item.img[0]}`)
+                      img(src=`${layout.domain.resource}${item.img[0]}`)
                     .product-center-side__content(qianli-animate='animate-fade-in')
                       h2.product-center-side__title #{item.title}
                         .bg
@@ -134,7 +134,7 @@ block content
   //- 导航
   section#navigation-container
     .navigation-side.left.flex1
-      img(src="//localhost:3000/upload/20220614174030551151.png")
+      img(src=`${layout.domain.resource}/upload/20220614174030551151.png`)
     .navigation-side.right.flex1
       .navigation-inner-top.flex1
         .navigation-inner-top__bg
@@ -148,7 +148,7 @@ block content
       .navigation-inner-bottom.flex1
         a.navigation-inner-job.flex1(href="/contact")
           .navigation-item(qianli-animate='animate-fade-in')
-            img.navigation-item-icon(src="//localhost:3000/upload/20220614174131112183.png")
+            img.navigation-item-icon(src=`${layout.domain.resource}/upload/20220614174131112183.png`)
             .flex1
             h3.navigation-item-title 社会招聘
 
@@ -156,7 +156,7 @@ block content
 
         a.navigation-inner-news.flex1(href="/news")
           .navigation-item(qianli-animate='animate-fade-in')
-            img.navigation-item-icon(src="//localhost:3000/upload/20220614174131131961.png")
+            img.navigation-item-icon(src=`${layout.domain.resource}/upload/20220614174131131961.png`)
             .flex1
             h3.navigation-item-title 新闻中心
 
@@ -180,7 +180,7 @@ block content
             for item of news
               .swiper-slide
                 .news-thumb-slide
-                  img(src=`${item.img}`)
+                  img(src=`${layout.domain.resource}${item.img}`)
 
       .news-list.flex1
         each item,index in news
@@ -189,8 +189,8 @@ block content
               time.news-item-time #{item.date}
               p.news-item-text #{item.title}
             .news-item-icon
-              img.news-item-icon__dark(src="//localhost:3000/image/new_r.png")
-              img.news-item-icon__light(src="//localhost:3000/image/new_rw.png")
+              img.news-item-icon__dark(src=`${layout.domain.resource}/image/new_r.png`)
+              img.news-item-icon__light(src=`${layout.domain.resource}/image/new_rw.png`)
 
 block footer
   script(type="text/javascript" charset="utf-8").

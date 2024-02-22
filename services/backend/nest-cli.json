@@ -3,6 +3,13 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "watchAssets": true,
+    "assets": [
+      {"include": "./manifest.json"},
+      {"include": "./package.json"},
+      {"include": "./env.yaml"},
+      {"include": "./env.local.yaml"}
+    ]
   }
 }

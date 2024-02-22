@@ -12,7 +12,7 @@ block content
           p.post-meta(qianli-animate='animate-fade-in')
             time.post-meta-date(datetime=`${post.date}`) 发布时间：#{post.date}
             span.post-meta-pv 浏览次数：#{post.pv}
-        article.post-article.ck-content(qianli-animate='animate-fade-in')!= post.content
+        article.post-article.ck-content(qianli-animate='animate-fade-in')!= post.content.replace(/\/upload/g, `${layout.domain.resource}/upload`)
 
       .post-recommend
         h2.post-recommend-title(qianli-animate='animate-fade-in') 热门新闻
@@ -20,7 +20,7 @@ block content
           for item of recommends
             li.post-recommend-inner(qianli-animate='animate-fade-in')
               a.post-recommend-item(href=`/post/${item.id}`)
-                img.post-recommend-cover(src=`${item.img}`)
+                img.post-recommend-cover(src=`${layout.domain.resource}${item.img}`)
                 p.flex1 #{item.title}
 
 block footer

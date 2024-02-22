@@ -8,6 +8,9 @@ module.exports = {
   devtool: 'source-map',
   watch: true,
   stats: 'minimal',
+  output: {
+    publicPath: 'http://localhost:5712/'
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash:8].css',

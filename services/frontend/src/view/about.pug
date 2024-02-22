@@ -18,7 +18,7 @@ block content
             p.about-banner-desc(qianli-animate='animate-fade-in') #{desc}
 
         .about-banner-wallpaper(qianli-animate='animate-fade-in')
-          img(src=`${about.img}`)
+          img(src=`${layout.domain.resource}${about.img}`)
 
   //- 公司环境
   #env
@@ -31,12 +31,12 @@ block content
             for item of environment
               .swiper-slide
                 .about-environment-slide
-                  img(src=`${item.img}`)
+                  img(src=`${layout.domain.resource}${item.img}`)
             block pagination
               a.about-environment__swiper-button.prev(href="javascript:;")
-                img(src="//localhost:3000/image/arrow_left_small.png")
+                img(src=`${layout.domain.resource}/image/arrow_left_small.png`)
               a.about-environment__swiper-button.next(href="javascript:;")
-                img(src="//localhost:3000/image/arrow_right_small.png")
+                img(src=`${layout.domain.resource}/image/arrow_right_small.png`)
 
   //- 专利展示
   #patent
@@ -50,18 +50,18 @@ block content
               .swiper-slide
                 .about-patent-slide(qianli-animate='animate-fade-in')
                   .about-patent-slide__img
-                    img(src=`${item.img}`)
+                    img(src=`${layout.domain.resource}${item.img}`)
                   p.about-patent-slide__title
                     b #{item.title}
                   p.about-patent-slide__desc #{item.desc}
 
         .about-patent-pagination
           a.about-patent__swiper-button.prev(href="javascript:;")
-            img(src="//localhost:3000/image/arrow_left_2.png")
+            img(src=`${layout.domain.resource}/image/arrow_left_2.png`)
             span prev
           a.about-patent__swiper-button.next(href="javascript:;")
             span next
-            img(src="//localhost:3000/image/arrow_right_2.png")
+            img(src=`${layout.domain.resource}/image/arrow_right_2.png`)
 
   //- 合作伙伴
   #partner
@@ -72,9 +72,9 @@ block content
         .flex1
         .about-partner__button-group
           a.about-partner__button.prev(href="javascript:;")
-            img(src="//localhost:3000/image/case_l.png")
+            img(src=`${layout.domain.resource}/image/case_l.png`)
           a.about-partner__button.next(href="javascript:;")
-            img(src="//localhost:3000/image/case_r.png")
+            img(src=`${layout.domain.resource}/image/case_r.png`)
       .about-partner-swiper(qianli-animate='animate-fade-in')
         .swiper-container
           .swiper-wrapper
@@ -82,7 +82,7 @@ block content
               .swiper-slide
                 .about-partner-slide
                   .about-partner-slide__img
-                    img(src=`${item.img}`)
+                    img(src=`${layout.domain.resource}${item.img}`)
 
 block footer
   script(type="text/javascript" charset="utf-8").

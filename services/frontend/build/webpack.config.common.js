@@ -44,6 +44,7 @@ module.exports = {
       { test: /\.[tj]s$/i, use: ['babel-loader'], exclude: '/node_modules/' },
       { test: /\.css$/i, use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'] },
       { test: /\.(js|png|mp4|css|map)$/i, use: ['cache-loader'] },
+      { test: /\.(png|jpe?g|gif|svg)(\?.*)?$/i, type: 'asset/resource' },
       {
         test: /\.styl$/i,
         use: [

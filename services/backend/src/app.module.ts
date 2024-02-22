@@ -1,6 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { ConfigModule } from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 import { SessionMiddleware } from './middleware/session'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -32,36 +32,45 @@ import { UserEntity } from './user/user.entity'
 import { RedisModule } from './redis/redis.module'
 import { AuthModule } from './auth/auth.module'
 import { UploadModule } from './upload/upload.module'
+import { config, type Config } from '@/config'
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
+      ignoreEnvFile: true,
+      load: [config]
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'qianli',
-      password: '123123',
-      database: 'qianli',
-      // synchronize: true,
-      entities: [
-        LayoutEntity,
-        UserEntity,
-        PostEntity,
-        CategoryEntity,
-        JobEntity,
-        DepartmentEntity,
-        AboutEntity,
-        ContactEntity,
-        FeedbackEntity,
-        ProductEntity,
-        ProductFeatureEntity,
-        ProductScenarioEntity,
-        ProductSpecEntity,
-        ProductFileEntity
-      ]
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory(configService: ConfigService<Config>) {
+        return {
+          type: 'mysql',
+          host: configService.get('DATA_BASE.DATA_BASE_HOST', { infer: true }),
+          port: configService.get('DATA_BASE.DATA_BASE_PORT', { infer: true }),
+          username: configService.get('DATA_BASE.DATA_BASE_USERNAME', { infer: true }),
+          password: configService.get('DATA_BASE.DATA_BASE_PASSWORD', { infer: true }),
+          database: configService.get('DATA_BASE.DATA_BASE_DATABASE', { infer: true }),
+          // synchronize: true,
+          entities: [
+            LayoutEntity,
+            UserEntity,
+            PostEntity,
+            CategoryEntity,
+            JobEntity,
+            DepartmentEntity,
+            AboutEntity,
+            ContactEntity,
+            FeedbackEntity,
+            ProductEntity,
+            ProductFeatureEntity,
+            ProductScenarioEntity,
+            ProductSpecEntity,
+            ProductFileEntity
+          ]
+        }
+      },
+      inject: [ConfigService]
     }),
     RedisModule,
     LayoutModule,

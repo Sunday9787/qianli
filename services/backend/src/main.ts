@@ -3,10 +3,10 @@ import session from 'express-session'
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import type { NestExpressApplication } from '@nestjs/platform-express'
-import type { Response } from 'express'
 import { TransformInterceptor } from './interceptor/transform.interceptor'
 import { HttpExceptionFilter } from './filters/http-exception'
 import { AppModule } from './app.module'
+import config from '@/config'
 
 const projectRoot = path.join(process.cwd(), '..', '..')
 
@@ -24,12 +24,7 @@ async function bootstrap() {
       saveUninitialized: false
     })
   )
-  app.useStaticAssets(path.join(projectRoot, 'public'), {
-    maxAge: '30d',
-    setHeaders(res: Response) {
-      res.setHeader('Access-Control-Allow-Origin', '*')
-    }
-  })
+
   app.setBaseViewsDir(path.join(projectRoot, 'services/frontend/src/view'))
   app.setViewEngine('pug')
   app.setGlobalPrefix('api', {
@@ -45,7 +40,7 @@ async function bootstrap() {
     ]
   })
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: config.GLOBAL.CORS.ORIGIN as string[],
     credentials: true,
     maxAge: 1 * 60 * 60 * 1000,
     exposedHeaders: ['Content-Disposition'],

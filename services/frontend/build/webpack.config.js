@@ -21,10 +21,10 @@ module.exports = function (env) {
     })
   )
 
-  switch (env.NODE_ENV) {
-    case 'PRO':
-      return merge(prodConfig, commonConfig)
+  switch (process.env.NODE_ENV) {
+    case 'production':
+      return merge(commonConfig, prodConfig)
     default:
-      return merge(devConfig, commonConfig)
+      return merge(commonConfig, devConfig)
   }
 }

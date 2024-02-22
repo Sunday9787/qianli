@@ -10,6 +10,7 @@ module.exports = {
   stats: 'detailed',
   output: {
     filename: 'js/[name].[contenthash:8].min.js',
+    publicPath: 'http://dev.resource.qianli.com/'
   },
   plugins: [
     new MiniCssExtractPlugin({
