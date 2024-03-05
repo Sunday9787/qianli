@@ -12,8 +12,8 @@
     "scss",
     "stylus"
   ],
-  "stylelint.customSyntax": "stylelint-plugin-stylus/custom-syntax",
   "stylelint.validate": [
+    "vue",
     "stylus",
     "less"
   ],

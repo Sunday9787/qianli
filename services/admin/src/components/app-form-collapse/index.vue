@@ -119,9 +119,9 @@ export default {
 
 .app-form-collapse {
   position: relative;
+  width: 100%;
   padding-right: @width;
   overflow: hidden;
-  width: 100%;
   transition-duration: 0.2s;
 }
 
@@ -133,8 +133,10 @@ export default {
 .app-form-collapse__action {
   position: absolute;
   right: 0;
+
   @apply flex;
   @apply items-start;
+
   column-gap: 5px;
   width: @width;
   height: 100%;

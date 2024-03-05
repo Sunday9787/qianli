@@ -1,5 +1,5 @@
 {
-  "extends": ["stylelint-config-prettier", "stylelint-plugin-stylus/recommended", "stylelint-config-recess-order"],
+  "extends": ["stylelint-plugin-stylus/standard", "stylelint-config-recess-order"],
   "plugins": ["stylelint-prettier"],
   "rules": {
     "stylus/at-rule-no-unknown": [
@@ -8,5 +8,11 @@
         "ignoreAtRules": ["tailwind", "apply", "variants", "responsive", "screen"]
       }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.stylus", "*.styl", "**/*.stylus", "**/*.styl"],
+      "customSyntax": "postcss-styl"
+    }
+  ]
 }
