@@ -76,6 +76,7 @@ async function login() {
 
 .login-title {
   margin-top: 16vh;
+
   @apply text-white;
   @apply text-center;
   @apply text-2xl;

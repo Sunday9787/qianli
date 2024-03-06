@@ -30,15 +30,17 @@ const errorMessage = computed(() => dataMap.get(props.status)!)
 .error-container {
   display: flex;
   align-items: center;
-  @apply justify-center;
   height: 100%;
-  padding-bottom: 10%;
   min-height: 500px;
+  padding-bottom: 10%;
+
+  @apply justify-center;
 }
 
 .error-img {
   @apply flex;
   @apply justify-end;
+
   padding-right: 152px;
 }
 
@@ -48,16 +50,16 @@ const errorMessage = computed(() => dataMap.get(props.status)!)
 
 .error-message-title {
   margin-bottom: 24px;
-  color: #515a6e;
-  font-weight: 600;
   font-size: 72px;
+  font-weight: 600;
   line-height: 72px;
+  color: #515a6e;
 }
 
 .error-message-desc {
   margin-bottom: 16px;
-  color: #808695;
   font-size: 20px;
   line-height: 28px;
+  color: #808695;
 }
 </style>

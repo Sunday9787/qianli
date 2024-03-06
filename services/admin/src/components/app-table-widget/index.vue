@@ -110,6 +110,7 @@ function updateConfig() {
     @apply flex;
     @apply items-center;
     @apply justify-between;
+
     height: 32px;
     padding-right: 14px;
     padding-left: 10px;
@@ -121,6 +122,7 @@ function updateConfig() {
     @apply flex;
     @apply items-center;
     @apply justify-between;
+
     height: 32px;
     padding-right: 14px;
     padding-left: 10px;
@@ -140,6 +142,7 @@ function updateConfig() {
   &__text {
     width: 100px;
     margin-right: 30px;
+
     @apply line-clamp-1;
   }
 }

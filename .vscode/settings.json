@@ -1,5 +1,6 @@
 {
   "css.validate": false,
+  "eslint.validate": ["vue", "ts"],
   "less.lint.unknownAtRules": "ignore",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",

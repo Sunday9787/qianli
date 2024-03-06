@@ -3,6 +3,15 @@
     "Vue.volar",
     "Vue.vscode-typescript-vue-plugin",
     "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+    "streetsidesoftware.code-spell-checker",
+    "aaron-bond.better-comments",
+    "sysoev.language-stylus",
+    "stylelint.vscode-stylelint",
+    "amandeepmittal.pug",
+    "bradlc.vscode-tailwindcss",
+    "akamud.vscode-theme-onelight",
+    "akamud.vscode-theme-onedark",
     "esbenp.prettier-vscode"
   ]
 }

@@ -1,7 +1,7 @@
 {
   "vueCompilerOptions": {
     "plugins": [
-      "@volar/vue-language-plugin-pug"
+      "@vue/language-plugin-pug"
     ]
   },
   "extends": "@vue/tsconfig/tsconfig.dom.json",
