@@ -1,4 +1,4 @@
-import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 import path from 'path/posix'
 import vue from '@vitejs/plugin-vue'
@@ -57,8 +57,7 @@ export default defineConfig(function (env) {
         // 指定symbolId格式
         symbolId: 'icon-[dir]-[name]'
       }),
-      manualChunksPlugin(),
-      splitVendorChunkPlugin()
+      manualChunksPlugin()
     ],
     resolve: {
       alias: {

@@ -5,6 +5,8 @@
   "keywords": [],
   "author": "",
   "scripts": {
+    "lint": "stylelint ./src/**/*.styl",
+    "lint:fix": "stylelint ./src/**/*.styl --fix",
     "build:pro": "cross-env NODE_ENV=production webpack --config ./build/webpack.config.js --env APP_ENV=PRO",
     "build:dev": "cross-env NODE_ENV=production webpack --config ./build/webpack.config.js --env APP_ENV=DEV",
     "build:test": "cross-env NODE_ENV=production webpack --config ./build/webpack.config.js --env APP_ENV=TEST",
@@ -38,7 +40,7 @@
     "postcss-loader": "^8.1.1",
     "postcss-styl": "^0.12.3",
     "postcss-url": "^10.1.3",
-    "stylelint-plugin-stylus": "^1.0.0",
+    "stylelint-stylus": "^1.0.0",
     "stylus": "^0.63.0",
     "stylus-loader": "^8.1.0",
     "terser-webpack-plugin": "^5.3.10",

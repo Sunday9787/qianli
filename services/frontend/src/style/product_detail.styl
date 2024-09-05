@@ -46,7 +46,7 @@
   margin-bottom 64px
   font-size 26px
   font-weight bold
-  color #01050F
+  color #01050f
   text-transform uppercase
   > i
     margin-left 10px
@@ -66,11 +66,11 @@
 
   &__content
     position relative
-    width: 50%
+    width 50%
     padding-right 5%
   &__swiper
     position relative
-    width: 50%
+    width 50%
 
 .product-detail-slide
   position relative
@@ -80,8 +80,8 @@
     position absolute
     top 50%
     left 50%
-    object-fit contain
     height 100%
+    object-fit contain
     transform translate(-50%, -50%)
 
 .product-detail-swiper
@@ -165,7 +165,7 @@
     background-color #d7d8da
     border-radius 40px
     opacity 1
-    transition all ease .3s
+    transition all ease 0.3s
   .swiper-pagination-bullet-active
     width 40px
     background-color #453780
@@ -199,9 +199,11 @@
   &__title
     min-height 64px
     font-size 22px
+
     @apply line-clamp-2
   &__desc
     min-height 54px
+
     @apply line-clamp-2
     font-weight 200
 
@@ -214,7 +216,7 @@
     font-weight bold
     line-height 0.8
     color #f8f8f8
-    transition all .48s .48s
+    transition all 0.48s 0.48s
     transform translateX(-50%)
 
 #product-detail-env
@@ -230,7 +232,7 @@
   position relative
   z-index 2
   padding-top 38.5%
-  transition all .48s
+  transition all 0.48s
 
   &:hover
     &:after
@@ -246,7 +248,7 @@
     content ''
     background-color rgba(137,115,234,48%)
     opacity 0
-    transition all .48s
+    transition all 0.48s
 
   &__icon
     width 50px
@@ -258,7 +260,7 @@
     left 50%
     z-index 2
     text-align center
-    transition all .48s
+    transition all 0.48s
     transform translate(-50%, -50%)
 
   &__text
@@ -278,7 +280,7 @@
       content ''
       background #fff
       opacity 0
-      transition all .48s
+      transition all 0.48s
       transform translateX(-50%)
 
 #product-detail-spec
@@ -291,9 +293,9 @@
 
   &__row
     &:nth-child(odd)
-      background-color #E0DBED
+      background-color #e0dbed
     &:nth-child(even)
-      background-color #F9F7FB
+      background-color #f9f7fb
   &__cell
     padding 10px 50px
 

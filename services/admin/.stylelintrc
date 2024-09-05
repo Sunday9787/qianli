@@ -9,11 +9,5 @@
         "ignoreAtRules": ["tailwind", "apply", "variants", "responsive", "screen"]
       }
     ]
-  },
-  "overrides": [
-    {
-      "files": ["*.less", ".vue"],
-      "customSyntax": "postcss-html"
-    }
-  ]
+  }
 }
