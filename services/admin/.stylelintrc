@@ -1,6 +1,6 @@
 {
   "extends": ["stylelint-config-standard-less", "stylelint-config-html/vue", "stylelint-config-recess-order"],
-  "plugins": ["stylelint-prettier", "stylelint-less"],
+  "plugins": ["stylelint-prettier"],
   "rules": {
     "selector-class-pattern": ".[_A-Za-z]",
     "at-rule-no-unknown": [
@@ -9,11 +9,5 @@
         "ignoreAtRules": ["tailwind", "apply", "variants", "responsive", "screen"]
       }
     ]
-  },
-  "overrides": [
-    {
-      "files": ["*.less", ".vue"],
-      "customSyntax": "postcss-html"
-    }
-  ]
+  }
 }

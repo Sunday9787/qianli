@@ -34,6 +34,9 @@
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
+  "peerDependencies": {
+    "postcss": "^8.4.45"
+  },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.6.1",
     "@tsconfig/node18": "^18.2.2",
@@ -44,7 +47,7 @@
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^12.0.0",
-    "@vue/language-plugin-pug": "^2.0.5",
+    "@vue/language-plugin-pug": "^2.1.6",
     "@vue/tsconfig": "^0.5.1",
     "eslint-plugin-vue": "^9.22.0",
     "eslint-plugin-vue-pug": "^0.6.2",

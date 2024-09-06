@@ -1,5 +1,6 @@
 {
   "css.validate": false,
+  "less.validate": false,
   "eslint.validate": ["vue", "ts"],
   "less.lint.unknownAtRules": "ignore",
   "editor.codeActionsOnSave": {
@@ -19,6 +20,9 @@
     "less"
   ],
   "stylelint.packageManager": "pnpm",
+  "[less]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
   "[stylus]": {
     "editor.defaultFormatter": "stylelint.vscode-stylelint"
   }
