@@ -1,6 +1,6 @@
-import type { FindManyOptions } from 'typeorm'
 import { Type } from 'class-transformer'
 import { IsNumber } from 'class-validator'
+import type { FindManyOptions } from 'typeorm'
 
 export class ListDTO<T> {
   size: number

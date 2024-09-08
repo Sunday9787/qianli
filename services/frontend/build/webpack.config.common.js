@@ -71,7 +71,8 @@ module.exports = {
       patterns: [
         { from: './src/upload', to: 'upload' },
         { from: './src/lib', to: 'lib' },
-        { from: './src/image', to: 'image' }
+        { from: './src/image', to: 'image' },
+        { from: './src/favicon.ico', to: '' },
       ]
     })
   ],

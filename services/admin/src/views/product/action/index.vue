@@ -21,10 +21,12 @@ app-view
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
+
 import { useProduct } from '@/views/product/hooks'
+
 import ProductBase from './components/product-base.vue'
-import ProductSpec from './components/product-spec.vue'
 import ProductDetail from './components/product-detail.vue'
+import ProductSpec from './components/product-spec.vue'
 
 interface Props {
   id: number

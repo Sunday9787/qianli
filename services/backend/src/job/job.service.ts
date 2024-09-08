@@ -1,9 +1,11 @@
-import { Between, Like, Repository } from 'typeorm'
-import { InjectRepository } from '@nestjs/typeorm'
 import { Injectable } from '@nestjs/common'
-import { JobEntity } from './job.entity'
-import { JobDTO, JobQueryDTO } from './job.dto'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Between, Like, Repository } from 'typeorm'
+
 import { QianliQuery } from '@/class/query'
+
+import { JobDTO, JobQueryDTO } from './job.dto'
+import { JobEntity } from './job.entity'
 
 class RenderJobDTO extends JobDTO {
   id: number

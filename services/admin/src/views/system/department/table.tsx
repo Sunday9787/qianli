@@ -1,4 +1,5 @@
-import { NButton, type DataTableColumns, NSpace } from 'naive-ui'
+import { type DataTableColumns, NButton, NSpace } from 'naive-ui'
+
 import type { DepartmentEntityJSON } from '@/service/common.entity'
 
 interface ColumnAction {

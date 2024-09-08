@@ -1,27 +1,31 @@
+import { CacheInterceptor } from '@nestjs/cache-manager'
 import {
+  Body,
   Controller,
+  Delete,
   Get,
-  Render,
+  HttpCode,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Post,
-  Body,
-  HttpCode,
-  HttpStatus,
-  UsePipes,
-  ValidationPipe,
   Put,
-  Delete,
-  UseInterceptors
+  Render,
+  UseInterceptors,
+  UsePipes,
+  ValidationPipe
 } from '@nestjs/common'
-import { CacheInterceptor } from '@nestjs/cache-manager'
-import { PostService } from './post.service'
+
+import { Public } from '@/decorator/public'
+
 import { PostDTO, PostQueryDTO } from './post.dto'
+import { PostService } from './post.service'
 
 @Controller('post')
 export class PostController {
   constructor(private postService: PostService) {}
 
+  @Public()
   @Get(':id')
   @Render('post')
   render(@Param('id', new ParseIntPipe()) id: number) {

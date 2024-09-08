@@ -1,13 +1,15 @@
-import { TypeOrmModule } from '@nestjs/typeorm'
 import { Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
+
 import { LayoutModule } from '@/layout/layout.module'
-import { DetailService } from './detail.service'
-import { DetailController } from './detail.controller'
+
 import { ProductEntity } from '../product.entity'
+import { DetailController } from './detail.controller'
 import { ProductFeatureEntity } from './detail.feature.entity'
-import { ProductScenarioEntity } from './detail.scenario.entity'
-import { ProductSpecEntity } from './detail.spec.entity'
 import { ProductFileEntity } from './detail.file.entity'
+import { ProductScenarioEntity } from './detail.scenario.entity'
+import { DetailService } from './detail.service'
+import { ProductSpecEntity } from './detail.spec.entity'
 
 @Module({
   imports: [

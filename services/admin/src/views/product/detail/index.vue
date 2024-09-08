@@ -9,7 +9,7 @@ app-view
 </template>
 
 <script lang="ts" setup>
-import { ProductBlock, ProductBaseBlock } from '@/views/product/components/product-block'
+import { ProductBaseBlock, ProductBlock } from '@/views/product/components/product-block'
 import { useProduct } from '@/views/product/hooks'
 
 interface Props {

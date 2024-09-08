@@ -1,11 +1,10 @@
-import { Repository } from 'typeorm'
 import { Inject, Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import manifest from 'backend/manifest.json'
-import { LayoutEntity } from './layout.entity'
-import { LayoutDTO, LayoutEditDTO } from './layout.dto'
 import { ConfigService } from '@nestjs/config'
-import { type Config } from '@/config'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+
+import { LayoutDTO, LayoutEditDTO } from './layout.dto'
+import { LayoutEntity } from './layout.entity'
 
 interface LayoutServiceOption {
   ghost: string[]
@@ -36,7 +35,7 @@ function buildMenu(data: LayoutEntity[], parentId: null | number) {
 export class LayoutService {
   constructor(
     @InjectRepository(LayoutEntity) private layoutRepository: Repository<LayoutEntity>,
-    @Inject(ConfigService) private config: ConfigService<Config>
+    @Inject(ConfigService) private config: ConfigService<APPConfig>
   ) {}
 
   add(body: LayoutDTO) {
@@ -56,10 +55,6 @@ export class LayoutService {
     const menus = buildMenu(response, null)
 
     return {
-      manifest,
-      domain: {
-        resource: this.config.get('GLOBAL.DOMAIN.RESOURCE', { infer: true })
-      },
       isIndex: option?.ghost.includes('index'),
       isNews: option?.ghost.includes('news'),
       menus

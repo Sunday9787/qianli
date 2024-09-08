@@ -19,6 +19,7 @@ module.exports = {
     }),
     new TerserPlugin({
       parallel: true,
+      terserOptions: { ecma: 5 },
       extractComments: false
     }),
     new CleanWebpackPlugin()

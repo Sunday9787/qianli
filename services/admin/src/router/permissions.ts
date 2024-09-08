@@ -1,8 +1,11 @@
-import router from '.'
+import 'nprogress/nprogress.css'
+
 import NProgress from 'nprogress'
+
 import store from '@/store'
 import { useUserModule } from '@/store/modules/user'
-import 'nprogress/nprogress.css'
+
+import router from '.'
 
 const whiteList: ReadonlyArray<string> = ['/login']
 
@@ -10,7 +13,7 @@ router.beforeEach(function (to, _form, next) {
   NProgress.start()
   const userModule = useUserModule(store)
 
-  if (userModule.token) {
+  if (userModule.access_token) {
     if (to.path === '/login') {
       next('/dashboard')
     } else {

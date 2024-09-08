@@ -1,6 +1,9 @@
 import { Controller, Get, Query, Render, UsePipes, ValidationPipe } from '@nestjs/common'
-import { NewsService } from './news.service'
+
+import { Public } from '@/decorator/public'
 import { PostQueryDTO } from '@/post/post.dto'
+
+import { NewsService } from './news.service'
 
 class NewsQueryDTO extends PostQueryDTO {
   constructor(size = 7, current = 1) {
@@ -12,6 +15,7 @@ class NewsQueryDTO extends PostQueryDTO {
 export class NewsController {
   constructor(private newsService: NewsService) {}
 
+  @Public()
   @Get()
   @UsePipes(new ValidationPipe({ transform: true }))
   @Render('news')

@@ -1,65 +1,122 @@
-import * as jwt from 'jsonwebtoken'
-import { Injectable, Inject } from '@nestjs/common'
-import { RedisService } from '@/redis/redis.service'
-import { UserLoginResponseDTO } from '@/user/user.dto'
-import { JwtDTO } from './auth.jwt.dto'
-import { UserEntity } from '@/user/user.entity'
+import { Inject, Injectable, Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import type { Config } from '@/config'
+import { JwtService } from '@nestjs/jwt'
+import { instanceToPlain, plainToInstance } from 'class-transformer'
+import dayjs from 'dayjs'
+
+import { QlHttpException, QlHttpStatus } from '@/exception/http.exception'
+import { RedisService } from '@/redis/redis.service'
+import { UserLoginResponseDTO, UserResponseDTO } from '@/user/user.dto'
+import { UserEntity } from '@/user/user.entity'
+import { UserService } from '@/user/user.service'
+
+import { AuthLocalDTO } from './auth.dto'
 
 @Injectable()
 export class AuthService {
-  /**
-   * ! token 失效时间(毫秒)
-   * ! 默认token 1小时后失效
-   */
-  static TOKEN_EXP_TIME = 60 * 60 * 1000
-
-  static generateTokenKey<T extends { email: string }>(user: T) {
-    return 'token:' + user.email
+  static generateTokenKey(token: string) {
+    return 'token:' + token
   }
 
   constructor(
     @Inject(RedisService) private readonly redisService: RedisService,
-    @Inject(ConfigService) private readonly configService: ConfigService<Config>
+    @Inject(JwtService) private readonly jwtService: JwtService,
+    @Inject(UserService) private readonly userService: UserService,
+    @Inject(ConfigService) private readonly configService: ConfigService<APPConfig>
   ) {}
 
-  generateJWT(user: UserEntity) {
-    const today = new Date()
-    const exp = new Date(today)
-    exp.setHours(today.getHours() + 1)
+  signToken(user: UserEntity, refresh?: boolean) {
+    const dto = plainToInstance(UserLoginResponseDTO, user, { excludeExtraneousValues: true })
+    const data = instanceToPlain(dto)
 
-    const dto: JwtDTO = {
-      id: user.id,
-      email: user.email,
-      username: user.username,
-      password: user.password,
-      exp: exp.getTime()
+    // refresh-token 设置更长的过期时间
+    if (refresh) {
+      return this.jwtService.sign(data, { expiresIn: this.configService.get('JWT_REFRESH_EXPIRES_IN') })
     }
 
-    return jwt.sign(dto, this.configService.get('GLOBAL.TOKEN_SECRET', { infer: true }))
+    return this.jwtService.sign(data)
   }
 
-  async setToken(dto: UserLoginResponseDTO) {
-    await this.redisService.cacheManager.set(
-      AuthService.generateTokenKey(dto),
-      JSON.stringify(dto),
-      AuthService.TOKEN_EXP_TIME
+  delToken(usr: UserLoginResponseDTO) {
+    return this.redisService.cacheManager.del(AuthService.generateTokenKey(usr.access_token))
+  }
+
+  setToken(dto: UserLoginResponseDTO) {
+    const JWT_EXPIRES_IN = this.configService.get('JWT_EXPIRES_IN') as string
+    const num = (function () {
+      const value = JWT_EXPIRES_IN.match(/\d+/)
+      return value ? Number(value[0]) : 2
+    })()
+
+    const type = (function () {
+      const value = JWT_EXPIRES_IN.match(/[a-zA-Z]+/)
+      return (value ? value[0] : 'h') as dayjs.ManipulateType
+    })()
+
+    return this.redisService.cacheManager.set(
+      AuthService.generateTokenKey(dto.access_token),
+      dto,
+      dayjs().add(num, type).unix() * 1e3 - Date.now()
     )
   }
 
-  async removeToken(user: JwtDTO) {
-    await this.redisService.cacheManager.del(AuthService.generateTokenKey(user))
+  async hasToken(token?: string | null) {
+    if (!token) return false
+    const value = await this.redisService.cacheManager.get<UserLoginResponseDTO>(AuthService.generateTokenKey(token))
+    return !!value
   }
 
-  async validateToken(token: string): Promise<null | JwtDTO> {
-    const decoded = jwt.verify(token, this.configService.get('GLOBAL.TOKEN_SECRET', { infer: true })) as JwtDTO
+  async login(user: UserEntity) {
+    const dto = plainToInstance(UserLoginResponseDTO, user, { excludeExtraneousValues: true })
 
-    if (decoded) {
-      const result = await this.redisService.cacheManager.get(AuthService.generateTokenKey(decoded))
-      if (result) return decoded
+    dto.access_token = this.signToken(user)
+    dto.refresh_token = this.signToken(user, true)
+
+    await this.setToken(dto)
+
+    return dto
+  }
+
+  validateUser(body: AuthLocalDTO) {
+    return this.userService.findByEmail(body.email)
+  }
+
+  async logout(token: string) {
+    const user = await this.redisService.cacheManager.get<UserLoginResponseDTO>(AuthService.generateTokenKey(token))
+
+    if (token && user) {
+      console.log(user)
+      Logger.log(user.email, '退出登录邮箱')
+
+      return await this.delToken(user)
     }
 
-    return null
+    Logger.warn('token user 异常登出')
+  }
+
+  async refreshToken(refreshToken: string) {
+    try {
+      // 验证 refresh_token
+      const decoded: UserResponseDTO = this.jwtService.verify(refreshToken)
+      const user = await this.userService.findById(decoded.id)
+
+      if (!user) {
+        throw new QlHttpException('用户不存在', QlHttpStatus.USER_NOT_FOUND)
+      }
+
+      const response: Pick<UserLoginResponseDTO, 'access_token'> = {
+        access_token: this.signToken(user)
+      }
+
+      const dto = plainToInstance(UserLoginResponseDTO, user, { excludeExtraneousValues: true })
+      dto.refresh_token = refreshToken
+      dto.access_token = response.access_token
+
+      await this.setToken(dto)
+
+      return response
+    } catch (error) {
+      throw new QlHttpException('refresh_token 已过期', QlHttpStatus.USER_REFRESH_TOKEN_INVALID)
+    }
   }
 }

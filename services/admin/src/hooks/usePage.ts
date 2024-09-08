@@ -1,5 +1,6 @@
-import type { PaginationProps } from 'naive-ui'
 import { cloneDeep, debounce, type DebouncedFunc } from 'lodash-es'
+import type { PaginationProps } from 'naive-ui'
+
 import { wait } from '@/utils'
 
 export interface PageContext<T = unknown> {

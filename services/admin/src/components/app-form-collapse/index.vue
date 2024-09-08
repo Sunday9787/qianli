@@ -32,9 +32,10 @@
 </template>
 
 <script lang="ts">
-import { getCurrentInstance, ref, onMounted, onBeforeUnmount } from 'vue'
+import { KeyboardArrowDownFilled, KeyboardArrowUpFilled } from '@vicons/material'
 import { debounce } from 'lodash-es'
-import { KeyboardArrowUpFilled, KeyboardArrowDownFilled } from '@vicons/material'
+import { getCurrentInstance, onBeforeUnmount, onMounted, ref } from 'vue'
+
 import { useSystemModule } from '@/store/modules/system'
 
 function useFormCollapse(height: number) {

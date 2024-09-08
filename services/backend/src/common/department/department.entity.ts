@@ -1,5 +1,6 @@
-import { JobEntity } from '@/job/job.entity'
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+
+import { JobEntity } from '@/job/job.entity'
 
 @Entity('qianli_department')
 export class DepartmentEntity {

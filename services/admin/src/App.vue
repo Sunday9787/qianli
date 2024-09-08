@@ -15,12 +15,14 @@
 </template>
 
 <script lang="ts" setup>
-import { zhTW, lightTheme, darkTheme, type GlobalThemeOverrides } from 'naive-ui'
 import { usePreferredColorScheme } from '@vueuse/core'
-import { useSystemModule, type ThemeMode } from './store/modules/system'
-import { useCacheModule } from './store/modules/cache'
-import { emitter } from './utils/eventBus'
+import { darkTheme, type GlobalThemeOverrides, lightTheme, zhTW } from 'naive-ui'
+
 import { globalChannel } from '@/utils/constant'
+
+import { useCacheModule } from './store/modules/cache'
+import { type ThemeMode, useSystemModule } from './store/modules/system'
+import { emitter } from './utils/eventBus'
 
 const lightThemeOverrides: GlobalThemeOverrides = {
   common: {

@@ -1,7 +1,9 @@
-import { type EntityQuery, AbstractEntity } from '@/class/abstractEntity'
 import { Transform } from 'class-transformer'
-import { PostServer } from './post.service'
+
+import { AbstractEntity, type EntityQuery } from '@/class/abstractEntity'
 import { formatDate } from '@/utils'
+
+import { PostServer } from './post.service'
 
 export class PostQueryEntity {
   category_id?: number

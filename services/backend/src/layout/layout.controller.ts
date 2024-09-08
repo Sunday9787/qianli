@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put } from '@nestjs/common'
-import { LayoutService } from './layout.service'
+
 import { LayoutDTO, LayoutEditDTO } from './layout.dto'
+import { LayoutService } from './layout.service'
 
 @Controller('layout')
 export class LayoutController {

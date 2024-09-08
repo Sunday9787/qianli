@@ -1,7 +1,9 @@
-import type { CategoryEntityJSON, DepartmentEntityJSON, UploadFileChunk } from './common.entity'
 import type { AxiosRequestConfig } from 'axios'
+
 import { AbstractService } from '@/class/abstractService'
 import { request } from '@/utils/request'
+
+import type { CategoryEntityJSON, DepartmentEntityJSON, UploadFileChunk } from './common.entity'
 
 export interface ResultUploadFile {
   uploaded: number

@@ -1,10 +1,10 @@
-import type { RedisOptions } from 'ioredis'
-import { Module, Global } from '@nestjs/common'
 import { CacheModule } from '@nestjs/cache-manager'
-import { redisStore } from 'cache-manager-ioredis-yet'
+import { Global, Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
+import { redisStore } from 'cache-manager-ioredis-yet'
+import type { RedisOptions } from 'ioredis'
+
 import { RedisService } from './redis.service'
-import type { Config } from '@/config'
 
 @Global()
 @Module({
@@ -12,11 +12,13 @@ import type { Config } from '@/config'
     CacheModule.registerAsync<RedisOptions>({
       isGlobal: true,
       imports: [ConfigModule],
-      useFactory(configService: ConfigService<Config>) {
+      async useFactory(configService: ConfigService<APPConfig>) {
         return {
-          store: redisStore,
-          port: configService.get('REDIS.REDIS_PORT', { infer: true }),
-          host: configService.get('REDIS.REDIS_HOST', { infer: true })
+          store: await redisStore({
+            port: configService.get('REDIS_PORT'),
+            host: configService.get('REDIS_HOST'),
+            ttl: 1e3 * 60 * 60 * 24
+          })
         }
       },
       inject: [ConfigService]

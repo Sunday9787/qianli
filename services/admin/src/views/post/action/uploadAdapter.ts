@@ -1,4 +1,5 @@
-import type { UploadAdapter, FileLoader } from '@ckeditor/ckeditor5-upload'
+import type { FileLoader, UploadAdapter } from '@ckeditor/ckeditor5-upload'
+
 import { uploadPostFile } from '@/service/common.service'
 
 export class UploadPostAdapter implements UploadAdapter {

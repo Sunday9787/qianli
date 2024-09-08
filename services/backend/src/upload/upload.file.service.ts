@@ -1,9 +1,11 @@
-import { Injectable, Logger, HttpException, HttpStatus } from '@nestjs/common'
+import fs from 'node:fs'
 import path from 'node:path/posix'
 import stream from 'node:stream'
-import fs from 'node:fs'
-import { UploadFileChunkDTO } from './upload.dto'
+
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common'
 import { fileName } from 'backend/tools'
+
+import { UploadFileChunkDTO } from './upload.dto'
 import * as tools from './upload.tools'
 
 const projectRoot = path.resolve(process.cwd(), path.resolve('..', '..'))

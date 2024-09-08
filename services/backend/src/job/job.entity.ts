@@ -1,14 +1,15 @@
-import { AbstractEntity } from '@/class/abstract.entity'
-import { DepartmentEntity } from '@/common/department/department.entity'
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  UpdateDateColumn,
-  CreateDateColumn,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
 } from 'typeorm'
+
+import { AbstractEntity } from '@/class/abstract.entity'
+import { DepartmentEntity } from '@/common/department/department.entity'
 
 @Entity('qianli_job')
 export class JobEntity extends AbstractEntity {

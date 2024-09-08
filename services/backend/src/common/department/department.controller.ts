@@ -1,25 +1,25 @@
+import { CacheInterceptor } from '@nestjs/cache-manager'
 import {
   Body,
   Controller,
   Delete,
-  Post,
   HttpCode,
   HttpStatus,
   Param,
   ParseIntPipe,
+  Post,
   Put,
-  UseInterceptors,
-  UseGuards
+  UseInterceptors
 } from '@nestjs/common'
-import { CacheInterceptor } from '@nestjs/cache-manager'
-import { DepartmentService } from './department.service'
-import { DepartmentDTO } from './department.dto'
-import { AuthGuard } from '@/auth/auth.guard'
 
-@UseGuards(AuthGuard)
+import { Public } from '@/decorator/public'
+
+import { DepartmentDTO } from './department.dto'
+import { DepartmentService } from './department.service'
+
 @Controller('common/department')
 export class DepartmentController {
-  constructor(private departmentService: DepartmentService) {}
+  constructor(private readonly departmentService: DepartmentService) {}
 
   @HttpCode(HttpStatus.OK)
   @Put('save')
@@ -27,6 +27,7 @@ export class DepartmentController {
     return this.departmentService.save(body)
   }
 
+  @Public()
   @HttpCode(HttpStatus.OK)
   @Post('list')
   list() {

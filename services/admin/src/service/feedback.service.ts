@@ -1,7 +1,8 @@
-import type { FeedbackQueryEntity, FeedbackEntityJSON } from './feedback.entity'
 import type { EntityQuery } from '@/class/abstractEntity'
 import { AbstractService } from '@/class/abstractService'
 import { request } from '@/utils/request'
+
+import type { FeedbackEntityJSON, FeedbackQueryEntity } from './feedback.entity'
 
 export class FeedbackService extends AbstractService {
   readonly baseURL = '/contact'

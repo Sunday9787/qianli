@@ -5,6 +5,9 @@
 /public
 .rollup.cache
 
+# Env
+*.env
+
 # Logs
 logs
 *.log

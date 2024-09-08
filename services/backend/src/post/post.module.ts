@@ -1,11 +1,12 @@
-import { type MiddlewareConsumer, Module, type NestModule, RequestMethod } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { UserModule } from '@/user/user.module'
-import { AuthGuard } from '@/auth/auth.guard'
-import { PostController } from './post.controller'
-import { PostService } from './post.service'
-import { PostEntity } from './post.entity'
+
 import { CategoryEntity } from '@/common/category/category.entity'
+import { UserModule } from '@/user/user.module'
+
+import { PostController } from './post.controller'
+import { PostEntity } from './post.entity'
+import { PostService } from './post.service'
 
 @Module({
   imports: [TypeOrmModule.forFeature([PostEntity, CategoryEntity]), UserModule],
@@ -13,8 +14,4 @@ import { CategoryEntity } from '@/common/category/category.entity'
   providers: [PostService],
   exports: [PostService]
 })
-export class PostModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthGuard).exclude({ path: '/post', method: RequestMethod.GET })
-  }
-}
+export class PostModule {}

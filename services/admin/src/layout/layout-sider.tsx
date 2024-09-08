@@ -1,8 +1,10 @@
+import { type MenuOption, NIcon, NLayoutSider, NMenu } from 'naive-ui'
 import { h } from 'vue'
-import { NMenu, NLayoutSider, NIcon, type MenuOption } from 'naive-ui'
-import { RouterLink, useRoute, useRouter, type RouteRecordRaw } from 'vue-router'
-import LayoutSiderLogo from './layout-sider-logo.vue'
+import { type RouteRecordRaw, RouterLink, useRoute, useRouter } from 'vue-router'
+
 import { useSystemModule } from '@/store/modules/system'
+
+import LayoutSiderLogo from './layout-sider-logo.vue'
 
 function renderIcon(icon: Component) {
   return h(NIcon, null, { default: () => h(icon) })

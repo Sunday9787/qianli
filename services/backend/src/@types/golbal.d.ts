@@ -1,10 +1,22 @@
-import type { JwtDTO } from '@/auth/auth.jwt.dto'
+import type { UserResponseDTO } from 'src/user/user.dto'
 
 declare global {
-  declare namespace Express {
-    interface Request {
-      user: JwtDTO
+  declare namespace NodeJS {
+    interface ProcessEnv {
+      NODE_ENV: 'production' | 'development'
     }
+  }
+
+  declare namespace Express {
+    interface User extends UserResponseDTO {
+      iat: number
+      exp: number
+    }
+  }
+
+  declare interface JwtPayload extends UserResponseDTO {
+    iat: number
+    exp: number
   }
 }
 
@@ -14,3 +26,5 @@ declare module 'express-session' {
     uuid: `${string}-${string}-${string}-${string}`
   }
 }
+
+export {}

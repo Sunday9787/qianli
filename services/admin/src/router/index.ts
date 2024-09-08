@@ -1,12 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import ErrorView from '@/views/error/index.vue'
+
 import { dashboardRoute } from './modules/dashboard'
-import { userRoute } from './modules/user'
+import { feedbackRoute } from './modules/feedback'
+import { jobRoute } from './modules/job'
 import { postRoute } from './modules/post'
 import { productRoute } from './modules/product'
 import { systemRoute } from './modules/system'
-import { feedbackRoute } from './modules/feedback'
-import { jobRoute } from './modules/job'
+import { userRoute } from './modules/user'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

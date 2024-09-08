@@ -11,7 +11,7 @@ export class UserEntity {
   @Column({ type: 'varchar', nullable: false, comment: '用户名' })
   username: string
 
-  @Column({ type: 'varchar', nullable: false, select: false, comment: '密码' })
+  @Column({ type: 'varchar', nullable: false, comment: '密码' })
   password: string
 
   @Column({ type: 'varchar', nullable: true })

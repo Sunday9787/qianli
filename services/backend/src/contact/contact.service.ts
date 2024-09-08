@@ -1,10 +1,12 @@
-import { Repository } from 'typeorm'
-import { InjectRepository } from '@nestjs/typeorm'
 import { Inject, Injectable } from '@nestjs/common'
-import { LayoutService } from '@/layout/layout.service'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+
 import { JobService } from '@/job/job.service'
-import { ContactEntity } from './contact.entity'
+import { LayoutService } from '@/layout/layout.service'
+
 import { ContactDTO, ContactEditDTO } from './contact.dto'
+import { ContactEntity } from './contact.entity'
 
 @Injectable()
 export class ContactService {

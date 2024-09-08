@@ -1,7 +1,9 @@
-import { Injectable, NestInterceptor, CallHandler, ExecutionContext } from '@nestjs/common'
-import { map } from 'rxjs/operators'
-import { Observable } from 'rxjs'
+import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common'
 import { Request } from 'express'
+import { Observable } from 'rxjs'
+import { map } from 'rxjs/operators'
+
+import { QlHttpStatus } from '@/exception/http.exception'
 
 type Response<T> = { data: T } | T
 
@@ -16,7 +18,7 @@ export class TransformInterceptor<T> implements NestInterceptor<T, Response<T>> 
         map(data => {
           return {
             data: data || null,
-            code: 200,
+            code: QlHttpStatus.OK_REQUEST,
             message: 'success'
           }
         })

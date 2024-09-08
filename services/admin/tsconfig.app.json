@@ -11,6 +11,7 @@
   "lib": ["ES2020", "DOM", "DOM.Iterable"],
   "compilerOptions": {
     "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

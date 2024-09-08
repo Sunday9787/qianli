@@ -1,10 +1,12 @@
-import { InjectEntityManager } from '@nestjs/typeorm'
 import { Inject, Injectable } from '@nestjs/common'
+import { InjectEntityManager } from '@nestjs/typeorm'
 import { EntityManager } from 'typeorm'
+
 import { LayoutService } from '@/layout/layout.service'
+
+import { CategoryEntity } from './common/category/category.entity'
 import { PostService } from './post/post.service'
 import { ProductEntity } from './product/product.entity'
-import { CategoryEntity } from './common/category/category.entity'
 
 class ProductCenterBannerDTO {
   id: number

@@ -1,7 +1,7 @@
 extends layouts/index.pug
 
 block style
-  link(rel="stylesheet" href=`${layout.manifest['news.css']}`)
+  link(rel="stylesheet" href=`${MANIFEST['news.css']}`)
 
 block content
   section#news-center
@@ -17,7 +17,7 @@ block content
 
       .news-center-cover
         .news-center-cover__inner(qianli-animate='animate-fade-in')
-          img(src=`${layout.domain.resource}${post.img}`)
+          img(src=`${DOMAIN_RESOURCE}${post.img}`)
 
   section#news-container
     .news-inner
@@ -25,7 +25,7 @@ block content
         for item of news.list
           li.news-item
             .news-item-cover(qianli-animate='animate-fade-in')
-              img(src=`${layout.domain.resource}${item.img}`)
+              img(src=`${DOMAIN_RESOURCE}${item.img}`)
             a.news-item-content(href=`/post/${item.id}`)
               p.news-item-category(qianli-animate='animate-fade-in')
                 b #{item.category_name}
@@ -33,11 +33,11 @@ block content
                 b #{item.title}
               p.news-item-date(qianli-animate='animate-fade-in')
                 b #{item.date}
-              img.news-item-icon(src=`${layout.domain.resource}/image/case_r.png` qianli-animate='animate-fade-in')
+              img.news-item-icon(src=`${DOMAIN_RESOURCE}/image/case_r.png` qianli-animate='animate-fade-in')
 
       .flex.justify-center
         +qianli-pagination(pagination)
 
 block footer
   script(type="text/javascript" charset="utf-8").
-    require(['#{layout.manifest["news.js"]}'])
+    require(['#{MANIFEST["news.js"]}'])

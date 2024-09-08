@@ -35,17 +35,19 @@ main.h-full
 </template>
 
 <script lang="ts">
-import type { PropType } from 'vue'
-import type { UploadFileInfo } from 'naive-ui'
-import { useRouter } from 'vue-router'
-import CKEditor from '@ckeditor/ckeditor5-vue'
-import type { EditorConfig } from '@ckeditor/ckeditor5-core'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import { useCacheModule } from '@/store/modules/cache'
-import { UploadPostAdapter } from './uploadAdapter'
-import { usePost } from '@/views/post/hooks'
-import { ACCEPT } from '@/utils/constant'
+import type { EditorConfig } from '@ckeditor/ckeditor5-core'
+import CKEditor from '@ckeditor/ckeditor5-vue'
 import { watchOnce } from '@vueuse/core'
+import type { UploadFileInfo } from 'naive-ui'
+import type { PropType } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { useCacheModule } from '@/store/modules/cache'
+import { ACCEPT } from '@/utils/constant'
+import { usePost } from '@/views/post/hooks'
+
+import { UploadPostAdapter } from './uploadAdapter'
 
 export default defineComponent({
   name: 'QianliPostAction',

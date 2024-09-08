@@ -1,13 +1,14 @@
-import { CategoryEntity } from '@/common/category/category.entity'
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  CreateDateColumn,
-  UpdateDateColumn,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
 } from 'typeorm'
+
+import { CategoryEntity } from '@/common/category/category.entity'
 
 @Entity('qianli_post')
 export class PostEntity {

@@ -1,3 +1,4 @@
+import { CacheInterceptor } from '@nestjs/cache-manager'
 import {
   Body,
   Controller,
@@ -8,18 +9,17 @@ import {
   ParseIntPipe,
   Post,
   Put,
-  UseGuards,
   UseInterceptors
 } from '@nestjs/common'
-import { CacheInterceptor } from '@nestjs/cache-manager'
-import { CategoryService } from './category.service'
-import { CategoryDTO } from './category.dto'
-import { AuthGuard } from '@/auth/auth.guard'
 
-@UseGuards(AuthGuard)
+import { Public } from '@/decorator/public'
+
+import { CategoryDTO } from './category.dto'
+import { CategoryService } from './category.service'
+
 @Controller('common/category')
 export class CategoryController {
-  constructor(private categoryService: CategoryService) {}
+  constructor(private readonly categoryService: CategoryService) {}
 
   @HttpCode(HttpStatus.OK)
   @Put('save')
@@ -33,6 +33,7 @@ export class CategoryController {
     return this.categoryService.del(id)
   }
 
+  @Public()
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(CacheInterceptor)
   @Post('list')

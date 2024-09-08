@@ -1,33 +1,26 @@
-import { Repository } from 'typeorm'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { CategoryEntity } from './category.entity'
+import { plainToInstance } from 'class-transformer'
+import { Repository } from 'typeorm'
+
 import { CategoryDTO } from './category.dto'
-
-function buildDTO(entity: CategoryEntity) {
-  const dto = new CategoryDTO()
-  dto.id = entity.id
-  dto.category_name = entity.category_name
-  dto.type = entity.type
-
-  return dto
-}
+import { CategoryEntity } from './category.entity'
 
 @Injectable()
 export class CategoryService {
-  constructor(@InjectRepository(CategoryEntity) private categoryRepository: Repository<CategoryEntity>) {}
+  constructor(@InjectRepository(CategoryEntity) private readonly repository: Repository<CategoryEntity>) {}
 
   async save(body: CategoryDTO) {
-    await this.categoryRepository.save(body)
+    await this.repository.save(body)
   }
 
   async del(id: number) {
-    await this.categoryRepository.delete(id)
+    await this.repository.delete(id)
   }
 
   all() {
-    return this.categoryRepository.find().then(function (result) {
-      return result.map(buildDTO)
+    return this.repository.find().then(function (entity) {
+      return plainToInstance(CategoryDTO, entity)
     })
   }
 }

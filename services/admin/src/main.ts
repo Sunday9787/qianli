@@ -1,14 +1,14 @@
-import { createApp } from 'vue'
-import Components from './components'
 import 'virtual:svg-icons-register'
 import 'reflect-metadata'
+import './router/permissions'
+import './styles/index.less'
+
+import { createApp } from 'vue'
 
 import App from './App.vue'
+import Components from './components'
 import router from './router'
 import store from './store'
-import './router/permissions'
-
-import './styles/index.less'
 
 const app = createApp(App)
 

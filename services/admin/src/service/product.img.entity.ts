@@ -1,5 +1,6 @@
-import type { EntityJSON } from '@/class/abstractEntity'
 import { Expose } from 'class-transformer'
+
+import type { EntityJSON } from '@/class/abstractEntity'
 
 export type ProductImgEntityJSON = EntityJSON<ProductImgEntity>
 

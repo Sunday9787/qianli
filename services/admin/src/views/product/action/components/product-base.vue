@@ -25,8 +25,9 @@ section(class="lg:w-5/6 xl:w-3/5 2xl:w-4/6 sm:w-full")
 </template>
 
 <script lang="ts" setup>
-import type { FormInst, UploadFileInfo } from 'naive-ui'
 import { watchOnce } from '@vueuse/core'
+import type { FormInst, UploadFileInfo } from 'naive-ui'
+
 import { ProductEntity } from '@/service/product.entity'
 import { useCacheModule } from '@/store/modules/cache'
 import { ACCEPT } from '@/utils/constant'

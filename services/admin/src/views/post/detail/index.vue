@@ -11,8 +11,8 @@ app-view
 </template>
 
 <script lang="ts" setup>
-import { usePost } from '@/views/post/hooks'
 import { formatDate } from '@/utils'
+import { usePost } from '@/views/post/hooks'
 
 interface Props {
   id: number

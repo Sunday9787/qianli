@@ -1,8 +1,9 @@
+import { Global, Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { Module, Global } from '@nestjs/common'
-import { LayoutService } from './layout.service'
+
 import { LayoutController } from './layout.controller'
 import { LayoutEntity } from './layout.entity'
+import { LayoutService } from './layout.service'
 
 @Global()
 @Module({

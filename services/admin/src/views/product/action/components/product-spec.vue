@@ -20,8 +20,9 @@ section(class="lg:w-5/6 xl:w-3/5 2xl:w-5/6 sm:w-full")
 </template>
 
 <script lang="ts" setup>
-import type { FormInst } from 'naive-ui'
 import { vElementHover } from '@vueuse/components'
+import type { FormInst } from 'naive-ui'
+
 import { ProductEntity } from '@/service/product.entity'
 
 defineOptions({ name: 'ProductSpec' })

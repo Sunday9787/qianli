@@ -1,7 +1,7 @@
 extends layouts/index.pug
 
 block style
-  link(rel="stylesheet" href=`${layout.manifest['product.css']}`)
+  link(rel="stylesheet" href=`${MANIFEST['product.css']}`)
 
 block content
   section#product-center
@@ -25,11 +25,11 @@ block content
                   for item of category.data
                     a.product-card(href=`/product/detail?id=${item.id}`)
                       .product-card-wallpaper(qianli-animate='animate-fade-in')
-                        img(src=`${layout.domain.resource}${item.img[0]}`)
+                        img(src=`${DOMAIN_RESOURCE}${item.img[0]}`)
                       .product-card-inner
                         p.product-card__title(qianli-animate='animate-fade-in') #{item.title}
                         p.product-card__desc(qianli-animate='animate-fade-in') #{item.name}
 
 block footer
   script(type="text/javascript" charset="utf-8").
-    require(['#{layout.manifest["product.js"]}'])
+    require(['#{MANIFEST["product.js"]}'])

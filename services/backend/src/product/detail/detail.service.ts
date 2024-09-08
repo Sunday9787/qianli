@@ -1,12 +1,14 @@
-import { Repository } from 'typeorm'
-import { InjectRepository } from '@nestjs/typeorm'
 import { Inject, Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+
 import { LayoutService } from '@/layout/layout.service'
 import { ProductEntity } from '@/product/product.entity'
+
+import { ProductBaseDTO } from './detail.dto'
 import { ProductFeatureDTO } from './detail.feature.dto'
 import { ProductScenarioDTO } from './detail.scenario.dto'
 import { ProductSpecDTO } from './detail.spec.dto'
-import { ProductBaseDTO } from './detail.dto'
 
 class RenderDetailDTO extends ProductBaseDTO {
   img: string[]

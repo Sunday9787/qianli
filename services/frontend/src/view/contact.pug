@@ -1,7 +1,7 @@
 extends layouts/index.pug
 
 block style
-  link(rel="stylesheet" href=`${layout.manifest['contact.css']}`)
+  link(rel="stylesheet" href=`${MANIFEST['contact.css']}`)
 
 block content
   section#contact-center
@@ -81,4 +81,4 @@ block content
 
 block footer
   script(type="text/javascript" charset="utf-8").
-    require(['#{layout.manifest["contact.js"]}'])
+    require(['#{MANIFEST["contact.js"]}'])

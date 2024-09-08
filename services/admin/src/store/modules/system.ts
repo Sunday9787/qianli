@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
-import { emitter } from '@/utils/eventBus'
+
 import { globalChannel } from '@/utils/constant'
+import { emitter } from '@/utils/eventBus'
 
 interface State {
   sidebar: {

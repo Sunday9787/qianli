@@ -1,19 +1,26 @@
 import path from 'node:path'
-import session from 'express-session'
-import { Logger } from '@nestjs/common'
+
+import { Logger, RequestMethod } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import type { NestExpressApplication } from '@nestjs/platform-express'
-import { TransformInterceptor } from './interceptor/transform.interceptor'
-import { HttpExceptionFilter } from './filters/http-exception'
+import manifest from 'backend/manifest.json'
+import session from 'express-session'
+
 import { AppModule } from './app.module'
-import config from '@/config'
+import { HttpExceptionFilter } from './filters/http-filter'
+import { TransformInterceptor } from './interceptor/transform.interceptor'
+import { NoCacheMiddleware } from './middleware/nocache'
 
 const projectRoot = path.join(process.cwd(), '..', '..')
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
+  const config = app.get<ConfigService<APPConfig>>(ConfigService)
+
   app.useGlobalInterceptors(new TransformInterceptor())
   app.useGlobalFilters(new HttpExceptionFilter())
+  app.use(NoCacheMiddleware.middleware)
   app.use(
     session({
       name: 'SESSION_ID',
@@ -32,15 +39,15 @@ async function bootstrap() {
       '/',
       '/about',
       '/product',
-      { path: '/product/detail', method: 0 },
+      { path: '/product/detail', method: RequestMethod.GET },
       '/news',
       '/contact',
       '/post',
-      { path: '/post/:id', method: 0 }
+      { path: '/post/:id', method: RequestMethod.GET }
     ]
   })
   app.enableCors({
-    origin: config.GLOBAL.CORS.ORIGIN as string[],
+    origin: (config.get('CORS_ORIGIN') as string).split(','),
     credentials: true,
     maxAge: 1 * 60 * 60 * 1000,
     exposedHeaders: ['Content-Disposition'],
@@ -59,6 +66,9 @@ async function bootstrap() {
       'Content-Disposition'
     ]
   })
+
+  app.setLocal('DOMAIN_RESOURCE', config.get('DOMAIN_RESOURCE'))
+  app.setLocal('MANIFEST', manifest)
 
   await app.listen(3000)
   Logger.log('http://localhost:3000', 'ServerStartAt')

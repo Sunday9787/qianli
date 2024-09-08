@@ -30,6 +30,7 @@ app-view
 <script lang="ts" setup>
 import { usePage } from '@/hooks/usePage'
 import { FeedbackEntity } from '@/service/feedback.entity'
+
 import { createTableColumns } from './table'
 
 defineOptions({ name: 'QianliFeedback' })

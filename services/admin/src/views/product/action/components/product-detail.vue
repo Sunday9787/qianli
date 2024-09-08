@@ -65,13 +65,14 @@ section(class="lg:w-5/6 xl:w-3/5 2xl:w-5/6 md:w-11/12 sm:w-full")
 </template>
 
 <script lang="ts" setup>
-import type { Ref } from 'vue'
-import type { FormInst, UploadFileInfo } from 'naive-ui'
 import { vElementHover } from '@vueuse/components'
+import type { FormInst, UploadFileInfo } from 'naive-ui'
+import type { Ref } from 'vue'
+
 import { ProductEntity } from '@/service/product.entity'
 import { ProductImgEntity } from '@/service/product.img.entity'
-import { ACCEPT } from '@/utils/constant'
 import { resourceURL, urlResource } from '@/utils'
+import { ACCEPT } from '@/utils/constant'
 
 defineOptions({ name: 'ProductDetail' })
 defineExpose({ validate, save })

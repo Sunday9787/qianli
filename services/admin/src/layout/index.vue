@@ -23,12 +23,14 @@ n-drawer(v-model:show="drawerShow")
 </template>
 
 <script lang="ts" setup>
-import type { CSSProperties } from 'vue'
-import { useCacheModule } from '@/store/modules/cache'
 import { DisplaySettingsFilled } from '@vicons/material'
-import LayoutTagsView from './layout-tags-view.vue'
+import type { CSSProperties } from 'vue'
+
+import { useCacheModule } from '@/store/modules/cache'
+
 import LayoutHeader from './layout-header.vue'
 import LayoutSider from './layout-sider'
+import LayoutTagsView from './layout-tags-view.vue'
 
 defineOptions({ name: 'QianliLayout' })
 

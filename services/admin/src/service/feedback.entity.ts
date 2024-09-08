@@ -1,6 +1,8 @@
+import { Expose } from 'class-transformer'
+
 import type { AbstractEntityMethod, EntityJSON, EntityQuery } from '@/class/abstractEntity'
 import { AbstractEntity } from '@/class/abstractEntity'
-import { Expose } from 'class-transformer'
+
 import { FeedbackService } from './feedback.service'
 
 export class FeedbackQueryEntity {

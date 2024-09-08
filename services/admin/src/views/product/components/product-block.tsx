@@ -1,10 +1,11 @@
-import type { ProductScenarioEntity } from '@/service/product.scenario.entity'
-import type { ProductFeatureEntity } from '@/service/product.feature.entity'
-import type { ProductSpecEntity } from '@/service/product.spec.entity'
-import type { ProductImgEntity } from '@/service/product.img.entity'
-import type { ProductEntity } from '@/service/product.entity'
+import { NCard, NGrid, NGridItem, NH2, NH4, NImage, NSpace, NTable } from 'naive-ui'
 import type { PropType } from 'vue'
-import { NGrid, NCard, NImage, NGridItem, NTable, NSpace, NH2, NH4 } from 'naive-ui'
+
+import type { ProductEntity } from '@/service/product.entity'
+import type { ProductFeatureEntity } from '@/service/product.feature.entity'
+import type { ProductImgEntity } from '@/service/product.img.entity'
+import type { ProductScenarioEntity } from '@/service/product.scenario.entity'
+import type { ProductSpecEntity } from '@/service/product.spec.entity'
 import { useCacheModule } from '@/store/modules/cache'
 import { resourceURL } from '@/utils'
 

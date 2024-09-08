@@ -1,5 +1,6 @@
+import { type DataTableColumn, type DataTableColumns, NButton, NSpace } from 'naive-ui'
 import { RouterLink } from 'vue-router'
-import { NButton, type DataTableColumns, type DataTableColumn, NSpace } from 'naive-ui'
+
 import AppTableWidget, { type TableWidgetItem } from '@/components/app-table-widget/index.vue'
 import type { PostItemEntity } from '@/service/post.item.entity'
 

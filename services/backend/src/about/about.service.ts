@@ -1,9 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
+
 import { LayoutService } from '@/layout/layout.service'
-import { AboutEntity } from './about.entity'
+
 import { AboutDTO, AboutEditDTO } from './about.dto'
+import { AboutEntity } from './about.entity'
 
 @Injectable()
 export class AboutService {

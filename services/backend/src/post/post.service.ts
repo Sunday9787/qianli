@@ -1,19 +1,28 @@
-import { Like, Not, Repository } from 'typeorm'
 import { Inject, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { LayoutService } from '@/layout/layout.service'
-import { PostEntity } from './post.entity'
-import { PostDTO, PostQueryDTO } from './post.dto'
-import { QianliQuery } from '@/class/query'
-
+import { plainToInstance, Transform } from 'class-transformer'
 import dayjs from 'dayjs'
+import { Like, Not, Repository } from 'typeorm'
+
+import { QianliQuery } from '@/class/query'
+import type { CategoryEntity } from '@/common/category/category.entity'
+import { LayoutService } from '@/layout/layout.service'
+
+import { PostDTO, PostQueryDTO } from './post.dto'
+import { PostEntity } from './post.entity'
 
 class RenderPostDTO {
   id: number
-  category_name: string
+  category: CategoryEntity
+  get category_name() {
+    return this.category.category_name
+  }
   category_id: number
-  date: string
+  @Transform(val => dayjs(val.value).format('YYYY-MM-DD'))
+  date: Date
+  @Transform(val => dayjs(val.value).format('YYYY-MM-DD'))
   created: Date
+  @Transform(val => dayjs(val.value).format('YYYY-MM-DD'))
   updated: Date
   pv: number
   title: string
@@ -22,42 +31,8 @@ class RenderPostDTO {
 }
 
 class RenderPostDetailDTO extends RenderPostDTO {
+  @Transform(val => val.value)
   content: string
-}
-
-function buildRenderPostDTO(entity: PostEntity) {
-  const dto = new RenderPostDTO()
-  dto.id = entity.id
-  dto.created = entity.created
-  dto.updated = entity.updated
-  dto.category_name = entity.category.category_name
-  dto.category_id = entity.category_id
-  dto.date = dayjs(entity.date).format('YYYY-MM-DD')
-  dto.pv = entity.pv
-  dto.title = entity.title
-  dto.desc = entity.desc
-  dto.img = entity.img
-
-  return dto
-}
-
-function buildRenderPostDetailDTO(entity: PostEntity) {
-  const dto = new RenderPostDetailDTO()
-  dto.id = entity.id
-  dto.created = entity.created
-  dto.updated = entity.updated
-  dto.category_name = entity.category.category_name
-  dto.category_id = entity.category_id
-  dto.created = entity.created
-  dto.updated = entity.updated
-  dto.date = dayjs(entity.date).format('YYYY-MM-DD')
-  dto.pv = entity.pv
-  dto.title = entity.title
-  dto.content = entity.content
-  dto.desc = entity.desc
-  dto.img = entity.img
-
-  return dto
 }
 
 @Injectable()
@@ -87,13 +62,13 @@ export class PostService {
 
     const [layout, post, recommends] = await Promise.all([
       this.layoutService.layout(),
-      this.postRepository
-        .findOne({ where: { id, status: 1 }, relations: { category: true } })
-        .then(buildRenderPostDetailDTO),
+      this.postRepository.findOne({ where: { id, status: 1 }, relations: { category: true } }).then(function (entity) {
+        return plainToInstance(RenderPostDetailDTO, entity)
+      }),
       this.postRepository
         .find({ where: { id: Not(id), status: 1 }, relations: { category: true } })
         .then(function (result) {
-          return result.map(buildRenderPostDTO)
+          return plainToInstance(RenderPostDTO, result)
         })
     ])
 
@@ -105,8 +80,8 @@ export class PostService {
   }
 
   all(query: PostQueryDTO, api = false) {
-    const qianliQuery = new QianliQuery(query, function (item: PostEntity) {
-      return buildRenderPostDTO(item)
+    const qianliQuery = new QianliQuery(query, function (entity: PostEntity) {
+      return plainToInstance(RenderPostDTO, entity)
     })
 
     return this.postRepository
@@ -126,6 +101,8 @@ export class PostService {
   }
 
   detail(id: number) {
-    return this.postRepository.findOne({ where: { id }, relations: { category: true } }).then(buildRenderPostDetailDTO)
+    return this.postRepository.findOne({ where: { id }, relations: { category: true } }).then(function (entity) {
+      return plainToInstance(RenderPostDetailDTO, entity)
+    })
   }
 }

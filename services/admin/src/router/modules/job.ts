@@ -1,6 +1,7 @@
-import type { RouteRecordRaw } from 'vue-router'
-import Layout from '@/layout/index.vue'
 import { WorkOutlineOutlined } from '@vicons/material'
+import type { RouteRecordRaw } from 'vue-router'
+
+import Layout from '@/layout/index.vue'
 
 export const jobRoute: RouteRecordRaw = {
   path: '/job',

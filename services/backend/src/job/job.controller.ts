@@ -8,16 +8,14 @@ import {
   ParseIntPipe,
   Post,
   Put,
-  UseGuards,
   UsePipes,
   ValidationPipe
 } from '@nestjs/common'
-import { JobService } from './job.service'
+
 import { JobDTO, JobQueryDTO } from './job.dto'
-import { AuthGuard } from '@/auth/auth.guard'
+import { JobService } from './job.service'
 
 @UsePipes(ValidationPipe)
-@UseGuards(AuthGuard)
 @Controller('job')
 export class JobController {
   constructor(private readonly jobService: JobService) {}

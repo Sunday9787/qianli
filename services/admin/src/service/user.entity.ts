@@ -1,36 +1,13 @@
-import type { AbstractEntityMethod, EntityJSON, EntityQuery, AbstractEntityDoUpload } from '@/class/abstractEntity'
-import type { UploadCustomRequestOptions } from 'naive-ui'
 import { Expose } from 'class-transformer'
+import type { UploadCustomRequestOptions } from 'naive-ui'
+
+import type { AbstractEntityDoUpload, AbstractEntityMethod, EntityJSON, EntityQuery } from '@/class/abstractEntity'
 import { AbstractEntity } from '@/class/abstractEntity'
+
 import { uploadProductImage } from './common.service'
 import { UserService } from './user.service'
 
 export type UserEntityJSON = EntityJSON<UserEntity>
-export type UserAuthEntityJSON = EntityJSON<UserAuthEntity>
-
-export class UserAuthEntityResult {
-  @Expose() id!: number
-  @Expose() email!: string
-  @Expose() token!: string
-  @Expose() username!: string
-  @Expose() avatar!: string
-}
-
-export class UserAuthEntity extends AbstractEntity implements AbstractEntityMethod {
-  private static service = new UserService()
-
-  public static logOut() {
-    return UserAuthEntity.service.logOut()
-  }
-
-  @Expose() password!: string
-  @Expose() email!: string
-  @Expose() code!: string
-
-  logIn() {
-    return UserAuthEntity.service.logIn(this.toJSON())
-  }
-}
 
 export class UserQueryEntity {
   username?: string

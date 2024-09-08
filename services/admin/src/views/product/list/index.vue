@@ -40,9 +40,10 @@ app-view
 </template>
 
 <script lang="ts" setup>
+import { usePage } from '@/hooks/usePage'
 import { ProductItemEntity } from '@/service/product.item.entity'
 import { useCacheModule } from '@/store/modules/cache'
-import { usePage } from '@/hooks/usePage'
+
 import { createTableColumns } from './table'
 
 defineOptions({ name: 'QianliProductIndex' })

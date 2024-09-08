@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint": "eslint ./**/*\"{.vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts}\" --fix",
     "format": "prettier --write src/"
   },
   "dependencies": {
@@ -38,7 +38,6 @@
     "postcss": "^8.4.45"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.6.1",
     "@tsconfig/node18": "^18.2.2",
     "@types/js-md5": "^0.7.2",
     "@types/lodash-es": "^4.17.12",

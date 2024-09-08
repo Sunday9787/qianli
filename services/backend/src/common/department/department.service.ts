@@ -1,34 +1,26 @@
-import { Repository } from 'typeorm'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { DepartmentEntity } from './department.entity'
+import { plainToInstance } from 'class-transformer'
+import { Repository } from 'typeorm'
+
 import { DepartmentDTO } from './department.dto'
-
-function buildDTO(entity: DepartmentEntity) {
-  const dto = new DepartmentDTO()
-  dto.id = entity.id
-  dto.department_name = entity.department_name
-
-  return dto
-}
+import { DepartmentEntity } from './department.entity'
 
 @Injectable()
 export class DepartmentService {
-  constructor(
-    @InjectRepository(DepartmentEntity) private readonly departmentRepository: Repository<DepartmentEntity>
-  ) {}
+  constructor(@InjectRepository(DepartmentEntity) private readonly repository: Repository<DepartmentEntity>) {}
 
   all() {
-    return this.departmentRepository.find().then(function (result) {
-      return result.map(buildDTO)
+    return this.repository.find().then(function (entity) {
+      return plainToInstance(DepartmentDTO, entity)
     })
   }
 
   save(body: DepartmentDTO) {
-    return this.departmentRepository.save(body)
+    return this.repository.save(body)
   }
 
   del(id: number) {
-    return this.departmentRepository.delete({ id })
+    return this.repository.delete({ id })
   }
 }

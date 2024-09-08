@@ -1,18 +1,20 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  ManyToOne,
-  CreateDateColumn,
   UpdateDateColumn
 } from 'typeorm'
+
+import { CategoryEntity } from '@/common/category/category.entity'
+
 import { ProductFeatureEntity } from './detail/detail.feature.entity'
+import { ProductFileEntity } from './detail/detail.file.entity'
 import { ProductScenarioEntity } from './detail/detail.scenario.entity'
 import { ProductSpecEntity } from './detail/detail.spec.entity'
-import { ProductFileEntity } from './detail/detail.file.entity'
-import { CategoryEntity } from '@/common/category/category.entity'
 
 /**
  * 产品特点

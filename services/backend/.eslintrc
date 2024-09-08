@@ -1,0 +1,12 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "tsconfigRootDir": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint/eslint-plugin", "simple-import-sort"],
+  "extends": [
+    "../../.eslintrc",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ]
+}

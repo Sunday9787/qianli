@@ -1,4 +1,5 @@
-import { NButton, type DataTableColumns, NSpace, NTag } from 'naive-ui'
+import { type DataTableColumns, NButton, NSpace, NTag } from 'naive-ui'
+
 import { JobEntity, type JobEntityJSON } from '@/service/job.entity'
 import { useCacheModule } from '@/store/modules/cache'
 import { formatDate } from '@/utils'

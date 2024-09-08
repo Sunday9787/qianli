@@ -27,9 +27,11 @@ n-modal(v-model:show="modal.visible" transform-origin="center" @after-leave="cat
 
 <script lang="ts" setup>
 import type { FormInst } from 'naive-ui'
+
+import { useModal } from '@/hooks/useModal'
 import { CategoryEntity, type CategoryEntityJSON } from '@/service/common.entity'
 import { useCacheModule } from '@/store/modules/cache'
-import { useModal } from '@/hooks/useModal'
+
 import { createTableColumns } from './table'
 
 defineOptions({ name: 'QianliSystemCategory' })

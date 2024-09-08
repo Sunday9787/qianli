@@ -1,10 +1,12 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator'
-import { ProductBaseDTO } from './detail/detail.dto'
-import { ProductFileDTO } from './detail/detail.file.dto'
-import { ProductSpecDTO } from './detail/detail.spec.dto'
-import { ProductFeatureDTO } from './detail/detail.feature.dto'
-import { ProductScenarioDTO } from './detail/detail.scenario.dto'
+
 import { ListQueryDTO } from '@/class/query'
+
+import { ProductBaseDTO } from './detail/detail.dto'
+import { ProductFeatureDTO } from './detail/detail.feature.dto'
+import { ProductFileDTO } from './detail/detail.file.dto'
+import { ProductScenarioDTO } from './detail/detail.scenario.dto'
+import { ProductSpecDTO } from './detail/detail.spec.dto'
 
 export class ProductDTO extends ProductBaseDTO {
   /** 产品图片 */

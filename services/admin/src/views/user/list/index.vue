@@ -52,10 +52,12 @@ n-modal(v-model:show="modal.visible" transform-origin="center" @after-leave="use
 
 <script lang="ts" setup>
 import type { FormInst, UploadFileInfo } from 'naive-ui'
+
+import { useModal } from '@/hooks/useModal'
 import { usePage } from '@/hooks/usePage'
 import { UserEntity } from '@/service/user.entity'
-import { useModal } from '@/hooks/useModal'
 import { ACCEPT } from '@/utils/constant'
+
 import { createTableColumns } from './table'
 
 defineOptions({ name: 'QianliUserIndex' })

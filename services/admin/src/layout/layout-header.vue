@@ -36,19 +36,20 @@ n-layout-header.layout-header(bordered)
 </template>
 
 <script lang="ts" setup>
-import type { DropdownOption } from 'naive-ui'
 import {
+  FullscreenExitRound,
+  FullscreenRound,
+  LightModeRound,
   MenuFilled,
   MenuOpenFilled,
-  FullscreenRound,
-  FullscreenExitRound,
-  LightModeRound,
   NightlightRoundFilled
 } from '@vicons/material'
+import { useFullscreen } from '@vueuse/core'
+import type { DropdownOption } from 'naive-ui'
+import { useRoute, useRouter } from 'vue-router'
+
 import { useSystemModule } from '@/store/modules/system'
 import { useUserModule } from '@/store/modules/user'
-import { useFullscreen } from '@vueuse/core'
-import { useRouter, useRoute } from 'vue-router'
 
 type DropdownMenuKey = 'logout'
 

@@ -39,9 +39,10 @@ app-view
 </template>
 
 <script lang="ts" setup>
+import { usePage } from '@/hooks/usePage'
 import { PostItemEntity } from '@/service/post.item.entity'
 import { useCacheModule } from '@/store/modules/cache'
-import { usePage } from '@/hooks/usePage'
+
 import { createTableColumns } from './table'
 
 defineOptions({ name: 'QianliProductIndex' })

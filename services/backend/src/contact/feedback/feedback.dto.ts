@@ -1,5 +1,6 @@
-import { ListQueryDTO } from '@/class/query'
 import { IsNumber, IsOptional, IsString } from 'class-validator'
+
+import { ListQueryDTO } from '@/class/query'
 
 export class FeedbackDTO {
   id: number

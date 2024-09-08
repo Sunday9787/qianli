@@ -1,15 +1,17 @@
-import type { AbstractEntityMethod, EntityJSON } from '@/class/abstractEntity'
-import type { UploadCustomRequestOptions } from 'naive-ui'
+import { Expose } from 'class-transformer'
 import { md5 } from 'js-md5'
 import { has } from 'lodash-es'
-import { Expose } from 'class-transformer'
+import type { UploadCustomRequestOptions } from 'naive-ui'
+
+import type { AbstractEntityMethod, EntityJSON } from '@/class/abstractEntity'
 import { AbstractEntity } from '@/class/abstractEntity'
+
 import {
   CategoryService,
   DepartmentService,
-  UploadFileChunkService,
+  type ResultChunkFileProcess,
   type UploadFileChunkFile,
-  type ResultChunkFileProcess
+  UploadFileChunkService
 } from './common.service'
 
 export type CategoryEntityJSON = EntityJSON<CategoryEntity>
@@ -74,6 +76,7 @@ export class DepartmentEntity extends AbstractEntity implements AbstractEntityMe
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace UploadFileChunk {
   export interface FileChunk {
     /** 文件名 */

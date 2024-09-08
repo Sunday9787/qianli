@@ -1,4 +1,5 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator'
+
 import { ListQueryDTO } from '@/class/query'
 
 export class PostDTO {

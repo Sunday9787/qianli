@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
+
 import {
   CategoryEntity,
-  DepartmentEntity,
   type CategoryEntityJSON,
+  DepartmentEntity,
   type DepartmentEntityJSON
 } from '@/service/common.entity'
 

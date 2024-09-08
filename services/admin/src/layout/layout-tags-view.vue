@@ -28,7 +28,8 @@
 <script setup lang="ts">
 import type { ScrollbarInst } from 'naive-ui'
 import { useRoute } from 'vue-router'
-import { useTagView, TagView } from './hooks/useTagViews'
+
+import { TagView, useTagView } from './hooks/useTagViews'
 
 defineOptions({ name: 'LayoutTagsView' })
 

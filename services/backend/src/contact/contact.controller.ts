@@ -1,12 +1,16 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Post, Put, Render, UseInterceptors } from '@nestjs/common'
 import { CacheInterceptor } from '@nestjs/cache-manager'
-import { ContactService } from './contact.service'
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Post, Put, Render, UseInterceptors } from '@nestjs/common'
+
+import { Public } from '@/decorator/public'
+
 import { ContactDTO, ContactEditDTO } from './contact.dto'
+import { ContactService } from './contact.service'
 
 @Controller('contact')
 export class ContactController {
   constructor(private readonly contactService: ContactService) {}
 
+  @Public()
   @Get()
   @UseInterceptors(CacheInterceptor)
   @Render('contact')

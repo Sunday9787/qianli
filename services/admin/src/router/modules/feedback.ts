@@ -1,6 +1,7 @@
-import type { RouteRecordRaw } from 'vue-router'
-import Layout from '@/layout/index.vue'
 import { FeedbackOutlined } from '@vicons/material'
+import type { RouteRecordRaw } from 'vue-router'
+
+import Layout from '@/layout/index.vue'
 
 export const feedbackRoute: RouteRecordRaw = {
   path: '/feedback',

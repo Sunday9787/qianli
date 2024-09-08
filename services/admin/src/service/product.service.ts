@@ -1,8 +1,9 @@
-import type { ProductItemEntity, ProductQueryEntity } from './product.item.entity'
-import type { ProductEntityJSON } from './product.entity'
 import type { EntityQuery } from '@/class/abstractEntity'
 import { AbstractService } from '@/class/abstractService'
 import { request } from '@/utils/request'
+
+import type { ProductEntityJSON } from './product.entity'
+import type { ProductItemEntity, ProductQueryEntity } from './product.item.entity'
 
 export class ProductService extends AbstractService {
   readonly baseURL = '/product'

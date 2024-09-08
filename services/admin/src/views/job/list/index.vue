@@ -73,10 +73,12 @@ n-modal(v-model:show="modal.visible" transform-origin="center" @after-leave="job
 
 <script lang="ts" setup>
 import type { FormInst } from 'naive-ui'
+
+import { useModal } from '@/hooks/useModal'
+import { usePage } from '@/hooks/usePage'
 import { JobEntity } from '@/service/job.entity'
 import { useCacheModule } from '@/store/modules/cache'
-import { usePage } from '@/hooks/usePage'
-import { useModal } from '@/hooks/useModal'
+
 import { createTableColumns } from './table'
 
 defineOptions({ name: 'QianliJobIndex' })

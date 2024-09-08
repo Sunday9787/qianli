@@ -1,7 +1,8 @@
-import type { UserQueryEntity, UserAuthEntityResult, UserEntityJSON, UserAuthEntityJSON } from './user.entity'
 import type { EntityQuery } from '@/class/abstractEntity'
 import { AbstractService } from '@/class/abstractService'
 import { request } from '@/utils/request'
+
+import type { UserEntityJSON, UserQueryEntity } from './user.entity'
 
 export class UserService extends AbstractService {
   readonly baseURL = '/user'
@@ -16,13 +17,5 @@ export class UserService extends AbstractService {
 
   save(data: UserEntityJSON) {
     return request.put(this.baseURL + '/save', data)
-  }
-
-  logIn(data: UserAuthEntityJSON) {
-    return request.post<UserAuthEntityResult>(this.baseURL + '/login', data)
-  }
-
-  logOut() {
-    return request.post(this.baseURL + '/logout')
   }
 }

@@ -1,4 +1,5 @@
-import { NButton, type DataTableColumns, NSpace, NTag } from 'naive-ui'
+import { type DataTableColumns, NButton, NSpace, NTag } from 'naive-ui'
+
 import { FeedbackEntity, type FeedbackEntityJSON } from '@/service/feedback.entity'
 
 interface ColumnAction {

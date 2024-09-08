@@ -1,0 +1,20 @@
+{
+  "root": true,
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "tsconfigRootDir": ["./services/backend/tsconfig.json", "./services/frontend/tsconfig.json"],
+    "sourceType": "module",
+    "ecmaVersion": "latest"
+  },
+  "plugins": ["simple-import-sort"],
+  "rules": {
+    "vue/multi-word-component-names": "off",
+    "@typescript-eslint/no-this-alias": ["error", { "allowedNames": ["self"] }],
+    "@typescript-eslint/no-namespace": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
+  }
+}

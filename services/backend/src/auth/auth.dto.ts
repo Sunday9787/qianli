@@ -1,10 +1,12 @@
 import { IsString } from 'class-validator'
 
-export class AuthDTO {
+export class AuthLocalDTO {
   @IsString()
   code: string
+
   @IsString()
   email: string
+
   @IsString()
   password: string
 }

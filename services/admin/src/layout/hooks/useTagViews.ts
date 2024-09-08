@@ -1,7 +1,8 @@
-import { type EntityJSON, AbstractEntity } from '@/class/abstractEntity'
-import type { Component, DefineComponent } from 'vue'
 import type { DropdownOption } from 'naive-ui'
+import type { Component, DefineComponent } from 'vue'
 import { useRoute } from 'vue-router'
+
+import { AbstractEntity, type EntityJSON } from '@/class/abstractEntity'
 import router from '@/router'
 
 export type TagViewJSON = EntityJSON<TagView>
@@ -95,7 +96,7 @@ export function useTagView() {
 
   const tagContextMenu = reactive({ x: 0, y: 0, show: false })
 
-  const tagDropdownOptions = ref<DropdownOption[]>([
+  const tagDropdownOptions = ref<Pick<DropdownOption, 'label' | 'key' | 'show'>[]>([
     { label: '关闭标签页', key: 'closeCurrent', show: true },
     { label: '关闭左边标签页', key: 'closeLeft', show: true },
     { label: '关闭右边标签页', key: 'closeRight', show: true },

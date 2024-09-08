@@ -1,17 +1,18 @@
 import {
-  Controller,
-  Post,
   Body,
-  UseInterceptors,
-  ValidationPipe,
-  UploadedFile,
+  Controller,
   HttpCode,
-  UsePipes
+  Post,
+  UploadedFile,
+  UseInterceptors,
+  UsePipes,
+  ValidationPipe
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { UploadService } from './upload.service'
-import { UploadFileService } from './upload.file.service'
+
 import { UploadFileChunkDTO } from './upload.dto'
+import { UploadFileService } from './upload.file.service'
+import { UploadService } from './upload.service'
 
 @Controller('upload')
 export class UploadController {

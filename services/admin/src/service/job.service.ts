@@ -1,7 +1,8 @@
-import type { JobEntityJSON, JobQueryEntity } from './job.entity'
 import type { EntityQuery } from '@/class/abstractEntity'
 import { AbstractService } from '@/class/abstractService'
 import { request } from '@/utils/request'
+
+import type { JobEntityJSON, JobQueryEntity } from './job.entity'
 
 export class JobService extends AbstractService {
   baseURL = '/job'

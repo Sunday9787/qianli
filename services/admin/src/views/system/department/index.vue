@@ -23,9 +23,11 @@ n-modal(v-model:show="modal.visible" transform-origin="center" @after-leave="dep
 
 <script lang="ts" setup>
 import type { FormInst } from 'naive-ui'
+
+import { useModal } from '@/hooks/useModal'
 import { DepartmentEntity, type DepartmentEntityJSON } from '@/service/common.entity'
 import { useCacheModule } from '@/store/modules/cache'
-import { useModal } from '@/hooks/useModal'
+
 import { createTableColumns } from './table'
 
 defineOptions({ name: 'QianliSystemDepartment' })

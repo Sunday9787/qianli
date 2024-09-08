@@ -1,6 +1,7 @@
 import type { AxiosRequestConfig } from 'axios'
+import { type ClassConstructor, instanceToPlain, plainToInstance } from 'class-transformer'
 import type { UploadCustomRequestOptions } from 'naive-ui'
-import { instanceToPlain, plainToInstance, type ClassConstructor } from 'class-transformer'
+
 import { resourceURL } from '@/utils'
 
 type ObjectKey<T> = keyof T extends `${infer U}` ? U : string

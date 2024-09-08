@@ -1,3 +1,4 @@
+import { CacheInterceptor } from '@nestjs/cache-manager'
 import {
   Body,
   Controller,
@@ -11,9 +12,9 @@ import {
   UsePipes,
   ValidationPipe
 } from '@nestjs/common'
-import { CacheInterceptor } from '@nestjs/cache-manager'
-import { FeedbackService } from './feedback.service'
+
 import { FeedbackDTO, FeedbackQueryDTO } from './feedback.dto'
+import { FeedbackService } from './feedback.service'
 
 @UsePipes(ValidationPipe)
 @Controller('contact/feedback')

@@ -1,3 +1,4 @@
+import { CacheInterceptor } from '@nestjs/cache-manager'
 import {
   Body,
   Controller,
@@ -12,14 +13,17 @@ import {
   Render,
   UseInterceptors
 } from '@nestjs/common'
-import { CacheInterceptor } from '@nestjs/cache-manager'
-import { AboutService } from './about.service'
+
+import { Public } from '@/decorator/public'
+
 import { AboutDTO, AboutEditDTO } from './about.dto'
+import { AboutService } from './about.service'
 
 @Controller('about')
 export class AboutController {
   constructor(private readonly aboutService: AboutService) {}
 
+  @Public()
   @Get()
   @UseInterceptors(CacheInterceptor)
   @Render('about')

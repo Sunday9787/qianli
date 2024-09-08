@@ -1,15 +1,17 @@
-import type { AbstractEntityMethod, EntityJSON, AbstractEntityDoUpload } from '@/class/abstractEntity'
+import { Expose, Transform, Type } from 'class-transformer'
 import type { UploadCustomRequestOptions } from 'naive-ui'
-import { Expose, Type, Transform } from 'class-transformer'
+
+import type { AbstractEntityDoUpload, AbstractEntityMethod, EntityJSON } from '@/class/abstractEntity'
 import { AbstractEntity } from '@/class/abstractEntity'
 import { UploadFileChunk } from '@/service/common.entity'
-import { ProductScenarioEntity } from './product.scenario.entity'
-import { ProductFeatureEntity } from './product.feature.entity'
-import { ProductSpecEntity } from './product.spec.entity'
-import { ProductImgEntity } from './product.img.entity'
-import { ProductService } from './product.service'
-import { uploadProductImage } from './common.service'
 import { formatDate } from '@/utils'
+
+import { uploadProductImage } from './common.service'
+import { ProductFeatureEntity } from './product.feature.entity'
+import { ProductImgEntity } from './product.img.entity'
+import { ProductScenarioEntity } from './product.scenario.entity'
+import { ProductService } from './product.service'
+import { ProductSpecEntity } from './product.spec.entity'
 
 export type ProductEntityJSON = EntityJSON<ProductEntity>
 

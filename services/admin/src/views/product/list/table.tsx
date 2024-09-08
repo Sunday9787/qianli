@@ -1,6 +1,7 @@
-import type { ProductItemEntity } from '@/service/product.item.entity'
-import { NButton, type DataTableColumns, NSpace } from 'naive-ui'
+import { type DataTableColumns, NButton, NSpace } from 'naive-ui'
 import { RouterLink } from 'vue-router'
+
+import type { ProductItemEntity } from '@/service/product.item.entity'
 
 interface ColumnAction {
   del(row: ProductItemEntity, rowIndex: number): void

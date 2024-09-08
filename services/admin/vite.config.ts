@@ -1,15 +1,16 @@
-import { defineConfig, loadEnv } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
-import path from 'path/posix'
+
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import vuePugPlugin from 'vue-pug-plugin'
-import { manualChunksPlugin } from 'vite-plugin-webpackchunkname'
-import { createHtmlPlugin } from 'vite-plugin-html'
+import path from 'path/posix'
 import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig, loadEnv } from 'vite'
+import { createHtmlPlugin } from 'vite-plugin-html'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import { manualChunksPlugin } from 'vite-plugin-webpackchunkname'
+import vuePugPlugin from 'vue-pug-plugin'
 
 // https://vitejs.dev/config/
 export default defineConfig(function (env) {

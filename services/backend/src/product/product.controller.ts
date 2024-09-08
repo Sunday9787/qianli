@@ -1,3 +1,4 @@
+import { CacheInterceptor } from '@nestjs/cache-manager'
 import {
   Body,
   Controller,
@@ -14,16 +15,20 @@ import {
   UsePipes,
   ValidationPipe
 } from '@nestjs/common'
-import { CacheInterceptor } from '@nestjs/cache-manager'
-import { ProductService } from './product.service'
+
+import { Public } from '@/decorator/public'
+
 import { ProductDTO, ProductQueryListDTO } from './product.dto'
+import { ProductService } from './product.service'
 
 @UsePipes(ValidationPipe)
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
+  @Public()
   @Get()
+  @UseInterceptors(CacheInterceptor)
   @Render('product')
   render() {
     return this.productService.data()
